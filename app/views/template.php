@@ -1,17 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
+    <title>Dashboard - Elevage</title>
+    <link rel="stylesheet" href="public/assets/css/dashboard.css">
 </head>
 <body>
-    <div>ireto ilay partie tsy miova</div>
-    <main>
-        <?= $content ?> <!-- ato ilay partie miova -->
-    </main>
-    <footer>
-        <div>ireto ilay partie tsy miova</div>
-    </footer>
+    <div class="dashboard">
+        <?php include("sidebar.php"); ?>
+        <main class="content">
+            <header>
+                <h1>Tableau de Bord</h1>
+            </header>
+            <main>
+                <?php include($page.".php") ?> 
+            </main>
+        </main>
+    </div>
 </body>
 </html>
