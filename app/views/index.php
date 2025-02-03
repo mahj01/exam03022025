@@ -7,9 +7,9 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
-        <link href="dist/style.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- <link href="public/assets/css/style.min.css" rel="stylesheet" /> -->
+        <link href="public/assets/css/styles.css" rel="stylesheet" />
+        <script src="public/assets/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -684,12 +684,12 @@
                 });
             });
             </script> -->
-        <script src="dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="js/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="js/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+        <script src="public/asstes/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="public/asstes/js/js"></script>
+        <script src="public/asstes/js/min.js" crossorigin="anonymous"></script>
+        <script src="public/asstes/js/chart-area-demo.js"></script>
+        <script src="public/asstes/js/chart-bar-demo.js"></script>
+        <script src="public/asstes/js/datatables.min.js" crossorigin="anonymous"></script>
+        <script src="public/asstes/js/simple-demo.js"></script>
     </body>
 </html>
