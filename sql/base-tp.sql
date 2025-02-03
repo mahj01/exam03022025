@@ -97,6 +97,7 @@ CREATE TABLE elevage_TransactionCaisse (
     dateTransaction DATE,
     typeId INT,
     montant DECIMAL(10, 2),
+    montantActuel DECIMAL(10, 2),
     FOREIGN KEY (typeId) REFERENCES elevage_TypeTransaction(id)
 );
 
@@ -130,6 +131,7 @@ CREATE TABLE elevage_NourritureSupprime(
     idNourriture int,
     FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
 );
+
 
 CREATE TRIGGER updateApresNourrir
 AFTER INSERT

@@ -5,6 +5,7 @@ use Exception;
 use PDO;
 
 class EspeceModel extends BaseModel{
+    private $db;
     public function __construct($db){
         parent::__construct($db);
     }
@@ -36,5 +37,12 @@ class EspeceModel extends BaseModel{
     {
         $data = ['idEspece' => $id];
         return $this->insert($data, 'elevage_EspeceSupprime');
+    }
+
+    public function getPrixParKg($id){
+        $sql = "SELECT PrixParKg from elevage_Espece where id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$id);
+        return $stmt->fetch();
     }
 }
