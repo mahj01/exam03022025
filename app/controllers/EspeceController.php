@@ -1,10 +1,9 @@
 <?php
 
 namespace app\controllers;
-use app\models\EspeceModel;
 use Flight;
 
-class EspeceController extends BaseController{
+class EspeceController{
 
     public function __construct() {
         
