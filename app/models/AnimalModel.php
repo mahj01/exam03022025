@@ -93,9 +93,12 @@ class AnimalModel extends BaseModel
 
     public function getEstimationValeur($idAnimal,$date){
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         $prixParKg = Flight::especeModel()->getPrixParKg();
         $poids = $this->getPoidsByDate($idAnimal,$date)["poids"];
 =======
+=======
+>>>>>>> Stashed changes
         $prixParKg = Flight::especeModel()->getPrixParKg()["PrixParKg"];
         $poids = getPoidsByDate($idAnimal,$date)["poids"];
 >>>>>>> Stashed changes
