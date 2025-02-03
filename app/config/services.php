@@ -1,6 +1,7 @@
 <?php
 
 use app\models\AnimalModel;
+use app\models\NourritureModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;
@@ -30,4 +31,8 @@ $app->register('db', $pdoClass, [$dsn, $config['database']['user'] ?? null, $con
 
 Flight::map('animalModel', function () {
     return new AnimalModel(Flight::db());
+});
+
+Flight::map('nourritureModel', function () {
+    return new NourritureModel(Flight::db());
 });
