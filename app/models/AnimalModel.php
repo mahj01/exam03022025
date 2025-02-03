@@ -94,7 +94,7 @@ class AnimalModel extends BaseModel
     public function getEstimationValeur($idAnimal,$date){
 
         $prixParKg = Flight::especeModel()->getPrixParKg()["PrixParKg"];
-        $poids = getPoidsByDate($idAnimal,$date)["poids"];
+        $poids = $this->getPoidsByDate($idAnimal,$date)["poids"];
 
         return $prixParKg*$poids;
     }
@@ -111,6 +111,16 @@ class AnimalModel extends BaseModel
         return $somme;
 
     }
+
+
+    public function getEvolutionPoids($idAnimal,$date){
+        $sql = "select dateStockage, poids from elevage_HistoriquePoids where dateStockage <= ? AND idAnimal = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$date);
+        $stmt->bindValue(2,$idAnimal);
+        return $stmt->fetchAll();
+    }
+
 
     
 

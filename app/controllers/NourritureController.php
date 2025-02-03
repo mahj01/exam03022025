@@ -2,11 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\NourritureModel;
 use Flight;
 
-class NourritureController extends BaseController
-{
+class NourritureController {
     public function __construct()
     {
     }

@@ -4,192 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suivi d'Élevage</title>
+    <!-- Font Awesome 4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset et base */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
             background-color: #f4f4f4;
+            color: #333;
         }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
         .container {
-            margin: 20px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        .dashboard {
+        /* En-tête */
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            align-items: center;
         }
-
-        .dashboard > div {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 48%;
+        .header h1 {
+            flex-grow: 1;
         }
-
-        table {
+        /* Formulaire de date */
+        .date-input {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .date-input input, .date-input button {
+            padding: 10px;
+            margin: 0 10px;
+        }
+        /* Tableau des animaux */
+        .animals-table {
             width: 100%;
             border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-
-        table th, table td {
-            padding: 8px;
+        .animals-table th, .animals-table td {
             border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .animals-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        /* Cartes de statistiques */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
         }
-
-        table th {
-            background-color: #f0f0f0;
+        .stat-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
-
-        input[type="date"] {
-            padding: 10px;
-            width: 200px;
-            margin-right: 10px;
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
         }
-
-        .btn {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #218838;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+            }
+            .date-input {
+                flex-direction: column;
+                align-items: center;
+            }
+            .date-input input, .date-input button {
+                margin: 10px 0;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Suivi d'Élevage - Dashboard</h1>
-    </header>
-
     <div class="container">
-        <div class="dashboard">
+        <!-- En-tête -->
+        <div class="header">
+            <h1>Tableau de Bord d'Élevage</h1>
             <div>
-                <?php include('situation-actuelle.php'); ?>
-            </div>
-            <div>
-                <h3>Choisir une date</h3>
-                <input type="date" id="date-picker" value="2025-02-03">
-                <button class="btn" onclick="updateDashboard()">Mettre à jour</button>
+                <i class="fa fa-cow fa-2x"></i>
             </div>
         </div>
 
-        <h3>Tableau des Animaux</h3>
-        <table>
+        <!-- Saisie de la date -->
+        <div class="date-input">
+            <input type="date" id="currentDate" value="2025-02-03">
+            <button onclick="updateDashboard()">
+                <i class="fa fa-refresh"></i> Mettre à jour
+            </button>
+        </div>
+
+        <!-- Statistiques globales -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fa fa-money icon"></i>
+                <div class="value" id="totalCapital">10 000 €</div>
+                <div>Capital Total</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa fa-archive icon"></i>
+                <div class="value" id="totalAnimals">5</div>
+                <div>Nombre d'Animaux</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa fa-cutlery icon"></i>
+                <div class="value" id="feedCost">250 €</div>
+                <div>Coût Alimentation</div>
+            </div>
+        </div>
+
+        <!-- Tableau des Animaux -->
+        <table class="animals-table" id="animalsTable">
             <thead>
                 <tr>
-                    <th>Animal</th>
-                    <th>Poids Min de Vente (kg)</th>
-                    <th>Poids Max (kg)</th>
-                    <th>Prix de Vente (€/kg)</th>
-                    <th>Jours sans manger avant de mourir</th>
-                    <th>% de perte de poids/jour</th>
-                    <th>Poids Actuel (kg)</th>
-                    <th>Valeur Totale (€)</th>
+                    <th>Type</th>
+                    <th>Poids Actuel</th>
+                    <th>Poids Min Vente</th>
+                    <th>Poids Max</th>
+                    <th>Prix/kg</th>
+                    <th>Jours Sans Manger</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="animals-table">
+            <tbody>
                 <tr>
-                    <td>Boeuf 1</td>
-                    <td>400</td>
-                    <td>600</td>
-                    <td>5.00</td>
-                    <td>10</td>
-                    <td>1</td>
-                    <td>550</td>
-                    <td>2750</td>
+                    <td>Mouton</td>
+                    <td>45 kg</td>
+                    <td>50 kg</td>
+                    <td>80 kg</td>
+                    <td>8 €</td>
+                    <td>15</td>
+                    <td>
+                        <button><i class="fa fa-feed"></i></button>
+                        <button><i class="fa fa-shopping-cart"></i></button>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Boeuf 2</td>
-                    <td>300</td>
-                    <td>500</td>
-                    <td>4.80</td>
+                    <td>Chèvre</td>
+                    <td>35 kg</td>
+                    <td>40 kg</td>
+                    <td>70 kg</td>
+                    <td>7 €</td>
                     <td>12</td>
-                    <td>0.8</td>
-                    <td>450</td>
-                    <td>2160</td>
-                </tr>
-                <tr>
-                    <td>Boeuf 3</td>
-                    <td>350</td>
-                    <td>550</td>
-                    <td>5.20</td>
-                    <td>9</td>
-                    <td>1.2</td>
-                    <td>450</td>
-                    <td>2340</td>
+                    <td>
+                        <button><i class="fa fa-feed"></i></button>
+                        <button><i class="fa fa-shopping-cart"></i></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <script>
+        // Simulation de mise à jour du tableau de bord
         function updateDashboard() {
-            const selectedDate = document.getElementById("date-picker").value;
-            console.log("Mise à jour pour la date:", selectedDate);
-
-            // Exemple de calculs (simulé ici avec des données statiques)
-            const capitalInitial = 10000;
-            const animals = [
-                { name: "Boeuf 1", pricePerKg: 5.00, weight: 550 },
-                { name: "Boeuf 2", pricePerKg: 4.80, weight: 450 },
-                { name: "Boeuf 3", pricePerKg: 5.20, weight: 450 }
-            ];
-
-            // Calcul du capital actuel
-            let capitalActuel = capitalInitial;
-            let totalWeight = 0;
-            let nbAnimals = animals.length;
-            let totalValue = 0;
-
-            animals.forEach(animal => {
-                totalWeight += animal.weight;
-                totalValue += animal.weight * animal.pricePerKg;
+            const currentDate = document.getElementById('currentDate').value;
+            
+            // Animation de mise à jour
+            const cards = document.querySelectorAll('.stat-card');
+            cards.forEach(card => {
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 200);
             });
 
-            capitalActuel += totalValue; // Ajout de la valeur des animaux à l'élevage
-
-            // Mise à jour de l'interface
-            document.getElementById("capital").textContent = capitalActuel.toFixed(2);
-            document.getElementById("total-weight").textContent = totalWeight;
-            document.getElementById("nb-animals").textContent = nbAnimals;
-
-            // Mise à jour des valeurs dans le tableau des animaux
-            const animalsTable = document.getElementById("animals-table");
-            animalsTable.innerHTML = "";
-            animals.forEach(animal => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${animal.name}</td>
-                    <td>400</td>
-                    <td>600</td>
-                    <td>${animal.pricePerKg}</td>
-                    <td>10</td>
-                    <td>1</td>
-                    <td>${animal.weight}</td>
-                    <td>${(animal.weight * animal.pricePerKg).toFixed(2)}</td>
-                `;
-                animalsTable.appendChild(row);
-            });
+            // Simulation de modifications (à remplacer par une vraie logique)
+            document.getElementById('totalCapital').textContent = 
+                (Math.random() * 1000 + 9000).toFixed(0) + ' €';
+            
+            document.getElementById('feedCost').textContent = 
+                (Math.random() * 100 + 200).toFixed(0) + ' €';
+            
+            alert('Tableau de bord mis à jour pour la date : ' + currentDate);
         }
-
-        // Appel initial pour afficher la situation actuelle
-        updateDashboard();
     </script>
 </body>
 </html>
