@@ -9,6 +9,7 @@ use Flight;
 class AnimalController
 {
     public function dashboard() {
-        Flight::render('index');
+        $data = ['page'=>'dashboard'];
+        Flight::render('template',$data);
     }
 }

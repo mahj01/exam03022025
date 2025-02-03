@@ -8,7 +8,7 @@
 
     <ul class="nav-menu">
         <li>
-            <a href="#dashboard">
+            <a href="<?= $url ?>/dashboard">
                 <i class="fa fa-dashboard"></i>
                 Tableau de Bord
             </a>
