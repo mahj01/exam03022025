@@ -107,6 +107,22 @@ CREATE TABLE elevage_AnimalDecede (
     FOREIGN KEY (idAnimal) REFERENCES elevage_Animal(id)
 );
 
+-- Table HistoriquePoids
+CREATE TABLE elevage_HistoriquePoids(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idAnimal int,
+    poids DECIMAL(10,2),
+    dateStockage DATE,
+    FOREIGN KEY (idAnimal) REFERENCES elevage_Animal(id)
+);
+
+-- Table EspeceSupprime
+CREATE TABLE elevage_EspeceSupprime(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idEspece int,
+    FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
+);
+
 INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, NbJoursAvantDeMourir) VALUES
 ('Boeuf', 300.00, 500.00, 10.50, 0.50, 30),
 ('Poulet', 1.50, 3.00, 5.00, 0.10, 10),
