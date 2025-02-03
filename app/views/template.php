@@ -9,7 +9,7 @@
     <!-- Font Awesome 4 -->
     <link rel="stylesheet" href="<?= $url ?>/public/assets/css/template.css">
     <link rel="stylesheet" href="<?= $url ?>/public/assets/css/<?= $page ?>.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= $url ?>/public/assets/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
