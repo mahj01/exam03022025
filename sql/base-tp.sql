@@ -177,6 +177,7 @@ INSERT INTO elevage_TypeTransaction (nomType) VALUES
 ('Achat Nourriture'),
 ('Achat Animal'),
 ('Vente Animal'),
+('Depot argent'),
 ('Autre');
 
 INSERT INTO elevage_TransactionCaisse (dateTransaction, typeId, montant) VALUES
