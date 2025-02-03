@@ -2,8 +2,9 @@
 
 namespace app\models;
 
+use PDO;
 
-class NourritureModel
+class NourritureModel extends BaseModel
 {
     private $db;
     public function __construct($db)
@@ -32,4 +33,21 @@ class NourritureModel
     }
 
 
+
+    public function getAllNourriture()
+    {
+        return $this->selectAll('*', 'elevage_Nourriture');
+    }
+
+    public function getNourritureById($id)
+    {
+        $criteria = ['id' => $id];
+        return $this->findBy($criteria, 'elevage_Nourriture')[0];
+    }
+
+    public function updateNourriture($id, $data)
+    {
+        $criteria = ['id' => $id];
+        return $this->update($criteria, $data, 'elevage_Nourriture');
+    }
 }

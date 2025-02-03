@@ -10,7 +10,10 @@ class EspeceModel extends BaseModel{
     }
     
     public function getAllEspece(){
-        return $this->selectAll('*','elevage_Espece');
+        $sql = "SELECT * FROM elevage_Espece WHERE id NOT IN (SELECT idEspece FROM elevage_EspeceSupprime)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getEspeceById($id){
@@ -27,5 +30,11 @@ class EspeceModel extends BaseModel{
 
     public function deleteEspece($id){
         return $this->delete($id,'elevage_Espece');
+    }
+
+    public function markAsDeleted($id)
+    {
+        $data = ['idEspece' => $id];
+        return $this->insert($data, 'elevage_EspeceSupprime');
     }
 }
