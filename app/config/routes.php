@@ -1,23 +1,22 @@
 <?php
-
-
 use app\controllers\AnimalController;
+use app\controllers\NourritureController;
 use app\controllers\EspeceController;
 
 $animalController = new AnimalController();
+$nourritureController = new NourritureController();
+$animalController = new AnimalController();
 $especeController = new EspeceController();
-
-$router->get('/', function () {
-	echo '<a href="lien" >lien</a>';
-});
-$router->get('/lien',function () {
-	echo '<a href="../">mverna</a>';
+// Antonio route
+$router->get('/',function () {
+	Flight::redirect('dashboard');
 });
 
+$router->get('/dashboard',[$animalController,'dashboard']);
+$router->get('/stock-nourriture',[$nourritureController,'stockNourriture']);
 
 // Antonio route
 $router->get('/dashboard',[$animalController,'dashboard']);
-
 
 //CoNTROLLERS
 $especeController = new EspeceController();

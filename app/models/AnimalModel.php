@@ -28,7 +28,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idAnimal);
         return $stmt->fetch();
     }
-
+    
     public function getPoidsInit($idAnimal){
         $sql = "select PoidsInitial from elevage_Animal where idAnimal=?";
         $stmt = $this->db->prepare($sql);

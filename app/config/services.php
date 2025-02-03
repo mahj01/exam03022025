@@ -1,5 +1,6 @@
 <?php
 use app\models\AnimalModel;
+use app\models\NourritureModel;
 use app\models\EspeceModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
@@ -32,6 +33,9 @@ Flight::map('animalModel', function () {
     return new AnimalModel(Flight::db());
 });
 
+Flight::map('nourritureModel', function () {
+    return new NourritureModel(Flight::db());
+});
 Flight::map('especeModel', function(){
     return new EspeceModel(Flight::db());
 });
