@@ -12,12 +12,15 @@ class EspeceController extends BaseController{
 
     public function getAllEspece(){
         $especes = Flight::especeModel()->getAllEspece();
-        $this->render('listeEspeceContent', 'template', 'Liste Especes', ['especes' => $especes]);
+        $data = ['page' => 'liste-espece-content', 'especes'=>$especes];
+        Flight::render('template',$data);
+        
     }
 
     public function goToModifyPage($id){
         $espece = Flight::especeModel()->getEspeceById($id);
-        $this->render('modifyEspeceContent', 'template', 'Modifier Espece', ['espece' => $espece]);
+        $data = ['page' => 'modify-espece-content', 'espece'=>$espece];
+        Flight::render('template',$data);
     }
 
     public function updateEspece($id){
