@@ -1,8 +1,5 @@
-<?php
-include 'BaseUrl.php'
 
-?>
-<form action="<?= $url ?>/especes/traitementModifierEspece/<?= $espece['id'] ?>" method="post">
+<form action="<?= $url ?>/especes/traitementModifier/<?= $espece['id'] ?>" method="post">
     <label for="NomEspece">Nom de l'espèce</label>
     <input type="text" name="NomEspece" value="<?= $espece['NomEspece'] ?>" required><br>
     <label for="PoidsMinVente">Poids minimum de vente</label>
