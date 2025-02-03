@@ -1,9 +1,4 @@
 <?php
-
-use app\models\ClientModel;
-use app\models\HabitationModel;
-use app\models\PhotoModel;
-use app\models\QuartierModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;

@@ -24,5 +24,11 @@
    Cessna 402  (Wings)
    by Dick Williams, rjw1@tyrell.net
 */
+
+use Tracy\SessionStorage;
+
 $ds = DIRECTORY_SEPARATOR;
-require(__DIR__. $ds . '..' . $ds . 'app' . $ds . 'config' . $ds . 'bootstrap.php');
+session_start();
+// $_SESSION['test'] = 998;
+// require(__DIR__. $ds . '..' . $ds . 'app' . $ds . 'config' . $ds . 'bootstrap.php');
+require(__DIR__. $ds . 'app' . $ds . 'config' . $ds . 'database.php');
