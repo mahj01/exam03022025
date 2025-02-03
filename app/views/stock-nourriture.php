@@ -1,4 +1,4 @@
-<h1>Tableau de Bord Principal</h1>
+<h1>Stock des nourritures</h1>
 <table border="1" id="datatablesSimple">
     <thead>
         <tr>
