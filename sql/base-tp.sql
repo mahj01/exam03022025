@@ -97,7 +97,7 @@ CREATE TABLE elevage_TransactionCaisse (
     dateTransaction DATE,
     typeId INT,
     montant DECIMAL(10, 2),
-    montantActuel DECIMAL(10, 2),
+    montantActuel DECIMAL(10, 2) default 0,
     FOREIGN KEY (typeId) REFERENCES elevage_TypeTransaction(id)
 );
 

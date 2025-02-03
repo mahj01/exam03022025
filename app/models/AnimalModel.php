@@ -99,6 +99,19 @@ class AnimalModel extends BaseModel
         return $prixParKg*$poids;
     }
 
+    public function getEstimationByEspece($date,$idEspece){
+        $somme = 0;
+        $sql = "SELECT idAnimal from elevage_Animal where idEspece = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$idEspece);
+        $rs = $stmt->execute()->fetchAll();
+        for($i=0; $i<count($rs);$i++){
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"]);
+        }
+        return $somme;
+
+    }
+
 
     public function getEvolutionPoids($idAnimal,$date){
         $sql = "select dateStockage, poids from elevage_HistoriquePoids where dateStockage <= ? AND idAnimal = ?";
