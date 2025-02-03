@@ -4,7 +4,7 @@ use PDO;
 use Flight;
 class AnimalModel extends BaseModel
 {
-
+    private $db;
     public function __construct($db)
     {
         parent::__construct($db);
@@ -92,8 +92,13 @@ class AnimalModel extends BaseModel
     }
 
     public function getEstimationValeur($idAnimal,$date){
+<<<<<<< Updated upstream
         $prixParKg = Flight::especeModel()->getPrixParKg();
         $poids = $this->getPoidsByDate($idAnimal,$date)["poids"];
+=======
+        $prixParKg = Flight::especeModel()->getPrixParKg()["PrixParKg"];
+        $poids = getPoidsByDate($idAnimal,$date)["poids"];
+>>>>>>> Stashed changes
         return $prixParKg*$poids;
     }
     
