@@ -2,9 +2,10 @@
 namespace app\models;
 use PDO;
 use Flight;
+use Exception;
 class AnimalModel extends BaseModel
 {
-    private $db;
+    
     public function __construct($db)
     {
         parent::__construct($db);
@@ -120,13 +121,6 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(2,$idAnimal);
         return $stmt->fetchAll();
     }
-
-
-    
-
-
-
-    
 
 
 
