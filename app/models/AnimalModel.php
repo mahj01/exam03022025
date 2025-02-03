@@ -19,8 +19,8 @@ class AnimalModel extends BaseModel
         $sql = "SELECT count(*) from elevage_AnimalDecede where dateDeces <= ?";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,date);
-        return $stmt->fetchAll();
+        $stmt->bindValue(1,$date);
+        return $stmt->fetch();
     }
 
     
