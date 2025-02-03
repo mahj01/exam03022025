@@ -28,6 +28,10 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idAnimal);
         return $stmt->fetch();
     }
+
+    public function getNbJourSansManger($idAnimal){
+        $dernierJour = getDernierJourAlim($idAnimal)["dateAlimentation"];
+    }
     
     public function getPoidsInit($idAnimal){
         $sql = "select PoidsInitial from elevage_Animal where idAnimal=?";
@@ -69,13 +73,28 @@ class AnimalModel extends BaseModel
     public function nourrir($idAnimal,$idNourriture){
         $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
         $poidsActuel = getPoidsActuel($idAnimal); 
-        $newPoids = $oidsActuel*(1+NourritureModel::nourritureModel()->getGain($idNourriture)/100);
+        $newPoids = $poidsActuel*(1+Flight::nourritureModel()->getGain($idNourriture)/100);
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
         $stmt->bindValue(2,$newPoids);
         $stmt->execute();
     }
 
+    public function skipNourrir($idAnimal,$idNourriture){
+        $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
+        $poidsActuel = getPoidsActuel($idAnimal)["PoidsActuel"]; 
+        $newPoids = $poidsActuel*(1-getPerteParJour($idAnimal)["PerteParJour"]/100);
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$idAnimal);
+        $stmt->bindValue(2,$newPoids);
+        $stmt->execute();
+    }
+
+    public function getEstimationValeur($idAnimal,$date){
+        $prixParKg = Flight::especeModel()->getPrixParKg();
+        $poids = getPoidsByDate($idAnimal,$date)["poids"];
+        return $prixParKg*$poids;
+    }
     
 
 
