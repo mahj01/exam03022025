@@ -107,7 +107,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idEspece);
         $rs = $stmt->execute()->fetchAll();
         for($i=0; $i<count($rs);$i++){
-            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"]);
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date);
         }
         return $somme;
 
