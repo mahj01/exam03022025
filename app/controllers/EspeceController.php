@@ -2,17 +2,16 @@
 
 namespace app\controllers;
 use app\models\EspeceModel;
-use FLight;
+use Flight;
 
 class EspeceController extends BaseController{
 
-    public $especeModel ;
-    public function __construct($db) {
-        $this->especeModel = new EspeceModel($db);
+    public function __construct() {
+        
     }
 
     public function getAllEspece(){
-        $especes = $this->especeModel->getAllEspece();
-        
+        $especes = Flight::especeModel()->getAllEspece();
+        $this->render('listeEspeceContent', 'template', 'Liste Especes', ['especes' => $especes]);
     }
 }

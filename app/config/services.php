@@ -1,7 +1,7 @@
 <?php
-
 use app\models\AnimalModel;
 use app\models\NourritureModel;
+use app\models\EspeceModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;
@@ -35,4 +35,7 @@ Flight::map('animalModel', function () {
 
 Flight::map('nourritureModel', function () {
     return new NourritureModel(Flight::db());
+});
+Flight::map('especeModel', function(){
+    return new EspeceModel(Flight::db());
 });
