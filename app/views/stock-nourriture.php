@@ -1,4 +1,5 @@
 <h1>Stock des nourritures</h1>
+<i>(Cliquer l'en tete du colonne pour trier par ce colonne).</i>
 <table border="1" id="datatablesSimple">
     <thead>
         <tr>
