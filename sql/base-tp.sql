@@ -32,6 +32,7 @@ CREATE TABLE elevage_Animal (
     id INT PRIMARY KEY AUTO_INCREMENT,
     idEspece INT,
     PoidsInitial DECIMAL(10, 2),
+    PoidsActuel DECIMAL(10, 2),
     NomAnimal VARCHAR(255),
     FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
 );
@@ -129,6 +130,16 @@ CREATE TABLE elevage_NourritureSupprime(
     idNourriture int,
     FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
 );
+
+CREATE TRIGGER updateApresNourrir
+AFTER INSERT
+ON elevage_HistoriquePoids
+FOR EACH ROW
+BEGIN
+    UPDATE elevage_Animal
+    SET PoidsActuel = NEW.poids
+    WHERE id = NEW.idAnimal;
+END;
 
 INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, NbJoursAvantDeMourir) VALUES
 ('Boeuf', 300.00, 500.00, 10.50, 0.50, 30),

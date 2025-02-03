@@ -23,4 +23,13 @@ class NourritureModel
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+
+    public function getGain($id){
+        $sql = "SELECT pourcentageGAin from elevage_Nourriture where id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$id);
+        return $stmt->fetch();
+    }
+
+
 }
