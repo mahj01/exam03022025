@@ -13,6 +13,6 @@ class EspeceController extends BaseController{
 
     public function getAllEspece(){
         $especes = $this->especeModel->getAllEspece();
-        $this->render();
+        
     }
 }
