@@ -1,4 +1,6 @@
 <?php
+
+use app\models\AnimalModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;
@@ -26,3 +28,6 @@ $app->register('db', $pdoClass, [$dsn, $config['database']['user'] ?? null, $con
 // Redis? This is where you'd set that up
 // $app->register('redis', Redis::class, [ $config['redis']['host'], $config['redis']['port'] ]);
 
+Flight::map('animalModel', function () {
+    return new AnimalModel(Flight::db());
+});
