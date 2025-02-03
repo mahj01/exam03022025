@@ -21,14 +21,7 @@ class BaseModel
     }
 
    
-    public function getById($id,$table)
-    {
-        $sql = "SELECT * FROM {$table} WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+
 
     public function insert($data,$table)
     {

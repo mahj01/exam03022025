@@ -18,12 +18,10 @@ $router->get('/stock-nourriture',[$nourritureController,'stockNourriture']);
 // Antonio route
 $router->get('/dashboard',[$animalController,'dashboard']);
 
-//CoNTROLLERS
-$especeController = new EspeceController();
-//FIN CONTROLLERS
-
 
 
 //CRUD ESPECE
 $router->get('/especes', [$especeController, 'getAllEspece']);
+$router->get('/especes/edit/@id:\d+', [$especeController, 'goToModifyPage']);
+$router->post('/especes/traitementModifierEspece/@id:\d+', [$especeController, 'updateEspece']);
 //FIN CRUD ESPECE
