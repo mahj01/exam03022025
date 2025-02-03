@@ -5,3 +5,10 @@ $router->get('/', function () {
 $router->get('/lien',function () {
 	echo '<a href="../">mverna</a>';
 });
+
+
+
+
+//CRUD ESPECE
+$router->get('/animaux', 'AnimalController@index');
+//FIN CRUD ESPECE
