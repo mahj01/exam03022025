@@ -9,3 +9,9 @@ $router->get('/',function () {
 });
 
 $router->get('/dashboard',[$animalController,'dashboard']);
+
+
+
+//CRUD ESPECE
+$router->get('/animaux', 'AnimalController@index');
+//FIN CRUD ESPECE
