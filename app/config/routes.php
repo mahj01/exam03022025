@@ -31,6 +31,7 @@ $router->get('/especes/delete/@id:\d+', [$especeController, 'deleteEspece']);
 
 //CRUD NOURRITURE
 $router->get('/nourritures', [$nourritureController, 'getAllNourriture']);
+$router->get('/nourritures/add', [$nourritureController, 'goToAddPage']);
 $router->get('/nourritures/edit/@id:\d+', [$nourritureController, 'goToModifyPage']);
 $router->post('/nourritures/traitementModifier/@id:\d+', [$nourritureController, 'updateNourriture']);
 $router->post('/nourritures/traitementAjout', [$nourritureController, 'addNourriture']);

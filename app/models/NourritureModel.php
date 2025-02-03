@@ -6,10 +6,10 @@ use PDO;
 
 class NourritureModel extends BaseModel
 {
-    private $db;
+    
     public function __construct($db)
     {
-        $this->db = $db;
+        parent::__construct($db);
     }
 
     public function stockNourriture()
@@ -32,11 +32,12 @@ class NourritureModel extends BaseModel
         return $stmt->fetch();
     }
 
-
-
     public function getAllNourriture()
     {
-        return $this->selectAll('*', 'elevage_Nourriture');
+        $sql = "SELECT * FROM elevage_Nourriture WHERE id NOT IN (SELECT idNourriture FROM elevage_NourritureSupprime)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getNourritureById($id)
@@ -49,5 +50,11 @@ class NourritureModel extends BaseModel
     {
         $criteria = ['id' => $id];
         return $this->update($criteria, $data, 'elevage_Nourriture');
+    }
+
+    public function markAsDeleted($id)
+    {
+        $data = ['idNourriture' => $id];
+        return $this->insert($data, 'elevage_NourritureSupprime');
     }
 }

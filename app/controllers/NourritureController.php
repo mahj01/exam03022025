@@ -28,7 +28,15 @@ class NourritureController extends BaseController
     public function goToModifyPage($id)
     {
         $nourriture = Flight::nourritureModel()->getNourritureById($id);
-        $data = ['page' => 'modify-nourriture-content', 'nourriture' => $nourriture];
+        $especes = Flight::especeModel()->getAllEspece();
+        $data = ['page' => 'modify-nourriture-content', 'nourriture' => $nourriture, 'especes' => $especes];
+        Flight::render('template', $data);
+    }
+
+    public function goToAddPage()
+    {
+        $especes = Flight::especeModel()->getAllEspece();
+        $data = ['page' => 'ajout-nourriture-content', 'especes' => $especes];
         Flight::render('template', $data);
     }
 
@@ -36,7 +44,8 @@ class NourritureController extends BaseController
     {
         $data = [
             'NomNourriture' => Flight::request()->data->NomNourriture,
-            'Quantite' => Flight::request()->data->Quantite
+            'pourcentageGain' => Flight::request()->data->pourcentageGain,
+            'idEspece' => Flight::request()->data->idEspece
         ];
         Flight::nourritureModel()->updateNourriture($id, $data);
         Flight::redirect('/nourritures');
@@ -46,7 +55,8 @@ class NourritureController extends BaseController
     {
         $data = [
             'NomNourriture' => Flight::request()->data->NomNourriture,
-            'Quantite' => Flight::request()->data->Quantite
+            'pourcentageGain' => Flight::request()->data->pourcentageGain,
+            'idEspece' => Flight::request()->data->idEspece
         ];
         Flight::nourritureModel()->insert($data);
         Flight::redirect('/nourritures');
@@ -54,7 +64,7 @@ class NourritureController extends BaseController
 
     public function deleteNourriture($id)
     {
-        Flight::nourritureModel()->delete($id);
+        Flight::nourritureModel()->markAsDeleted($id);
         Flight::redirect('/nourritures');
     }
 }
