@@ -13,6 +13,7 @@ $router->get('/dashboard',[$animalController,'dashboard']);
 // Antonio route
 
 
+
 //CRUD ESPECE
 $router->get('/animaux', 'AnimalController@index');
 //FIN CRUD ESPECE
