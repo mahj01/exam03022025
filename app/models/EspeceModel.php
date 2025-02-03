@@ -14,7 +14,7 @@ class EspeceModel extends BaseModel{
     }
 
     public function getEspeceById($id){
-        return $this->getById($id,'elevage_Espece');
+        return $this->findBy(['id' => $id],'elevage_Espece')[0];
     }
 
     public function addEspece($data){

@@ -1,3 +1,7 @@
+<?php
+include 'BaseUrl.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

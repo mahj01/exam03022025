@@ -1,3 +1,4 @@
+
 <div>
     <h1>Liste des espèces</h1>
     <table>
@@ -21,12 +22,12 @@
                     <td><?= $espece['PrixParKg'] ?></td>
                     <td><?= $espece['NbJoursAvantDeMourir'] ?></td>
                     <td>
-                        <a href="editEspece/<?= $espece['id'] ?>">Modifier</a>
-                        <a href="deleteEspece/<?= $espece['id'] ?>">Supprimer</a>
+                        <a href="especes/edit/<?= $espece['id'] ?>">Modifier</a>
+                        <a href="especes/delete/<?= $espece['id'] ?>">Supprimer</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="addEspece">Ajouter une espèce</a>
+    <a href="<?= $url ?>/espece/add">Ajouter une espèce</a>
 </div>
