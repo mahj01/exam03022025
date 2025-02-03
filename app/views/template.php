@@ -7,7 +7,7 @@ include('BaseUrl.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Elevage</title>
-    <link rel="stylesheet" href="public/assets/css/dashboard.css">
+    <link rel="stylesheet" href="<?= $url ?>/public/assets/css/dashboard.css">
 </head>
 <body>
     <div class="dashboard">
