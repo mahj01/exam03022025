@@ -8,7 +8,7 @@
 <body>
     <div>ireto ilay partie tsy miova</div>
     <main>
-        <!-- <?= $content ?> ato ilay partie miova -->
+        <?= $content ?> <!-- ato ilay partie miova -->
     </main>
     <footer>
         <div>ireto ilay partie tsy miova</div>

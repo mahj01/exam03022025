@@ -1,18 +1,29 @@
 <?php
 
+
 use app\controllers\AnimalController;
+use app\controllers\EspeceController;
 
 $animalController = new AnimalController();
+$especeController = new EspeceController();
 
-// Antonio route
-$router->get('/',function () {
-	Flight::redirect('dashboard');
+$router->get('/', function () {
+	echo '<a href="lien" >lien</a>';
+});
+$router->get('/lien',function () {
+	echo '<a href="../">mverna</a>';
 });
 
-$router->get('/dashboard',[$animalController,'dashboard']);
+
 // Antonio route
+$router->get('/dashboard',[$animalController,'dashboard']);
+
+
+//CoNTROLLERS
+$especeController = new EspeceController();
+//FIN CONTROLLERS
 
 
 //CRUD ESPECE
-$router->get('/animaux', 'AnimalController@index');
+$router->get('/especes', [$especeController, 'getAllEspece']);
 //FIN CRUD ESPECE
