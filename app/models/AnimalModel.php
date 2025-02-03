@@ -94,7 +94,7 @@ class AnimalModel extends BaseModel
     public function getEstimationValeur($idAnimal,$date){
 
         $prixParKg = Flight::especeModel()->getPrixParKg()["PrixParKg"];
-        $poids = getPoidsByDate($idAnimal,$date)["poids"];
+        $poids = $this->getPoidsByDate($idAnimal,$date)["poids"];
 
         return $prixParKg*$poids;
     }
