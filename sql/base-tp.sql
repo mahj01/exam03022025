@@ -123,6 +123,13 @@ CREATE TABLE elevage_EspeceSupprime(
     FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
 );
 
+--Table NourritureSupprime
+CREATE TABLE elevage_NourritureSupprime(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idNourriture int,
+    FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
+);
+
 INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, NbJoursAvantDeMourir) VALUES
 ('Boeuf', 300.00, 500.00, 10.50, 0.50, 30),
 ('Poulet', 1.50, 3.00, 5.00, 0.10, 10),
