@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 use PDO;
+use Flight;
 class AnimalModel extends BaseModel
 {
 
@@ -30,7 +31,7 @@ class AnimalModel extends BaseModel
     }
 
     public function getNbJourSansManger($idAnimal){
-        $dernierJour = getDernierJourAlim($idAnimal)["dateAlimentation"];
+        $dernierJour = $this->getDernierJourAlim($idAnimal)["dateAlimentation"];
     }
     
     public function getPoidsInit($idAnimal){
@@ -66,13 +67,13 @@ class AnimalModel extends BaseModel
         $sql = "select poids from elevage_HistoriquePoids where idAnimal = ? and dateStockage = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
-        $stmt->bindValue(2,$dateAnimal);
+        $stmt->bindValue(2,$date);
         return $stmt->fetch();
     }
 
     public function nourrir($idAnimal,$idNourriture){
         $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
-        $poidsActuel = getPoidsActuel($idAnimal); 
+        $poidsActuel = $this->getPoidsActuel($idAnimal); 
         $newPoids = $poidsActuel*(1+Flight::nourritureModel()->getGain($idNourriture)/100);
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
@@ -82,8 +83,8 @@ class AnimalModel extends BaseModel
 
     public function skipNourrir($idAnimal,$idNourriture){
         $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
-        $poidsActuel = getPoidsActuel($idAnimal)["PoidsActuel"]; 
-        $newPoids = $poidsActuel*(1-getPerteParJour($idAnimal)["PerteParJour"]/100);
+        $poidsActuel = $this->getPoidsActuel($idAnimal)["PoidsActuel"]; 
+        $newPoids = $poidsActuel*(1-$this->getPerteParJour($idAnimal)["PerteParJour"]/100);
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
         $stmt->bindValue(2,$newPoids);
@@ -92,7 +93,7 @@ class AnimalModel extends BaseModel
 
     public function getEstimationValeur($idAnimal,$date){
         $prixParKg = Flight::especeModel()->getPrixParKg();
-        $poids = getPoidsByDate($idAnimal,$date)["poids"];
+        $poids = $this->getPoidsByDate($idAnimal,$date)["poids"];
         return $prixParKg*$poids;
     }
     
