@@ -45,7 +45,6 @@
                     <th>Poids Max</th>
                     <th>Prix/kg</th>
                     <th>Jours Sans Manger</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,10 +55,6 @@
                     <td>80 kg</td>
                     <td>8 €</td>
                     <td>15</td>
-                    <td>
-                        <button><i class="fa fa-feed"></i></button>
-                        <button><i class="fa fa-shopping-cart"></i></button>
-                    </td>
                 </tr>
                 <tr>
                     <td>Chèvre</td>
@@ -68,10 +63,6 @@
                     <td>70 kg</td>
                     <td>7 €</td>
                     <td>12</td>
-                    <td>
-                        <button><i class="fa fa-feed"></i></button>
-                        <button><i class="fa fa-shopping-cart"></i></button>
-                    </td>
                 </tr>
             </tbody>
         </table>
