@@ -1,59 +1,166 @@
--- Création de la table etudiant
-CREATE TABLE etudiant (
-    numero_etudiant INT PRIMARY KEY,
-    nom VARCHAR(255),
-    date_naissance DATE
+-- Primary key = PK
+-- Foreign key = FK
+-- -Espece(id(PK),NomEspece,PoidsMinVente,PoidsMax,PrixParKg,PerteParJour,NbJoursAvantDeMourir)
+-- -Animal(id(PK),idEspece(FK),PoidsInitial,NomAnimal)
+-- -Nourriture(id(PK),pourcentageGain,idEspece(FK),NomNourriture)
+-- -HistoriqueAchatNourriture(id(PK),dateAchat,quantite,idNourriture(FK),prixUnitaire)
+-- -HistoriqueAchatAnimal(id(PK),idAnimal(FK),dateAchat,montant)
+-- -HistoriqueVente(id(PK),idAnimal(FK),dateVente,montant)
+-- -HistoriqueAlimentation(id(PK),idAnimal(FK),dateAlimentation,quantite,idNourriture(FK))
+-- -TypeTransaction(id(PK),nomType)
+-- -TransactionCaisse(id(PK),dateTransaction,typeId(FK),montant)
+-- -AnimalDecede(id(PK),dateDeces,idAnimal(FK))
+
+
+create database elevage;
+use elevage;
+
+
+-- Table Espece
+CREATE TABLE elevage_Espece (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NomEspece VARCHAR(255) NOT NULL,
+    PoidsMinVente DECIMAL(10, 2),
+    PoidsMax DECIMAL(10, 2),
+    PrixParKg DECIMAL(10, 2),
+    PerteParJour DECIMAL(10, 2),
+    NbJoursAvantDeMourir INT
 );
 
--- Création de la table matiere
-CREATE TABLE matiere (
-    code_matiere VARCHAR(255) PRIMARY KEY,
-    nom_matiere VARCHAR(255),
-    coefficient Decimal(10,2)
+-- Table Animal
+CREATE TABLE elevage_Animal (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idEspece INT,
+    PoidsInitial DECIMAL(10, 2),
+    NomAnimal VARCHAR(255),
+    FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
 );
 
--- Création de la table note
-CREATE TABLE note (
-    numero_etudiant INT,
-    code_matiere VARCHAR(255),
-    note Decimal(10,2),
-    FOREIGN KEY (numero_etudiant) REFERENCES etudiant(numero_etudiant),
-    FOREIGN KEY (code_matiere) REFERENCES matiere(code_matiere)
+-- Table Nourriture
+CREATE TABLE elevage_Nourriture (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    pourcentageGain DECIMAL(5, 2),
+    idEspece INT,
+    NomNourriture VARCHAR(255),
+    FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
 );
 
--- Insertion des données dans la table etudiant
-INSERT INTO etudiant (numero_etudiant, nom, date_naissance) VALUES
-(1, 'Jean Dupont', '2000-01-05'),
-(2, 'Marie Martin', '2001-03-12'),
-(3, 'Pierre Durand', '1999-07-20'),
-(4, 'Sophie Lefevre', '2000-09-15'),
-(5, 'Thomas Dubois', '2001-11-25'),
-(6, 'Emma Moreau', '1998-04-08'),
-(7, 'Lucas Girard', '2000-06-17'),
-(8, 'Camille Laurent', '2001-08-30'),
-(9, 'Léa Roussel', '1999-02-14'),
-(10, 'Nicolas Bonnet', '2000-10-10');
+-- Table HistoriqueAchatNourriture
+CREATE TABLE elevage_HistoriqueAchatNourriture (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    dateAchat DATE,
+    quantite DECIMAL(10, 2),
+    idNourriture INT,
+    prixUnitaire DECIMAL(10, 2),
+    FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
+);
 
--- Insertion des données dans la table matiere
-INSERT INTO matiere (code_matiere, nom_matiere, coefficient) VALUES
-('MAT101', 'Mathématiques', 2.0),
-('PHY201', 'Physique', 1.5),
-('CHM301', 'Chimie', 1.0),
-('BIO401', 'Biologie', 1.0);
+-- Table HistoriqueAchatAnimal
+CREATE TABLE elevage_HistoriqueAchatAnimal (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idAnimal INT,
+    dateAchat DATE,
+    montant DECIMAL(10, 2),
+    FOREIGN KEY (idAnimal) REFERENCES elevage_Animal(id)
+);
 
--- Insertion des données dans la table note
--- Génération de 20 notes aléatoires pour les 10 étudiants et les 4 matières
--- Les notes sont comprises entre 0 et 20
-INSERT INTO note (numero_etudiant, code_matiere, note) 
-SELECT 
-    FLOOR(RAND() * 10) + 1 AS numero_etudiant,
-    code_matiere,
-    ROUND(RAND() * 20, 2) AS note
-FROM
-    (SELECT 'MAT101' AS code_matiere
-     UNION ALL SELECT 'PHY201'
-     UNION ALL SELECT 'CHM301'
-     UNION ALL SELECT 'BIO401') matieres
-CROSS JOIN
-    (SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 
-     UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) etudiants;
+-- Table HistoriqueVente
+CREATE TABLE elevage_HistoriqueVente (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idAnimal INT,
+    dateVente DATE,
+    montant DECIMAL(10, 2),
+    FOREIGN KEY (idAnimal) REFERENCES elevage_Animal(id)
+);
+
+-- Table HistoriqueAlimentation
+CREATE TABLE elevage_HistoriqueAlimentation (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idAnimal INT,
+    dateAlimentation DATE,
+    quantite DECIMAL(10, 2),
+    idNourriture INT,
+    FOREIGN KEY (idAnimal) REFERENCES elevage_Animal(id),
+    FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
+);
+
+-- Table TypeTransaction
+CREATE TABLE elevage_TypeTransaction (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nomType VARCHAR(255) NOT NULL
+);
+
+-- Table TransactionCaisse
+CREATE TABLE elevage_TransactionCaisse (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    dateTransaction DATE,
+    typeId INT,
+    montant DECIMAL(10, 2),
+    FOREIGN KEY (typeId) REFERENCES elevage_TypeTransaction(id)
+);
+
+-- Table AnimalDecede
+CREATE TABLE elevage_AnimalDecede (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    dateDeces DATE,
+    idAnimal INT,
+    FOREIGN KEY (idAnimal) REFERENCES elevage_Animal(id)
+);
+
+INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, NbJoursAvantDeMourir) VALUES
+('Boeuf', 300.00, 500.00, 10.50, 0.50, 30),
+('Poulet', 1.50, 3.00, 5.00, 0.10, 10),
+('Porc', 100.00, 200.00, 8.00, 0.30, 20);
+
+INSERT INTO elevage_Animal (idEspece, PoidsInitial, NomAnimal) VALUES
+(1, 320.00, 'Bessie'),
+(2, 1.80, 'Poulet1'),
+(3, 120.00, 'Porc1'),
+(1, 350.00, 'Bella'),
+(2, 2.00, 'Poulet2');
+
+INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture) VALUES
+(5.00, 1, 'Foin'),
+(3.00, 2, 'Grains'),
+(4.00, 3, 'Mais'),
+(6.00, 1, 'Aliment concentre');
+
+INSERT INTO elevage_HistoriqueAchatNourriture (dateAchat, quantite, idNourriture, prixUnitaire) VALUES
+('2023-10-01', 100.00, 1, 2.50),
+('2023-10-02', 50.00, 2, 1.00),
+('2023-10-03', 200.00, 3, 1.20),
+('2023-10-04', 150.00, 4, 3.00);
+
+INSERT INTO elevage_HistoriqueAchatAnimal (idAnimal, dateAchat, montant) VALUES
+(1, '2023-09-25', 500.00),
+(2, '2023-09-26', 10.00),
+(3, '2023-09-27', 200.00),
+(4, '2023-09-28', 550.00),
+(5, '2023-09-29', 12.00);
+
+INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant) VALUES
+(1, '2023-10-10', 800.00),
+(2, '2023-10-11', 15.00),
+(3, '2023-10-12', 300.00);
+
+INSERT INTO elevage_HistoriqueAlimentation (idAnimal, dateAlimentation, quantite, idNourriture) VALUES
+(1, '2023-10-01', 10.00, 1),
+(2, '2023-10-02', 2.00, 2),
+(3, '2023-10-03', 5.00, 3),
+(4, '2023-10-04', 8.00, 4),
+(5, '2023-10-05', 1.50, 2);
+
+INSERT INTO elevage_TypeTransaction (nomType) VALUES
+('Achat Nourriture'),
+('Achat Animal'),
+('Vente Animal'),
+('Autre');
+
+INSERT INTO elevage_TransactionCaisse (dateTransaction, typeId, montant) VALUES
+('2023-10-01', 1, 250.00),
+('2023-10-02', 2, 500.00),
+('2023-10-03', 3, 800.00),
+('2023-10-04', 4, 100.00);
+
+INSERT INTO elevage_AnimalDecede (dateDeces, idAnimal) VALUES
+('2023-10-05', 5);
