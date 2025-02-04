@@ -27,7 +27,7 @@
                 <div class="stat-card">
                     <i class="fa fa-archive icon"></i>
                     <div class="value" id="totalAnimals"><?= $animalVivant ?></div>
-                    <div>Nombre d'Animaux</div>
+                    <div>Nombre d'Animaux vivants</div>
                 </div>
             </div>
 
