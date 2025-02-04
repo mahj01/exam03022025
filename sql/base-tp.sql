@@ -189,4 +189,5 @@ VALUES
 ('Achat Animal'),
 ('Vente Animal'),
 ('Achat Nourriture'),
-('Vente Nourriture');
+('Vente Nourriture'),
+('Depot capitale');

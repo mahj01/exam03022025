@@ -1,7 +1,7 @@
 <div class="header">
     <h1><i class="fa fa-edit"></i> Modifier espèce</h1>
 </div>
-<form action="<?= $url ?>/especes/traitementModifier/<?= $espece['id'] ?>" method="post">
+<form action="<?= $url ?>/especes/traitementModifier/<?= $espece['id'] ?>" method="post" enctype="multipart/form-data" >
     <div class="input-container">
         <i class="fa fa-leaf"></i>
         <label for="NomEspece">Nom de l'espèce</label>
@@ -24,6 +24,17 @@
         <i class="fa fa-dollar-sign"></i>
         <label for="PrixParKg">Prix par kilo</label>
         <input type="number" name="PrixParKg" value="<?= $espece['PrixParKg'] ?>" required><br>
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-dollar-sign"></i>
+        <label for="prixUnitaire">Prix unitaire</label>
+        <input type="number" name="prixUnitaire" value="<?= $espece['prixUnitaire'] ?>" required><br>
+    </div>
+
+    <div class="form-group">
+        <label for="photos">Télécharger une photo:</label>
+        <input type="file" id="photos" name="photo">
     </div>
 
     <div class="input-container">
