@@ -2,9 +2,10 @@
 namespace app\models;
 use PDO;
 use Flight;
+use Exception;
 class AnimalModel extends BaseModel
 {
-    private $db;
+    
     public function __construct($db)
     {
         parent::__construct($db);
@@ -106,7 +107,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idEspece);
         $rs = $stmt->execute()->fetchAll();
         for($i=0; $i<count($rs);$i++){
-            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"]);
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date);
         }
         return $somme;
 
@@ -120,13 +121,6 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(2,$idAnimal);
         return $stmt->fetchAll();
     }
-
-
-    
-
-
-
-    
 
 
 
