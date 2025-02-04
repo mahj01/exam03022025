@@ -76,7 +76,7 @@ class TransactionCaisseModel extends BaseModel
 
     public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat,$autovente) {
         try {
-            if($autovente == true){ 
+            if($autovente == 1){ 
                 $autoVente = 1;
             }else{
                 $autoVente = 0;
