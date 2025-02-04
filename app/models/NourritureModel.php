@@ -22,6 +22,8 @@ class NourritureModel extends BaseModel
                 on EN.id = HAN.idNourriture
                 group by HAN.idNourriture";
         $stmt = $this->db->query($sql);
+        $stmt->execute();
+
         return $stmt->fetchAll();
     }
 
