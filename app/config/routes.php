@@ -5,7 +5,6 @@ use app\controllers\EspeceController;
 
 $animalController = new AnimalController();
 $nourritureController = new NourritureController();
-$animalController = new AnimalController();
 $especeController = new EspeceController();
 
 // Antonio route
@@ -45,3 +44,8 @@ $router->get('/animaux/achatAnimal', [$animalController, 'goToAchatPage']);
 $router->post('/animaux/traitementAchat',[$animalController, 'achatAnimal']);
 //FIN ACHAT ANIMAL
 
+//ACHAT NOURRITURE
+$router->get('/nourritures/achatNourritures', [$nourritureController, 'goToAchatPage']);
+$router->get('/nourritures/achat', [$nourritureController, 'goToAchatPage']);
+$router->post('/nourritures/traitementAchat', [$nourritureController, 'achatNourriture']);
+//FIN ACHAT NOURRITURE
