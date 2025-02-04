@@ -30,13 +30,13 @@ class ElevageController
         }
 
         $animals = Flight::animalModel()->getAnimalsByDate($date);
-        var_dump($animals);
+
         $animalData = [];
         foreach ($animals as $animal) {
             $espece = Flight::especeModel()->getEspeceById($animal['idEspece']);
-            $poidsActuel = Flight::animalModel()->getPoidsActuel($animal['id']);
-            $estimationValeur = Flight::animalModel()->getEstimationValeur($animal['id'], $date);
-            $joursSansManger = Flight::animalModel()->getJoursSansManger($animal['id']);
+            $poidsActuel = Flight::animalModel()->getPoidsActuel($animal['id'])[0];
+            $prixParKg = Flight::especeModel()->getPrixParKg($animal['idEspece']); // Get single value
+            $estimationValeur = $poidsActuel * $prixParKg;
             $animalData[] = [
                 'id' => $animal['id'],
                 'NomAnimal' => $animal['NomAnimal'],
@@ -44,8 +44,7 @@ class ElevageController
                 'PoidsInitial' => $animal['PoidsInitial'],
                 'PoidsActuel' => $poidsActuel,
                 'EstimationValeur' => $estimationValeur,
-                'PrixParKg' => $espece['PrixParKg'],
-                'JoursSansManger' => $joursSansManger
+                'PrixParKg' => $prixParKg, // Use single value
             ];
         }
 

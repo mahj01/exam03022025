@@ -45,20 +45,23 @@ class AnimalModel extends BaseModel
     }
 
     public function getNbJourSansManger($idAnimal){
-        $dernierJour = $this->getDernierJourAlim($idAnimal)["dateAlimentation"];
+        $dernierJour = $this->getDernierJourAlim($idAnimal);
+        return $dernierJour;
     }
     
     public function getPoidsInit($idAnimal){
         $sql = "select PoidsInitial from elevage_Animal where idAnimal=?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
     public function getPoidsActuel($idAnimal){
-        $sql = "select PoidsActuel from elevage_Animal where idAnimal=?";
+        $sql = "select PoidsActuel from elevage_Animal where id=?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$idAnimal);
+        $stmt->bindValue(1,(string)$idAnimal);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
@@ -76,13 +79,14 @@ class AnimalModel extends BaseModel
         $sql = "select PerteParJour from elevage_Espece EE join (select idEspece from elevage_Animal where id = ?) EA on EE.id = EA.idEspece";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
     public function getPoidsByDate($idAnimal,$date){
         $sql = "select poids from elevage_HistoriquePoids where idAnimal = ? and dateStockage = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$idAnimal);
+        $stmt->bindValue(1,(string)$idAnimal);
         $stmt->bindValue(2,$date);
         $stmt->execute();
 
@@ -153,10 +157,10 @@ class AnimalModel extends BaseModel
         $stmt->execute();
     }
 
-    public function getEstimationValeur($idAnimal,$date){
+    public function getEstimationValeur($idAnimal,$date,$idEspece){
 
-        $prixParKg = Flight::especeModel()->getPrixParKg()["PrixParKg"];
-        $poids = $this->getPoidsByDate($idAnimal,$date)["poids"];
+        $prixParKg = Flight::especeModel()->getPrixParKg($idEspece);
+        $poids = $this->getPoidsByDate($idAnimal,$date);
 
         return $prixParKg*$poids;
     }
@@ -168,7 +172,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idEspece);
         $rs = $stmt->execute()->fetchAll();
         for($i=0; $i<count($rs);$i++){
-            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date);
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date,$idEspece);
         }
         return $somme;
 

@@ -44,9 +44,8 @@
                     <th>Espece</th>
                     <th>PoidsInitial</th>
                     <th>PoidsActuel</th>
-                    <th>Estimation Valeur</th>
                     <th>Prix/kg</th>
-                    <th>Jours Sans Manger</th>
+                    <th>Estimation Valeur</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,9 +56,8 @@
                         <td><?= $animal['Espece'] ?></td>
                         <td><?= $animal['PoidsInitial'] ?></td>
                         <td><?= $animal['PoidsActuel'] ?></td>
-                        <td><?= $animal['EstimationValeur'] ?></td>
                         <td><?= $animal['PrixParKg'] ?></td>
-                        <td><?= $animal['JoursSansManger'] ?></td>
+                        <td><?= $animal['EstimationValeur'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
