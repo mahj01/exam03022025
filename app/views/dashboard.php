@@ -39,31 +39,22 @@
         <table class="animals-table" id="animalsTable">
             <thead>
                 <tr>
-                    <th>Type</th>
-                    <th>Poids Actuel</th>
-                    <th>Poids Min Vente</th>
-                    <th>Poids Max</th>
+                    <th>id</th>
+                    <th>NomAnimal</th>
+                    <th>Espece</th>
+                    <th>PoidsInitial</th>
+                    <th>PoidsActuel</th>
+                    <th>Estimation Valeur</th>
                     <th>Prix/kg</th>
                     <th>Jours Sans Manger</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Mouton</td>
-                    <td>45 kg</td>
-                    <td>50 kg</td>
-                    <td>80 kg</td>
-                    <td>8 €</td>
-                    <td>15</td>
+                    <td></td>
+                    
                 </tr>
-                <tr>
-                    <td>Chèvre</td>
-                    <td>35 kg</td>
-                    <td>40 kg</td>
-                    <td>70 kg</td>
-                    <td>7 €</td>
-                    <td>12</td>
-                </tr>
+              
             </tbody>
         </table>
     </div>

@@ -197,11 +197,30 @@ class TransactionCaisseModel extends BaseModel
     }
 
     public function getTransactionsByDate($date) {
-        $sql = "SELECT * FROM elevage_TransactionCaisse WHERE dateTransaction = :date";
+        $sql = "SELECT * FROM elevage_TransactionCaisse WHERE dateTransaction <= :date";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':date', $date);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertCapital($data) {
+        $sql = "SELECT montantActuel FROM elevage_TransactionCaisse ORDER BY dateTransaction DESC LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $previousMontantActuel = $result ? $result['montantActuel'] : 0;
+
+        $data['montantActuel'] = $data['montant'] + $previousMontantActuel;
+
+        $sql = "INSERT INTO elevage_TransactionCaisse (montant, dateTransaction, typeId, montantActuel) 
+                VALUES (:montant, :dateTransaction, :typeId, :montantActuel)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':montant', (string)$data['montant']);
+        $stmt->bindValue(':dateTransaction', (string)$data['dateTransaction']);
+        $stmt->bindValue(':typeId', (string)$data['typeId']);
+        $stmt->bindValue(':montantActuel', (string)$data['montantActuel']);
+        $stmt->execute();
     }
 
 }
