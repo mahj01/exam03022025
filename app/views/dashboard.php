@@ -1,3 +1,4 @@
+
 <body>
     <div class="container">
         <!-- En-tête -->
@@ -136,6 +137,7 @@
     <script>
         function updateDashboard() {
             var date = document.getElementById('currentDate').value;
+            <?php Flight::animalModel()->simuler($date); ?>
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'update-dashboard', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
