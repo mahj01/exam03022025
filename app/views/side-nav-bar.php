@@ -26,6 +26,12 @@
             </a>
         </li>
         <li>
+            <a href="<?= $url ?>/nourritures/achatNourritures">
+                <i class="fa fa-shopping-cart"></i>
+                Achat nourriture
+            </a>
+        </li>
+        <li>
             <a href="<?= $url ?>/nourritures">
                 <i class="fa fa-cutlery"></i>
                 Nourritures

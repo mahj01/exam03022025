@@ -11,8 +11,6 @@ class ElevageModel extends BaseModel{
 
     public function supprimerDonnees($nombreAnimauxAConserver) {
         try {
-            // Démarrer une transaction
-            $this->db->beginTransaction();
 
             // Supprimer les enregistrements des tables d'historique
             $this->db->exec("DELETE FROM elevage_HistoriqueAlimentation");
@@ -46,13 +44,10 @@ class ElevageModel extends BaseModel{
             $this->db->exec("DELETE FROM elevage_EspeceSupprime");
             $this->db->exec("DELETE FROM elevage_NourritureSupprime");
 
-            // Valider la transaction
-            $this->db->commit();
 
             return "Suppression des données terminée avec succès.";
         } catch (PDOException $e) {
             // En cas d'erreur, annuler la transaction
-            $this->db->rollBack();
             return "Erreur lors de la suppression des données : " . $e->getMessage();
         }
     }

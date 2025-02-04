@@ -48,7 +48,6 @@ $router->post('/animaux/traitementAchat',[$animalController, 'achatAnimal']);
 
 //ACHAT NOURRITURE
 $router->get('/nourritures/achatNourritures', [$nourritureController, 'goToAchatPage']);
-$router->get('/nourritures/achat', [$nourritureController, 'goToAchatPage']);
 $router->post('/nourritures/traitementAchat', [$nourritureController, 'achatNourriture']);
 //FIN ACHAT NOURRITURE
 

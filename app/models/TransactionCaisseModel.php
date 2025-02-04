@@ -67,7 +67,6 @@ class TransactionCaisseModel extends BaseModel
 
     public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat) {
         try {
-            $this->db->beginTransaction();
 
             // Insérer dans la table elevage_Animal
             $queryInsertAnimal = "INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal) 
@@ -78,9 +77,10 @@ class TransactionCaisseModel extends BaseModel
             $stmtInsertAnimal->bindValue(':poidsActuel', (string)$poidsActuel);
             $stmtInsertAnimal->bindValue(':nomAnimal', $nomAnimal);
 
-            if (!$stmtInsertAnimal->execute()) {
-                throw new Exception("Erreur lors de l'insertion dans la table elevage_Animal.");
-            }
+            $stmtInsertAnimal->execute();
+            // if (!$stmtInsertAnimal->execute()) {
+            //     throw new Exception("Erreur lors de l'insertion dans la table elevage_Animal.");
+            // }
 
             // Récupérer l'ID de l'animal inséré
             $idAnimal = $this->db->lastInsertId();
@@ -93,18 +93,17 @@ class TransactionCaisseModel extends BaseModel
             $stmtInsertHistoriqueAchat->bindValue(':dateAchat', $dateAchat);
             $stmtInsertHistoriqueAchat->bindValue(':montant', (string)$montantAchat);
 
-            if (!$stmtInsertHistoriqueAchat->execute()) {
-                throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueAchatAnimal.");
-            }
+            $stmtInsertHistoriqueAchat->execute();
+            // if (!$stmtInsertHistoriqueAchat->execute()) {
+            //     throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueAchatAnimal.");
+            // }
 
             // Mettre à jour la caisse avec type=2 pour l'achat d'un animal
             $this->majCaisse($montantAchat * -1, 2, $dateAchat);
 
-            $this->db->commit();
             return true;
 
         } catch (Exception $e) {
-            $this->db->rollBack();
             echo "Erreur : " . $e->getMessage();
             return false;
         }
@@ -113,8 +112,6 @@ class TransactionCaisseModel extends BaseModel
     // Méthode pour effectuer l'achat de nourriture
     public function achatNourriture( $idNourriture, $quantite, $prixUnitaire, $dateAchat) {
         try {
-            $this->db->beginTransaction();
-
             // Insérer dans la table elevage_HistoriqueAchatNourriture
             $montantTotal = $quantite * $prixUnitaire; // Calcul du montant total
             $queryInsertHistoriqueAchatNourriture = "INSERT INTO elevage_HistoriqueAchatNourriture (dateAchat, quantite, idNourriture, prixUnitaire) 
@@ -125,18 +122,17 @@ class TransactionCaisseModel extends BaseModel
             $stmtInsertHistoriqueAchatNourriture->bindValue(':idNourriture', $idNourriture);
             $stmtInsertHistoriqueAchatNourriture->bindValue(':prixUnitaire', $prixUnitaire);
 
-            if (!$stmtInsertHistoriqueAchatNourriture->execute()) {
-                throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueAchatNourriture.");
-            }
+            $stmtInsertHistoriqueAchatNourriture->execute();
+            // if (!$stmtInsertHistoriqueAchatNourriture->execute()) {
+            //     throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueAchatNourriture.");
+            // }
 
             // Mettre à jour la caisse avec type=1 pour l'achat de nourriture
             $this->majCaisse($montantTotal * -1, 1, $dateAchat);
 
-            $this->db->commit();
             return true;
 
         } catch (Exception $e) {
-            $this->db->rollBack();
             echo "Erreur : " . $e->getMessage();
             return false;
         }
@@ -145,7 +141,6 @@ class TransactionCaisseModel extends BaseModel
     // Méthode pour effectuer la vente d'un animal
     public function venteAnimal($idAnimal, $montantVente, $dateVente) {
         try {
-            $this->db->beginTransaction();
 
             // Insérer dans la table elevage_HistoriqueVente
             $queryInsertHistoriqueVente = "INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant) 
@@ -162,11 +157,9 @@ class TransactionCaisseModel extends BaseModel
             // Mettre à jour la caisse avec type=3 pour la vente d'un animal
             $this->majCaisse($montantVente, 3, $dateVente);
 
-            $this->db->commit();
             return true;
 
         } catch (Exception $e) {
-            $this->db->rollBack();
             echo "Erreur : " . $e->getMessage();
             return false;
         }
