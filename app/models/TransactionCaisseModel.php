@@ -4,6 +4,7 @@ namespace app\models;
 
 use PDO;
 use Exception;
+use Flight;
 
 class TransactionCaisseModel extends BaseModel
 {
@@ -156,7 +157,8 @@ class TransactionCaisseModel extends BaseModel
     public function venteAnimal($idAnimal, $montantVente, $dateVente)
     {
         try {
-            if(Flight::animalModel()->isAlive($idAnimal)>0){
+            $isAlive = Flight::animalModel()->isAlive($idAnimal);  
+            if($isAlive>0){
                 return false;
             }
 
