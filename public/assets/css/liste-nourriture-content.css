@@ -1,0 +1,216 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
+}
+
+/* En-tête */
+.header {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    flex-grow: 1;
+}
+
+/* Style des liens */
+.icon-link {
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.icon-link i {
+    font-size: 20px;
+}
+
+/* Couleur et style pour le lien "Modifier" */
+.icon-link[href*="edit"] {
+    background-color: #007bff;
+    /* Bleu pour modifier */
+    color: white;
+}
+
+.icon-link[href*="edit"]:hover {
+    background-color: #0056b3;
+    /* Bleu plus foncé au survol */
+    transform: scale(1.05);
+    /* Effet de zoom au survol */
+}
+
+/* Couleur et style pour le lien "Supprimer" */
+.icon-link[href*="#"] {
+    background-color: #dc3545;
+    /* Rouge pour supprimer */
+    color: white;
+}
+
+.icon-link[href*="#"]:hover {
+    background-color: #c82333;
+    /* Rouge plus foncé au survol */
+    transform: scale(1.05);
+    /* Effet de zoom au survol */
+}
+
+/* Optionnel : changer la couleur du texte au survol */
+.icon-link:hover {
+    color: white;
+}
+
+#ouibtn {
+    background-color: #d9534f;
+    /* Rouge vif */
+    color: white;
+}
+
+#ouibtn:hover {
+    background-color: #c9302c;
+    /* Rouge plus foncé */
+}
+
+/* Style du bouton "Non" */
+#nonbtn {
+    background-color: #5bc0de;
+    /* Bleu clair */
+    color: white;
+}
+
+#nonbtn:hover {
+    background-color: #31b0d5;
+    /* Bleu plus foncé */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    margin-top: 50px;
+    margin-left: 35%;
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+
+}
+
+/* Style du message de confirmation */
+.modal-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style des liens avec icônes */
+.icon-link {
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    /* Couleur de texte par défaut */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    /* Espacement entre l'icône et le texte */
+    padding: 10px 15px;
+    border-radius: 6px;
+    background-color: #28a745;
+    /* Vert pour "Ajouter" */
+    transition: background-color 0.3s, transform 0.2s, color 0.3s;
+}
+
+/* Style de l'icône */
+.icon-link i {
+    font-size: 20px;
+}
+
+/* Couleur et style au survol */
+.icon-link:hover {
+    background-color: #218838;
+    /* Vert plus foncé au survol */
+    transform: scale(1.05);
+    /* Effet de zoom au survol */
+    color: white;
+    /* Changer la couleur du texte en blanc */
+}
+
+/* Optionnel : Changer la couleur de l'icône au survol */
+.icon-link:hover i {
+    color: white;
+    /* L'icône devient blanche au survol */
+}
+
+/* Animation subtile */
+.icon-link:active {
+    transform: scale(1.02);
+    /* Effet de légère réduction lorsqu'on clique */
+}

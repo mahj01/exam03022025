@@ -5,7 +5,8 @@ use Exception;
 use PDO;
 
 class EspeceModel extends BaseModel{
-    private $db;
+    protected $db;
+    
     public function __construct($db){
         parent::__construct($db);
     }

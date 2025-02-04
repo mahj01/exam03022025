@@ -2,7 +2,7 @@
     <div class="container">
         <!-- En-tête -->
         <div class="header">
-            <h1>Tableau de Bord d'Élevage</h1>
+            <h1>Tableau de Bord</h1>
             <div>
                 <i class="fa fa-cow fa-2x"></i>
             </div>
@@ -12,7 +12,7 @@
         <div class="date-input">
             <input type="date" id="currentDate" value="2025-02-03">
             <button onclick="updateDashboard()">
-                <i class="fa fa-refresh"></i> Mettre à jour
+                <i class="fa fa-arrow-circle-o-up"></i> Mettre à jour
             </button>
         </div>
 

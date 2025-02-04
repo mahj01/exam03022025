@@ -16,6 +16,12 @@ class NourritureController {
         Flight::render('template', $data);
     }
 
+    public function goToAchatPage(){
+        $nourritures = Flight::nourritureModel()->getAllNourriture();
+        $data = ['page' => 'achat-nourriture-content', 'nourritures' => $nourritures];
+        Flight::render('template', $data);
+    }
+
     public function getAllNourriture()
     {
         $nourritures = Flight::nourritureModel()->getAllNourriture();
@@ -34,7 +40,7 @@ class NourritureController {
     public function goToAddPage()
     {
         $especes = Flight::especeModel()->getAllEspece();
-        $data = ['page' => 'ajout-nourriture-content', 'especes' => $especes];
+        $data = ['page' => 'ajout-nourriture', 'especes' => $especes];
         Flight::render('template', $data);
     }
 
@@ -56,7 +62,7 @@ class NourritureController {
             'pourcentageGain' => Flight::request()->data->pourcentageGain,
             'idEspece' => Flight::request()->data->idEspece
         ];
-        Flight::nourritureModel()->insert($data);
+        Flight::nourritureModel()->insert($data,'elevage_nourriture');
         Flight::redirect('/nourritures');
     }
 
@@ -64,5 +70,16 @@ class NourritureController {
     {
         Flight::nourritureModel()->markAsDeleted($id);
         Flight::redirect('/nourritures');
+    }
+
+    public function achatNourriture() {
+        $idNourriture = Flight::request()->data->idNourriture;
+        $Quantite = Flight::request()->data->Quantite;
+        $PrixUnitaire = Flight::request()->data->PrixUnitaire;
+        $DateAchat = Flight::request()->data->DateAchat;
+
+        Flight::transactionCaisseModel()->achatNourriture($idNourriture, $Quantite, $PrixUnitaire, $DateAchat);
+
+        Flight::redirect('/');
     }
 }

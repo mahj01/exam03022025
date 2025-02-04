@@ -4,7 +4,7 @@ use PDO;
 use Exception;
 class TransactionCaisseModel extends BaseModel
 {
-    private $db;
+  
     public function __construct($db)
     {
         parent::__construct($db);
@@ -73,10 +73,10 @@ class TransactionCaisseModel extends BaseModel
             $queryInsertAnimal = "INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal) 
                                   VALUES (:idEspece, :poidsInitial, :poidsActuel, :nomAnimal)";
             $stmtInsertAnimal = $this->db->prepare($queryInsertAnimal);
-            $stmtInsertAnimal->bindParam(':idEspece', $idEspece);
-            $stmtInsertAnimal->bindParam(':poidsInitial', $poidsInitial);
-            $stmtInsertAnimal->bindParam(':poidsActuel', $poidsActuel);
-            $stmtInsertAnimal->bindParam(':nomAnimal', $nomAnimal);
+            $stmtInsertAnimal->bindValue(':idEspece', $idEspece, PDO::PARAM_INT);
+            $stmtInsertAnimal->bindValue(':poidsInitial', (string)$poidsInitial);
+            $stmtInsertAnimal->bindValue(':poidsActuel', (string)$poidsActuel);
+            $stmtInsertAnimal->bindValue(':nomAnimal', $nomAnimal);
 
             if (!$stmtInsertAnimal->execute()) {
                 throw new Exception("Erreur lors de l'insertion dans la table elevage_Animal.");
@@ -89,9 +89,9 @@ class TransactionCaisseModel extends BaseModel
             $queryInsertHistoriqueAchat = "INSERT INTO elevage_HistoriqueAchatAnimal (idAnimal, dateAchat, montant) 
                                            VALUES (:idAnimal, :dateAchat, :montant)";
             $stmtInsertHistoriqueAchat = $this->db->prepare($queryInsertHistoriqueAchat);
-            $stmtInsertHistoriqueAchat->bindParam(':idAnimal', $idAnimal);
-            $stmtInsertHistoriqueAchat->bindParam(':dateAchat', $dateAchat);
-            $stmtInsertHistoriqueAchat->bindParam(':montant', $montantAchat);
+            $stmtInsertHistoriqueAchat->bindValue(':idAnimal', $idAnimal);
+            $stmtInsertHistoriqueAchat->bindValue(':dateAchat', $dateAchat);
+            $stmtInsertHistoriqueAchat->bindValue(':montant', (string)$montantAchat);
 
             if (!$stmtInsertHistoriqueAchat->execute()) {
                 throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueAchatAnimal.");
@@ -111,34 +111,19 @@ class TransactionCaisseModel extends BaseModel
     }
 
     // Méthode pour effectuer l'achat de nourriture
-    public function achatNourriture($pourcentageGain, $idEspece, $nomNourriture, $quantite, $prixUnitaire, $dateAchat) {
+    public function achatNourriture( $idNourriture, $quantite, $prixUnitaire, $dateAchat) {
         try {
             $this->db->beginTransaction();
-
-            // Insérer dans la table elevage_Nourriture
-            $queryInsertNourriture = "INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture) 
-                                      VALUES (:pourcentageGain, :idEspece, :nomNourriture)";
-            $stmtInsertNourriture = $this->db->prepare($queryInsertNourriture);
-            $stmtInsertNourriture->bindParam(':pourcentageGain', $pourcentageGain);
-            $stmtInsertNourriture->bindParam(':idEspece', $idEspece);
-            $stmtInsertNourriture->bindParam(':nomNourriture', $nomNourriture);
-
-            if (!$stmtInsertNourriture->execute()) {
-                throw new Exception("Erreur lors de l'insertion dans la table elevage_Nourriture.");
-            }
-
-            // Récupérer l'ID de la nourriture insérée
-            $idNourriture = $this->db->lastInsertId();
 
             // Insérer dans la table elevage_HistoriqueAchatNourriture
             $montantTotal = $quantite * $prixUnitaire; // Calcul du montant total
             $queryInsertHistoriqueAchatNourriture = "INSERT INTO elevage_HistoriqueAchatNourriture (dateAchat, quantite, idNourriture, prixUnitaire) 
                                                      VALUES (:dateAchat, :quantite, :idNourriture, :prixUnitaire)";
             $stmtInsertHistoriqueAchatNourriture = $this->db->prepare($queryInsertHistoriqueAchatNourriture);
-            $stmtInsertHistoriqueAchatNourriture->bindParam(':dateAchat', $dateAchat);
-            $stmtInsertHistoriqueAchatNourriture->bindParam(':quantite', $quantite);
-            $stmtInsertHistoriqueAchatNourriture->bindParam(':idNourriture', $idNourriture);
-            $stmtInsertHistoriqueAchatNourriture->bindParam(':prixUnitaire', $prixUnitaire);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':dateAchat', $dateAchat);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':quantite', $quantite);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':idNourriture', $idNourriture);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':prixUnitaire', $prixUnitaire);
 
             if (!$stmtInsertHistoriqueAchatNourriture->execute()) {
                 throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueAchatNourriture.");
@@ -166,9 +151,9 @@ class TransactionCaisseModel extends BaseModel
             $queryInsertHistoriqueVente = "INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant) 
                                            VALUES (:idAnimal, :dateVente, :montant)";
             $stmtInsertHistoriqueVente = $this->db->prepare($queryInsertHistoriqueVente);
-            $stmtInsertHistoriqueVente->bindParam(':idAnimal', $idAnimal);
-            $stmtInsertHistoriqueVente->bindParam(':dateVente', $dateVente);
-            $stmtInsertHistoriqueVente->bindParam(':montant', $montantVente);
+            $stmtInsertHistoriqueVente->bindValue(':idAnimal', $idAnimal);
+            $stmtInsertHistoriqueVente->bindValue(':dateVente', $dateVente);
+            $stmtInsertHistoriqueVente->bindValue(':montant', (string)$montantVente);
 
             if (!$stmtInsertHistoriqueVente->execute()) {
                 throw new Exception("Erreur lors de l'insertion dans la table elevage_HistoriqueVente.");
@@ -205,10 +190,10 @@ class TransactionCaisseModel extends BaseModel
             $queryInsertTransaction = "INSERT INTO elevage_TransactionCaisse (dateTransaction, typeId, montant, montantActuel) 
                                        VALUES (:dateTransaction, :typeId, :montant, :montantActuel)";
             $stmtInsertTransaction = $this->db->prepare($queryInsertTransaction);
-            $stmtInsertTransaction->bindParam(':dateTransaction', $dateTransaction);
-            $stmtInsertTransaction->bindParam(':typeId', $typeId);
-            $stmtInsertTransaction->bindParam(':montant', $montant);
-            $stmtInsertTransaction->bindParam(':montantActuel', $nouveauMontantActuel);
+            $stmtInsertTransaction->bindValue(':dateTransaction', $dateTransaction);
+            $stmtInsertTransaction->bindValue(':typeId', (string)$typeId);
+            $stmtInsertTransaction->bindValue(':montant', (string)$montant);
+            $stmtInsertTransaction->bindValue(':montantActuel', (string)$nouveauMontantActuel);
 
             if (!$stmtInsertTransaction->execute()) {
                 throw new Exception("Erreur lors de l'insertion dans la table elevage_TransactionCaisse.");
