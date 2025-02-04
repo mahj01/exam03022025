@@ -20,9 +20,10 @@ class AnimalController
         $NomAnimal = Flight::request()->data->NomAnimal;
         $Espece = Flight::request()->data->Espece;
         $Poids = Flight::request()->data->Poids;
+        $autovente =Flight::request()->data->Autovente;
         $Prix = Flight::especeModel()->getPrixUnitaire($Espece)['prixUnitaire'];
         $DateAchat = Flight::request()->data->DateAchat;
-        Flight::transactionCaisseModel()->achatAnimal($Espece, $Poids, $Poids, $NomAnimal,  $Prix, $DateAchat);
+        Flight::transactionCaisseModel()->achatAnimal($Espece, $Poids, $Poids, $NomAnimal,  $Prix, $DateAchat,$autovente);
         Flight::redirect('/');
     }
 }

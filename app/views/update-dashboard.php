@@ -12,7 +12,7 @@
         }
 
         $animals = Flight::animalModel()->getAnimalsByDate($date);
-
+        $animalVivants = count(Flight::animalModel()-> getAllAnimalsAlive());
         $animalData = [];
         foreach ($animals as $animal) {
             $espece = Flight::especeModel()->getEspeceById($animal['idEspece']);
@@ -32,7 +32,8 @@
 
         $response = [
             'montantActuel' => $montantActuel,
-            'animalData' => $animalData
+            'animalData' => $animalData,
+            'animalVivant' => $animalVivants
         ];
         //Flight::json($response);
         echo json_encode($response);
