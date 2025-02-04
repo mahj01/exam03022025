@@ -50,11 +50,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    
-                </tr>
-              
+                <?php foreach ($animalData as $animal): ?>
+                    <tr>
+                        <td><?= $animal['id'] ?></td>
+                        <td><?= $animal['NomAnimal'] ?></td>
+                        <td><?= $animal['Espece'] ?></td>
+                        <td><?= $animal['PoidsInitial'] ?></td>
+                        <td><?= $animal['PoidsActuel'] ?></td>
+                        <td><?= $animal['EstimationValeur'] ?></td>
+                        <td><?= $animal['PrixParKg'] ?></td>
+                        <td><?= $animal['JoursSansManger'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

@@ -4,7 +4,7 @@ use PDO;
 use Flight;
 class AnimalModel extends BaseModel
 {
-    private $db;
+  
     public function __construct($db)
     {
         parent::__construct($db);
@@ -186,24 +186,21 @@ class AnimalModel extends BaseModel
 
     public function isAlive($id){
         $sql = "SELECT id from elevage_AnimalDecede where idAnimal = ?";
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
         $stmt->execute();
         $stmt->fetch();
         return $stmt->rowCount();
     }
 
+    public function getAnimalsByDate($date) {
+        $sql = "SELECT ea.* FROM elevage_Animal ea 
+                LEFT JOIN elevage_HistoriqueAchatAnimal ehaa ON ea.id = ehaa.idAnimal 
+                WHERE ehaa.DateAchat <= :date OR ehaa.DateAchat IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':date', $date);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    
-
-
-
-    
-
-
-
-
-
-
-
-    
 }

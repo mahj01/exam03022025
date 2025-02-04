@@ -28,7 +28,32 @@ class ElevageController
         } else {
             $montantActuel = Flight::transactionCaisseModel()->getMontantActuel($date);
         }
-        $data = ['page' => 'dashboard', 'montantActuel' => $montantActuel];
+
+        $animals = Flight::animalModel()->getAnimalsByDate($date);
+        var_dump($animals);
+        $animalData = [];
+        foreach ($animals as $animal) {
+            $espece = Flight::especeModel()->getEspeceById($animal['idEspece']);
+            $poidsActuel = Flight::animalModel()->getPoidsActuel($animal['id']);
+            $estimationValeur = Flight::animalModel()->getEstimationValeur($animal['id'], $date);
+            $joursSansManger = Flight::animalModel()->getJoursSansManger($animal['id']);
+            $animalData[] = [
+                'id' => $animal['id'],
+                'NomAnimal' => $animal['NomAnimal'],
+                'Espece' => $espece['NomEspece'],
+                'PoidsInitial' => $animal['PoidsInitial'],
+                'PoidsActuel' => $poidsActuel,
+                'EstimationValeur' => $estimationValeur,
+                'PrixParKg' => $espece['PrixParKg'],
+                'JoursSansManger' => $joursSansManger
+            ];
+        }
+
+        $data = [
+            'page' => 'dashboard',
+            'montantActuel' => $montantActuel,
+            'animalData' => $animalData
+        ];
         Flight::render('template', $data);
     }
 
