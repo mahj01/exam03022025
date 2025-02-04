@@ -151,89 +151,41 @@ END $$
 
 DELIMITER ;
 -- Table Espece
-INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, quantite, prixUnitaire, NbJoursAvantDeMourir)
+INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, quantite, prixUnitaire, NbJoursAvantDeMourir, cheminImage)
 VALUES
-('Vache', 400.00, 800.00, 3.50, 0.10, 20, 2000, 365),
-('Mouton', 45.00, 100.00, 5.00, 0.05, 30, 1500, 180),
-('Poulet', 1.00, 5.00, 10.00, 0.02, 100, 30, 60);
+('Poulet', 1.50, 3.00, 5.00, 0.10, 100, 2, 30, 'poulet.jpg'),
+('Canard', 2.00, 4.00, 6.50, 0.15, 80, 3, 25, 'canard.jpg'),
+('Cochon', 50.00, 150.00, 4.00, 0.50, 50, 10, 60, 'cochon.jpg'),
+('Boeuf', 200.00, 500.00, 8.00, 1.00, 30, 20, 90, 'boeuf.jpg');
 
 -- Table Animal
-INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal)
+INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal, autoVente)
 VALUES
-(1, 450.00, 460.00, 'Vache1'),
-(2, 50.00, 55.00, 'Mouton1'),
-(3, 2.00, 2.50, 'Poulet1');
+(1, 1.60, 1.70, 'Poulet1', 0),
+(1, 1.55, 1.65, 'Poulet2', 1),
+(2, 2.10, 2.20, 'Canard1', 0),
+(2, 2.05, 2.15, 'Canard2', 1),
+(3, 60.00, 65.00, 'Cochon1', 0),
+(3, 55.00, 60.00, 'Cochon2', 1),
+(4, 250.00, 260.00, 'Boeuf1', 0),
+(4, 240.00, 250.00, 'Boeuf2', 1);
 
 -- Table Nourriture
 INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture, prixUnitaire)
 VALUES
-(20.00, 1, 'Herbe', 50),
-(15.00, 2, 'Foins', 30),
-(25.00, 3, 'Graines', 10);
+(0.20, 1, 'Grains de maïs', 1),
+(0.25, 1, 'Grains de blé', 2),
+(0.30, 2, 'Grains de riz', 3),
+(0.35, 2, 'Grains de soja', 4),
+(0.40, 3, 'Mélange pour cochons', 5),
+(0.45, 3, 'Aliments concentrés', 6),
+(0.50, 4, 'Foin', 7),
+(0.55, 4, 'Aliments pour bovins', 8);
 
--- Table HistoriqueAchatNourriture
-INSERT INTO elevage_HistoriqueAchatNourriture (dateAchat, quantite, idNourriture, prixUnitaire)
-VALUES
-('2025-02-01', 100.00, 1, 50),
-('2025-02-02', 50.00, 2, 30),
-('2025-02-03', 200.00, 3, 10);
-
--- Table HistoriqueAchatAnimal
-INSERT INTO elevage_HistoriqueAchatAnimal (idAnimal, dateAchat, montant)
-VALUES
-(1, '2025-01-15', 3000.00),
-(2, '2025-01-20', 1500.00),
-(3, '2025-02-05', 60.00);
-
--- Table HistoriqueVente
-INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant)
-VALUES
-(1, '2025-03-01', 3500.00),
-(2, '2025-03-10', 1700.00),
-(3, '2025-02-10', 80.00);
-
--- Table HistoriqueAlimentation
-INSERT INTO elevage_HistoriqueAlimentation (idAnimal, dateAlimentation, quantite, idNourriture)
-VALUES
-(1, '2025-02-01', 10.00, 1),
-(2, '2025-02-02', 5.00, 2),
-(3, '2025-02-03', 3.00, 3);
-
--- Table TypeTransaction
+--- Table TypeTransaction
 INSERT INTO elevage_TypeTransaction (nomType)
 VALUES
 ('Achat Animal'),
 ('Vente Animal'),
 ('Achat Nourriture'),
 ('Vente Nourriture');
-
--- Table TransactionCaisse
-INSERT INTO elevage_TransactionCaisse (dateTransaction, typeId, montant)
-VALUES
-('2025-01-10', 1, 3000.00),
-('2025-01-20', 2, 3500.00),
-('2025-02-01', 3, 500.00),
-('2025-02-05', 4, 80.00);
-
--- Table AnimalDecede
-INSERT INTO elevage_AnimalDecede (dateDeces, idAnimal)
-VALUES
-('2025-03-05', 2),
-('2025-03-15', 3);
-
--- Table HistoriquePoids
-INSERT INTO elevage_HistoriquePoids (idAnimal, poids, dateStockage)
-VALUES
-(1, 460.00, '2025-02-01'),
-(2, 55.00, '2025-02-02'),
-(3, 2.50, '2025-02-03');
-
--- Table EspeceSupprime
-INSERT INTO elevage_EspeceSupprime (idEspece)
-VALUES
-(3); -- Supposons que l'espèce Poulet ait été supprimée
-
--- Table NourritureSupprime
-INSERT INTO elevage_NourritureSupprime (idNourriture)
-VALUES
-(3); -- Supposons que la nourriture Graines ait été supprimée
