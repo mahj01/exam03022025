@@ -44,6 +44,7 @@ class EspeceModel extends BaseModel{
         $sql = "SELECT PrixParKg from elevage_Espece where id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
@@ -51,6 +52,7 @@ class EspeceModel extends BaseModel{
         $sql = "SELECT quantite from elevage_Espece where id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
+        $stmt->execute();
         return $stmt->fetch();
     }
 

@@ -35,6 +35,7 @@ class NourritureModel extends BaseModel
         group by HAN.idNourriture";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
@@ -42,6 +43,7 @@ class NourritureModel extends BaseModel
         $sql = "SELECT pourcentageGAin from elevage_Nourriture where id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
+        $stmt->execute();
         return $stmt->fetch();
     }
 

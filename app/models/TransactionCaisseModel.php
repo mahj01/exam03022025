@@ -62,7 +62,6 @@ class TransactionCaisseModel extends BaseModel
         $pourcentageNourriture = ($depenseNourriture/$depenseTotal)*100;
         $pourcentageAchatAnimal = ($depenseAchatAnimal/$depenseTotal)*100;
         return ["achatNourriture" => $pourcentageNourriture, "achatAnimal" => $pourcentageAchatAnimal];
-
     }
 
     public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat) {
