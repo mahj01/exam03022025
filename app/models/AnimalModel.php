@@ -95,7 +95,7 @@ class AnimalModel extends BaseModel
 
     public function nourrir($idAnimal,$idNourriture,$dateAlim){
         $especeId = $this->getEspece($idAnimal)["idEspece"];
-        $qteJournaliere = Flight::especeModel()->getQteJournaliereById($especeId);
+        $qteJournaliere = Flight::especeModel()->getQteJournaliereById($especeId)['quantite'];
         $stock = Flight::nourritureModel()->stockNourritureById($idNourriture)["qte_restant"];
         if(0==0){
             $sql1 = "INSERT INTO elevage_HistoriqueAlimentation (idAnimal,dateAlimentation,quantite,idNourriture) values (?,?,?,?)"; 
