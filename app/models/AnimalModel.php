@@ -13,6 +13,7 @@ class AnimalModel extends BaseModel
     public function getDeadCount(){
         $sql = "SELECT count(*) nbMorts from elevage_AnimalDecede";
         $stmt = $this->db->query($sql);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
@@ -20,6 +21,8 @@ class AnimalModel extends BaseModel
         $sql = "SELECT idEspece from eleve_Animal where id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -27,6 +30,8 @@ class AnimalModel extends BaseModel
         $sql = "SELECT count(*) nbMorts from elevage_AnimalDecede where dateDeces <= ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$date);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -34,6 +39,8 @@ class AnimalModel extends BaseModel
         $sql = "select dateAlimentation from elevage_HistoriqueAlimentation where idAnimal=?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -60,6 +67,8 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);    
         $stmt->bindValue(1,$idAnimal);
         $stmt->bindValue(2,$date);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -75,6 +84,8 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
         $stmt->bindValue(2,$date);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -113,7 +124,7 @@ class AnimalModel extends BaseModel
     }
 
     public function getAllAnimalsAlive(){
-        $sql = "SELECT idAnimal from elevage_Animal not in (SELECT idAnimal from elevage_AnimalDecede)";
+        $sql = "SELECT idAnimal,ABS(PoidsActuel-(SELECT PoidsMinVente from elevage_Espece EE where EE.id =  )) from elevage_Animal EA not in (SELECT idAnimal from elevage_AnimalDecede)";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute()->fetchAll();
 
