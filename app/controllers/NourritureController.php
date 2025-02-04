@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\NourritureModel;
+
 use Flight;
 
-class NourritureController {
-    public function __construct()
-    {
-    }
+class NourritureController
+{
+    public function __construct() {}
 
     public function stockNourriture()
     {
@@ -16,7 +17,8 @@ class NourritureController {
         Flight::render('template', $data);
     }
 
-    public function goToAchatPage(){
+    public function goToAchatPage()
+    {
         $nourritures = Flight::nourritureModel()->getAllNourriture();
         $data = ['page' => 'achat-nourriture-content', 'nourritures' => $nourritures];
         Flight::render('template', $data);
@@ -61,9 +63,9 @@ class NourritureController {
             'NomNourriture' => Flight::request()->data->NomNourriture,
             'pourcentageGain' => Flight::request()->data->pourcentageGain,
             'idEspece' => Flight::request()->data->idEspece,
-            'prixUnitaire'=>$_POST['prixUnitaire']
+            'prixUnitaire' => $_POST['prixUnitaire']
         ];
-        Flight::nourritureModel()->insert($data,'elevage_nourriture');
+        Flight::nourritureModel()->insert($data, 'elevage_nourriture');
         Flight::redirect('/nourritures');
     }
 
@@ -73,10 +75,11 @@ class NourritureController {
         Flight::redirect('/nourritures');
     }
 
-    public function achatNourriture() {
+    public function achatNourriture()
+    {
         $idNourriture = Flight::request()->data->idNourriture;
         $Quantite = Flight::request()->data->Quantite;
-        $PrixUnitaire = Flight::request()->data->PrixUnitaire;
+        $PrixUnitaire = Flight::nourritureModel()->getPrixUnitaire($idNourriture)['prixUnitaire'];
         $DateAchat = Flight::request()->data->DateAchat;
 
         Flight::transactionCaisseModel()->achatNourriture($idNourriture, $Quantite, $PrixUnitaire, $DateAchat);

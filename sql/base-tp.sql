@@ -136,72 +136,102 @@ CREATE TABLE elevage_NourritureSupprime(
 );
 
 
+DELIMITER $$
 
 CREATE TRIGGER updateApresNourrir
-AFTER INSERT
-ON elevage_HistoriquePoids
+AFTER INSERT ON elevage_HistoriquePoids
 FOR EACH ROW
 BEGIN
     UPDATE elevage_Animal
     SET PoidsActuel = NEW.poids
     WHERE id = NEW.idAnimal;
-END;
+END $$
 
-INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, NbJoursAvantDeMourir) VALUES
-('Boeuf', 300.00, 500.00, 10.50, 0.50, 30),
-('Poulet', 1.50, 3.00, 5.00, 0.10, 10),
-('Porc', 100.00, 200.00, 8.00, 0.30, 20);
+DELIMITER ;
+-- Table Espece
+INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, quantite, prixUnitaire, NbJoursAvantDeMourir)
+VALUES
+('Vache', 400.00, 800.00, 3.50, 0.10, 20, 2000, 365),
+('Mouton', 45.00, 100.00, 5.00, 0.05, 30, 1500, 180),
+('Poulet', 1.00, 5.00, 10.00, 0.02, 100, 30, 60);
 
-INSERT INTO elevage_Animal (idEspece, PoidsInitial, NomAnimal) VALUES
-(1, 320.00, 'Bessie'),
-(2, 1.80, 'Poulet1'),
-(3, 120.00, 'Porc1'),
-(1, 350.00, 'Bella'),
-(2, 2.00, 'Poulet2');
+-- Table Animal
+INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal)
+VALUES
+(1, 450.00, 460.00, 'Vache1'),
+(2, 50.00, 55.00, 'Mouton1'),
+(3, 2.00, 2.50, 'Poulet1');
 
-INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture) VALUES
-(5.00, 1, 'Foin'),
-(3.00, 2, 'Grains'),
-(4.00, 3, 'Mais'),
-(6.00, 1, 'Aliment concentre');
+-- Table Nourriture
+INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture, prixUnitaire)
+VALUES
+(20.00, 1, 'Herbe', 50),
+(15.00, 2, 'Foins', 30),
+(25.00, 3, 'Graines', 10);
 
-INSERT INTO elevage_HistoriqueAchatNourriture (dateAchat, quantite, idNourriture, prixUnitaire) VALUES
-('2023-10-01', 100.00, 1, 2.50),
-('2023-10-02', 50.00, 2, 1.00),
-('2023-10-03', 200.00, 3, 1.20),
-('2023-10-04', 150.00, 4, 3.00);
+-- Table HistoriqueAchatNourriture
+INSERT INTO elevage_HistoriqueAchatNourriture (dateAchat, quantite, idNourriture, prixUnitaire)
+VALUES
+('2025-02-01', 100.00, 1, 50),
+('2025-02-02', 50.00, 2, 30),
+('2025-02-03', 200.00, 3, 10);
 
-INSERT INTO elevage_HistoriqueAchatAnimal (idAnimal, dateAchat, montant) VALUES
-(1, '2023-09-25', 500.00),
-(2, '2023-09-26', 10.00),
-(3, '2023-09-27', 200.00),
-(4, '2023-09-28', 550.00),
-(5, '2023-09-29', 12.00);
+-- Table HistoriqueAchatAnimal
+INSERT INTO elevage_HistoriqueAchatAnimal (idAnimal, dateAchat, montant)
+VALUES
+(1, '2025-01-15', 3000.00),
+(2, '2025-01-20', 1500.00),
+(3, '2025-02-05', 60.00);
 
-INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant) VALUES
-(1, '2023-10-10', 800.00),
-(2, '2023-10-11', 15.00),
-(3, '2023-10-12', 300.00);
+-- Table HistoriqueVente
+INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant)
+VALUES
+(1, '2025-03-01', 3500.00),
+(2, '2025-03-10', 1700.00),
+(3, '2025-02-10', 80.00);
 
-INSERT INTO elevage_HistoriqueAlimentation (idAnimal, dateAlimentation, quantite, idNourriture) VALUES
-(1, '2023-10-01', 10.00, 1),
-(2, '2023-10-02', 2.00, 2),
-(3, '2023-10-03', 5.00, 3),
-(4, '2023-10-04', 8.00, 4),
-(5, '2023-10-05', 1.50, 2);
+-- Table HistoriqueAlimentation
+INSERT INTO elevage_HistoriqueAlimentation (idAnimal, dateAlimentation, quantite, idNourriture)
+VALUES
+(1, '2025-02-01', 10.00, 1),
+(2, '2025-02-02', 5.00, 2),
+(3, '2025-02-03', 3.00, 3);
 
-INSERT INTO elevage_TypeTransaction (nomType) VALUES
-('Achat Nourriture'),
+-- Table TypeTransaction
+INSERT INTO elevage_TypeTransaction (nomType)
+VALUES
 ('Achat Animal'),
 ('Vente Animal'),
-('Depot argent'),
-('Autre');
+('Achat Nourriture'),
+('Vente Nourriture');
 
-INSERT INTO elevage_TransactionCaisse (dateTransaction, typeId, montant) VALUES
-('2023-10-01', 1, 250.00),
-('2023-10-02', 2, 500.00),
-('2023-10-03', 3, 800.00),
-('2023-10-04', 4, 100.00);
+-- Table TransactionCaisse
+INSERT INTO elevage_TransactionCaisse (dateTransaction, typeId, montant)
+VALUES
+('2025-01-10', 1, 3000.00),
+('2025-01-20', 2, 3500.00),
+('2025-02-01', 3, 500.00),
+('2025-02-05', 4, 80.00);
 
-INSERT INTO elevage_AnimalDecede (dateDeces, idAnimal) VALUES
-('2023-10-05', 5);
+-- Table AnimalDecede
+INSERT INTO elevage_AnimalDecede (dateDeces, idAnimal)
+VALUES
+('2025-03-05', 2),
+('2025-03-15', 3);
+
+-- Table HistoriquePoids
+INSERT INTO elevage_HistoriquePoids (idAnimal, poids, dateStockage)
+VALUES
+(1, 460.00, '2025-02-01'),
+(2, 55.00, '2025-02-02'),
+(3, 2.50, '2025-02-03');
+
+-- Table EspeceSupprime
+INSERT INTO elevage_EspeceSupprime (idEspece)
+VALUES
+(3); -- Supposons que l'espèce Poulet ait été supprimée
+
+-- Table NourritureSupprime
+INSERT INTO elevage_NourritureSupprime (idNourriture)
+VALUES
+(3); -- Supposons que la nourriture Graines ait été supprimée

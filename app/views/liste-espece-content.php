@@ -12,6 +12,7 @@
             <th>PoidsMinVente</th>
             <th>PoidsMax</th>
             <th>PrixParKg</th>
+            <th>Prix unitaire</th>
             <th>NbJoursAvantDeMourir</th>
             <th>Actions</th>
         </tr>
@@ -26,6 +27,7 @@
                 <td><?= $espece['PoidsMinVente'] ?></td>
                 <td><?= $espece['PoidsMax'] ?></td>
                 <td><?= $espece['PrixParKg'] ?></td>
+                <td><?= $espece['prixUnitaire'] ?></td>
                 <td><?= $espece['NbJoursAvantDeMourir'] ?></td>
                 <td>
                     <a href="<?= $url ?>/especes/edit/<?= $espece['id'] ?>" class="icon-link" title="Modifier">

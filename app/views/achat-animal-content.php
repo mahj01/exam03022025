@@ -24,11 +24,11 @@
         <input type="number" name="Poids" required><br>
     </div>
 
-    <div class="input-container">
+    <!-- <div class="input-container">
         <i class="fa fa-dollar-sign"></i>
         <label for="Prix">Prix</label>
         <input type="number" name="Prix" required><br>
-    </div>
+    </div> -->
 
     <div class="input-container">
         <i class="fa fa-calendar"></i>

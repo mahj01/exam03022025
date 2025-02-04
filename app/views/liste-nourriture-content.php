@@ -11,6 +11,7 @@
             <th>ID</th>
             <th>Nom</th>
             <th>Pourcentage Gain</th>
+            <th>Prix unitaire</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -20,6 +21,7 @@
                 <td><?= $nourriture['id'] ?></td>
                 <td><?= $nourriture['NomNourriture'] ?></td>
                 <td><?= $nourriture['pourcentageGain'] ?></td>
+                <td><?= $nourriture['prixUnitaire'] ?></td>
                 <td>
                     <a href="<?= $url ?>/nourritures/edit/<?= $nourriture['id'] ?>" class="icon-link" title="Modifier">
                         <i class="fa fa-edit"></i>

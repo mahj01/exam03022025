@@ -18,11 +18,11 @@
         <input type="number" name="Quantite" required><br>
     </div>
 
-    <div class="input-container">
+    <!-- <div class="input-container">
         <i class="fa fa-dollar-sign"></i>
         <label for="PrixUnitaire">Prix unitaire</label>
         <input type="number" name="PrixUnitaire" required><br>
-    </div>
+    </div> -->
 
     <div class="input-container">
         <i class="fa fa-calendar"></i>
