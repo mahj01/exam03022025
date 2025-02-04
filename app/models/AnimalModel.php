@@ -87,7 +87,7 @@ class AnimalModel extends BaseModel
             $stmt = $this->db->prepare($sql1);
             $stmt->bindValue(1,$idAnimal);
             $stmt->bindValue(2,$dateAlim);
-            $stmt->bindValue(3,$quantite);
+            $stmt->bindValue(3,$qteJournaliere);
             $stmt->bindValue(4,$idNourriture);
             $stmt->execute();
 
@@ -120,13 +120,13 @@ class AnimalModel extends BaseModel
     }
 
     public function simuler($date){
-        $dateDepart = null;
+        $dateDepart = new \DateTime();
         $listeAnimaux = $this->getAllAnimalsAlive();
         while($dateDepart<=$date){
             for($i=0;$i<count($listeAnimaux);$i++){
                 $idAnimal = $listeAnimaux[$i]["idAnimal"];
                 $idNourriture = $this->getNourriture($idAnimal);
-                $this->nourrir($idAnimal,$idNourriture,$dateAlim);
+                $this->nourrir($idAnimal,$idNourriture,$dateDepart);
             }
             $dateDepart->modify("+1 day");
         }
@@ -157,7 +157,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idEspece);
         $rs = $stmt->execute()->fetchAll();
         for($i=0; $i<count($rs);$i++){
-            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"]);
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date);
         }
         return $somme;
 
