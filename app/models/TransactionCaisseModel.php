@@ -89,8 +89,8 @@ class TransactionCaisseModel extends BaseModel
             $stmtInsertAnimal->bindValue(':idEspece', $idEspece, PDO::PARAM_INT);
             $stmtInsertAnimal->bindValue(':poidsInitial', (string)$poidsInitial);
             $stmtInsertAnimal->bindValue(':poidsActuel', (string)$poidsActuel);
-            $stmtInsertAnimal->bindValue(':nomAnimal', $nomAnimal);
-            $stmtInsertAnimal->bindValue(':autoVente', $autoVente);
+            $stmtInsertAnimal->bindValue(':nomAnimal', (string)$nomAnimal);
+            $stmtInsertAnimal->bindValue(':autoVente', (string)$autoVente);
 
 
             $stmtInsertAnimal->execute();

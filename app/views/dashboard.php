@@ -26,7 +26,7 @@
                 </div>
                 <div class="stat-card">
                     <i class="fa fa-archive icon"></i>
-                    <div class="value" id="totalAnimals">5</div>
+                    <div class="value" id="totalAnimals"><?= $animalVivant ?></div>
                     <div>Nombre d'Animaux</div>
                 </div>
                 <!-- <div class="stat-card">
@@ -91,6 +91,7 @@
                         tableBody.appendChild(row);
                     });
                     document.querySelector('#montantActuel').innerText = response.montantActuel;
+                    document.querySelector('#totalAnimals').innerText = response.animalVivant;
                 }
             };
             xhr.send('date=' + encodeURIComponent(date));
