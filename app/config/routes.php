@@ -2,10 +2,12 @@
 use app\controllers\AnimalController;
 use app\controllers\NourritureController;
 use app\controllers\EspeceController;
+use app\controllers\ElevageController;
 
 $animalController = new AnimalController();
 $nourritureController = new NourritureController();
 $especeController = new EspeceController();
+$elevageController = new ElevageController();
 
 // Antonio route
 $router->get('/',function () {
@@ -49,3 +51,8 @@ $router->get('/nourritures/achatNourritures', [$nourritureController, 'goToAchat
 $router->get('/nourritures/achat', [$nourritureController, 'goToAchatPage']);
 $router->post('/nourritures/traitementAchat', [$nourritureController, 'achatNourriture']);
 //FIN ACHAT NOURRITURE
+
+
+//REINITIALISER
+$router->get('/reinitialiser', [$elevageController, 'reinitialiser']);
+//FIN REINIT
