@@ -170,6 +170,7 @@ VALUES
 (4, 250.00, 260.00, 'Boeuf1', 0),
 (4, 240.00, 250.00, 'Boeuf2', 1);
 
+
 -- Table Nourriture
 INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture, prixUnitaire)
 VALUES
