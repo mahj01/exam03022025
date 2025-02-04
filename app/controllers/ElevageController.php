@@ -20,8 +20,11 @@ class ElevageController
     public function dashboard() {
         $date = '2025-02-03';
         $transactions = Flight::transactionCaisseModel()->getTransactionsByDate($date);
+        
         if (count($transactions) === 1 && $transactions[0]['typeId'] === 4) {
             $montantActuel = $transactions[0]['montant'];
+        } elseif (count($transactions) > 1) {
+            $montantActuel = end($transactions)['montantActuel'];
         } else {
             $montantActuel = Flight::transactionCaisseModel()->getMontantActuel($date);
         }
@@ -42,7 +45,7 @@ class ElevageController
             'dateTransaction' => $date,
             'typeId' => 4
         ];
-        Flight::transactionCaisseModel()->insert($data, 'elevage_TransactionCaisse');
+        Flight::transactionCaisseModel()->insertCapital($data);
         Flight::redirect('/dashboard');
     }
 }
