@@ -53,4 +53,11 @@ class EspeceModel extends BaseModel{
         $stmt->bindValue(1,$id);
         return $stmt->fetch();
     }
+
+    public function getPrixUnitaire($id){
+        $sql = "SELECT prixUnitaire from elevage_Espece where id = ?";
+        $stmt = $this->$db->prepare($sql);
+        $stmt->bindValue(1,$id);
+        return $stmt->fetch();
+    }
 }

@@ -24,6 +24,8 @@ CREATE TABLE elevage_Espece (
     PoidsMax DECIMAL(10, 2),
     PrixParKg DECIMAL(10, 2),
     PerteParJour DECIMAL(10, 2),
+    quantite int,
+    prixUnitaire int,
     NbJoursAvantDeMourir INT
 );
 
@@ -43,6 +45,7 @@ CREATE TABLE elevage_Nourriture (
     pourcentageGain DECIMAL(5, 2),
     idEspece INT,
     NomNourriture VARCHAR(255),
+    prixUnitaire int,
     FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
 );
 
@@ -132,13 +135,7 @@ CREATE TABLE elevage_NourritureSupprime(
     FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
 );
 
-CREATE TABLE elevage_HistoriqueStock(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    idNourriture int,
-    quantite int,
-    dateAjout DATE,
-    FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
-);
+
 
 CREATE TRIGGER updateApresNourrir
 AFTER INSERT
