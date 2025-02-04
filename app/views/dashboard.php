@@ -1,3 +1,4 @@
+
 <body>
     <div class="container">
         <!-- En-tête -->
@@ -15,7 +16,7 @@
                 <i class="fa fa-arrow-circle-o-up"></i> Mettre à jour
             </button>
         </div>
-
+    
         <div id="dashboard-content">
             <!-- Existing dashboard content goes here -->
             <div class="stats-grid">
@@ -111,8 +112,8 @@
 
         .modal-content img {
             border-radius: 10px;
-            max-width: 100%;
-            height: auto;
+            max-width: 100px; /* Limit the width */
+            max-height: 100px; /* Limit the height */
         }
 
         .modal-content .animal-info {
@@ -136,6 +137,7 @@
     <script>
         function updateDashboard() {
             var date = document.getElementById('currentDate').value;
+            <?php Flight::animalModel()->simuler($date); ?>
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'update-dashboard', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -171,7 +173,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var animal = JSON.parse(xhr.responseText);
                     var modalContent = `
-                        <img src="<?= $url ?>/public/assets/images/${animal.image}" alt="${animal.NomAnimal}">
+                        <img src="<?= $url ?>/public/assets/images/1.jpg">
                         <div class="animal-info">
                             <ul>
                                 <li><strong>Nom:</strong> ${animal.NomAnimal}</li>

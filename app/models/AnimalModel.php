@@ -19,9 +19,9 @@ class AnimalModel extends BaseModel
     }
 
     public function getEspece($id){
-        $sql = "SELECT idEspece from eleve_Animal where id = ?";
+        $sql = "SELECT idEspece from elevage_Animal where id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1,(string)$id);
         $stmt->execute();
         return $stmt->fetch();
     }
@@ -62,7 +62,7 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,(string)$idAnimal);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetch()["PoidsActuel"];
     }
 
     public function getAlimentation($idAnimal,$date){
@@ -72,7 +72,6 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(2,$date);
         $stmt->execute();
 
-        return $stmt->fetch();
     }
 
     public function getPerteParJour($idAnimal){
@@ -95,14 +94,14 @@ class AnimalModel extends BaseModel
 
     public function nourrir($idAnimal,$idNourriture,$dateAlim){
         $especeId = $this->getEspece($idAnimal)["idEspece"];
-        $qteJournaliere = Flight::especeModel()->getQteJournaliereById($especeId);
-        $stock = Flight::nourritureModel()->stockNourritureById($idNourriture)["qte_restant"];
-        if(0==0){
+        $qteJournaliere = Flight::especeModel()->getQteJournaliereById($especeId)['quantite'];
+        $stock = Flight::nourritureModel()->stockNourritureById($idNourriture);
+        if($stock>=$qteJournaliere){
             $sql1 = "INSERT INTO elevage_HistoriqueAlimentation (idAnimal,dateAlimentation,quantite,idNourriture) values (?,?,?,?)"; 
             $stmt1 = $this->db->prepare($sql1);
             $stmt1->bindValue(1,$idAnimal);
             $stmt1->bindValue(2,$dateAlim);
-            $stmt1->bindValue(3,$qteJournaliere);
+            $stmt1->bindValue(3,(string)$qteJournaliere);
             $stmt1->bindValue(4,$idNourriture);
             $stmt1->execute();
 
@@ -111,7 +110,7 @@ class AnimalModel extends BaseModel
             $newPoids = $poidsActuel*(1+Flight::nourritureModel()->getGain($idNourriture)/100);
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(1,$idAnimal);
-            $stmt->bindValue(2,$newPoids);
+            $stmt->bindValue(2,(string)$newPoids);
             $stmt->execute();
         }else{
             $this->skipNourrir($idAnimal,$idNourriture);
@@ -123,8 +122,9 @@ class AnimalModel extends BaseModel
         $idEspece = $this->getEspece($idAnimal)["idEspece"];
         $sql = "SELECT id FROM elevage_Nourriture where idEspece = ? limit 1";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$idEspece);
-        return $stmt->execute()->fetch();
+        $stmt->bindValue(1,(string)$idEspece);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 
     public function getAllAnimalsAlive(){
@@ -136,6 +136,7 @@ class AnimalModel extends BaseModel
 
     public function simuler($date){
         $dateDepart = new DateTime("2025-02-03");
+        $dateDepartStr = $dateDepart->format("Y-m-d");
         $dateFin = new DateTime($date);
         $dateFin->format("Y-m-d");
         $listeAnimaux = $this->getAllAnimalsAlive();
@@ -143,7 +144,9 @@ class AnimalModel extends BaseModel
             for($i=0;$i<count($listeAnimaux);$i++){
                 $idAnimal = $listeAnimaux[$i]["idAnimal"];
                 $idNourriture = $this->getNourriture($idAnimal)["id"];
-                $this->nourrir($idAnimal,$idNourriture,$dateDepart);
+                $dateDepartStr = $dateDepart->format("Y-m-d");
+
+                $this->nourrir($idAnimal,$idNourriture,$dateDepartStr);
             }
             $dateDepart->modify("+1 day");
         }
