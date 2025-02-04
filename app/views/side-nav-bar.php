@@ -20,9 +20,9 @@
             </a>
         </li>
         <li>
-            <a href="#animals">
+            <a href="<?= $url ?>/animaux/achatAnimal">
                 <i class="fa fa-paw"></i>
-                Mes Animaux
+                Achat d'animal
             </a>
         </li>
         <li>
