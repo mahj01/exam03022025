@@ -180,7 +180,16 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$date);
         $stmt->bindValue(2,$idAnimal);
+        $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    public function isAlive($id){
+        $sql = "SELECT id from elevage_AnimalDecede where idAnimal = ?";
+        $stmt->bindValue(1,$id);
+        $stmt->execute();
+        $stmt->fetch();
+        return $stmt->rowCount();
     }
 
 

@@ -146,6 +146,9 @@ class TransactionCaisseModel extends BaseModel
     // Méthode pour effectuer la vente d'un animal
     public function venteAnimal($idAnimal, $montantVente, $dateVente) {
         try {
+            if(Flight::animalModel()->isAlive($idAnimal)>0){
+                return false;
+            }
 
             // Insérer dans la table elevage_HistoriqueVente
             $queryInsertHistoriqueVente = "INSERT INTO elevage_HistoriqueVente (idAnimal, dateVente, montant) 
