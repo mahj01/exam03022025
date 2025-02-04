@@ -6,7 +6,7 @@ use PDO;
 
 class NourritureModel extends BaseModel
 {
-    
+
     public function __construct($db)
     {
         parent::__construct($db);
@@ -22,12 +22,11 @@ class NourritureModel extends BaseModel
                 on EN.id = HAN.idNourriture
                 group by HAN.idNourriture";
         $stmt = $this->db->query($sql);
-        $stmt->execute();
-
         return $stmt->fetchAll();
     }
 
-    public function stockNourritureById($id){
+    public function stockNourritureById($id)
+    {
         $sql = "SELECT HAN.idNourriture id, EN.NomNourriture nom,sum(HAN.quantite)-sum(coalesce(HA.quantite,0)) qte_restant
         from elevage_HistoriqueAchatNourriture HAN
         left join elevage_HistoriqueAlimentation HA
@@ -36,15 +35,16 @@ class NourritureModel extends BaseModel
         on EN.id = HAN.idNourriture where id = ?
         group by HAN.idNourriture";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
         return $stmt->fetch();
     }
 
-    public function getGain($id){
+    public function getGain($id)
+    {
         $sql = "SELECT pourcentageGAin from elevage_Nourriture where id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
         return $stmt->fetch();
     }
@@ -75,10 +75,11 @@ class NourritureModel extends BaseModel
         return $this->insert($data, 'elevage_NourritureSupprime');
     }
 
-    public function getPrixUnitaire($id){
+    public function getPrixUnitaire($id)
+    {
         $sql = "SELECT prixUnitaire from elevage_Nourriture where id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
         return $stmt->fetch();
     }

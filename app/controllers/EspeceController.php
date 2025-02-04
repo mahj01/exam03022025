@@ -44,13 +44,19 @@ class EspeceController
 
     public function addEspece()
     {
+        $imgError = Flight::uploadModel()->checkError($_FILES['photo']);
+        if ($imgError!=0) {
+            Flight::redirect('/especes/add/?uploadImmgError='.$imgError);
+        }
+        $imageChemin = Flight::uploadModel()->uploadImg($_FILES['photo']);
         $data = [
             'NomEspece' => Flight::request()->data->NomEspece,
             'PoidsMinVente' => Flight::request()->data->PoidsMinVente,
             'PoidsMax' => Flight::request()->data->PoidsMax,
             'PrixParKg' => Flight::request()->data->PrixParKg,
             'NbJoursAvantDeMourir' => Flight::request()->data->NbJoursAvantDeMourir,
-            'prixUnitaire' => $_POST['prixUnitaire']
+            'prixUnitaire' => $_POST['prixUnitaire'],
+            'cheminImage'=>$imageChemin
         ];
         Flight::especeModel()->addEspece($data);
         Flight::redirect('/especes');

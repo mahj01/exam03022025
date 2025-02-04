@@ -151,12 +151,12 @@ END $$
 
 DELIMITER ;
 -- Table Espece
-INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, quantite, prixUnitaire, NbJoursAvantDeMourir, cheminImage)
+INSERT INTO elevage_Espece (NomEspece, PoidsMinVente, PoidsMax, PrixParKg, PerteParJour, quantite, prixUnitaire, NbJoursAvantDeMourir)
 VALUES
-('Poulet', 1.50, 3.00, 5.00, 0.10, 100, 2, 30, 'poulet.jpg'),
-('Canard', 2.00, 4.00, 6.50, 0.15, 80, 3, 25, 'canard.jpg'),
-('Cochon', 50.00, 150.00, 4.00, 0.50, 50, 10, 60, 'cochon.jpg'),
-('Boeuf', 200.00, 500.00, 8.00, 1.00, 30, 20, 90, 'boeuf.jpg');
+('Poulet', 1.50, 3.00, 5.00, 0.10, 100, 2, 30),
+('Canard', 2.00, 4.00, 6.50, 0.15, 80, 3, 25),
+('Cochon', 50.00, 150.00, 4.00, 0.50, 50, 10, 60),
+('Boeuf', 200.00, 500.00, 8.00, 1.00, 30, 20, 90);
 
 -- Table Animal
 INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal, autoVente)

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi d'Élevage - Navigation</title>
+    <!-- Font Awesome 4 -->
+    <link rel="stylesheet" href="/exam03022025/public/assets/css/template.css">
+    <link rel="stylesheet" href="/exam03022025/public/assets/css/styles.css">
+    <link rel="stylesheet" href="/exam03022025/public/assets/css/liste-espece-content.css">
+    <link rel="stylesheet" href="/exam03022025/public/assets/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Élevage</h2>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+
+    <ul class="nav-menu">
+        <li>
+            <a href="/exam03022025/dashboard">
+                <i class="fa fa-dashboard"></i>
+                Tableau de Bord
+            </a>
+        </li>
+        <li>
+            <a href="/exam03022025/especes">
+                <i class="fa fa-leaf"></i>
+                Especes
+            </a>
+        </li>
+        <li>
+            <a href="#animals">
+                <i class="fa fa-paw"></i>
+                Mes Animaux
+            </a>
+        </li>
+        <li>
+            <a href="/exam03022025/nourritures">
+                <i class="fa fa-cutlery"></i>
+                Nourritures
+            </a>
+        </li>
+        <li>
+            <a href="/exam03022025/stock-nourriture">
+                <i class="fa fa-archive"></i>
+                Stock Alimentaire
+            </a>
+        </li>
+        <li>
+            <a href="#finances">
+                <i class="fa fa-money"></i>
+                Finances
+            </a>
+        </li>
+        <li>
+            <a href="#health">
+                <i class="fa fa-medkit"></i>
+                Santé Animale
+            </a>
+        </li>
+    </ul>
+</nav>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <div class="conteneur">
+                <a href="/exam03022025/reinitialisation" class="icon-link-refresh" title="Réinitialiser les données">
+                    <i class="fa fa-refresh"></i> <!-- Correction de l'icône, "fa-reset" n'existe pas, "fa-refresh" pour réinitialiser -->
+                    Réinitialiser les données
+                </a>
+            </div>
+            <div class="header" style="margin-bottom: 10px;">
+    <h1><i class="fa fa-list"></i> Liste des espèces</h1>
+</div>
+<a href="/exam03022025/especes/add" class="icon-link" title="Modifier">
+    <i class="fa fa-plus"></i>
+    Ajout espece
+</a>
+<table border="1" id="datatablesSimple">
+    <thead>
+        <tr>
+            <th>NomEspece</th>
+            <th>PoidsMinVente</th>
+            <th>PoidsMax</th>
+            <th>PrixParKg</th>
+            <th>NbJoursAvantDeMourir</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+                            <tr>
+                <td>Boeuf</td>
+                <td>300.00</td>
+                <td>500.00</td>
+                <td>10.50</td>
+                <td>333</td>
+                <td>
+                    <a href="/exam03022025/especes/edit/1" class="icon-link" title="Modifier">
+                        <i class="fa fa-edit"></i>
+                    </a>
+
+                    <a href="#" onclick="showConfirmDialog(1,/exam03022025)" class="icon-link" title="Supprimer">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+                    <tr>
+                <td>Poulet</td>
+                <td>1.50</td>
+                <td>3.00</td>
+                <td>5.00</td>
+                <td>10</td>
+                <td>
+                    <a href="/exam03022025/especes/edit/2" class="icon-link" title="Modifier">
+                        <i class="fa fa-edit"></i>
+                    </a>
+
+                    <a href="#" onclick="showConfirmDialog(2,/exam03022025)" class="icon-link" title="Supprimer">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+                    <tr>
+                <td>Porc</td>
+                <td>100.00</td>
+                <td>200.00</td>
+                <td>8.00</td>
+                <td>20</td>
+                <td>
+                    <a href="/exam03022025/especes/edit/3" class="icon-link" title="Modifier">
+                        <i class="fa fa-edit"></i>
+                    </a>
+
+                    <a href="#" onclick="showConfirmDialog(3,/exam03022025)" class="icon-link" title="Supprimer">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+                    <tr>
+                <td>espion</td>
+                <td>1.00</td>
+                <td>2.00</td>
+                <td>3.00</td>
+                <td>2</td>
+                <td>
+                    <a href="/exam03022025/especes/edit/4" class="icon-link" title="Modifier">
+                        <i class="fa fa-edit"></i>
+                    </a>
+
+                    <a href="#" onclick="showConfirmDialog(4,/exam03022025)" class="icon-link" title="Supprimer">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+</table>
+<i>(Cliquer l'en tete du colonne pour trier par ce colonne).</i>
+
+<div id="confirmDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeConfirmDialog()">&times;</span>
+        <p>Êtes-vous sûr de vouloir supprimer cette espèce ?</p>
+        <button id="ouibtn" onclick="confirmDelete()">Oui</button>
+        <button id="nonbtn" onclick="closeConfirmDialog()">Non</button>
+    </div>
+</div>
+
+<script src="/exam03022025/public/assets/js/liste-espece.js"></script>        </div>
+    </main>
+    <script src="/exam03022025/public/assets/js/template.js"></script>
+    <script src="/exam03022025/public/assets/js/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="/exam03022025/public/assets/js/datatables-simple-demo.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dataTable = new simpleDatatables.DataTable("#datatablesSimple", {
+                perPage: 10,
+                perPageSelect: false
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+<!-- Tracy Debug Bar -->
+<script src="/exam03022025/especes?_tracy_bar=js&amp;v=2.10.9&amp;XDEBUG_SESSION_STOP=1" data-id="a1fbe3bd2c"></script>
+<script>
+Tracy.Debug.init("<div id=tracy-debug-bar>\r\n<ul class=\"tracy-row\" data-tracy-group=\"main\">\r\n\t<li id=\"tracy-debug-logo\" title=\"Tracy Debugger 2.10.9 \nhttps://tracy.nette.org\">\r\n\t\t<svg viewBox=\"0 -10 1561 333\"><path fill=\"#585755\" d=\"m176 327h-57v-269h-119v-57h291v57h-115v269zm208-191h114c50 0 47-78 0-78h-114v78zm106-135c17 0 33 2 46 7 75 30 75 144 1 175-13 6-29 8-47 8h-27l132 74v68l-211-128v122h-57v-326h163zm300 57c-5 0-9 3-11 9l-56 156h135l-55-155c-2-7-6-10-13-10zm-86 222l-17 47h-61l102-285c20-56 107-56 126 0l102 285h-61l-17-47h-174zm410 47c-98 0-148-55-148-163v-2c0-107 50-161 149-161h118v57h-133c-26 0-45 8-58 25-12 17-19 44-19 81 0 71 26 106 77 106h133v57h-119zm270-145l-121-181h68l81 130 81-130h68l-121 178v148h-56v-145z\"/><\/svg>\r\n\t</li>\r\n\r\n\t<li><a href=\"#\" rel=\"tracy-debug-panel-Tracy-info\"><span title=\"Execution time\">\r\n<svg viewBox=\"0 0 2048 2048\"><path fill=\"#86bbf0\" d=\"m640 1153.6v639.3h-256v-639.3z\"/><path fill=\"#6ba9e6\" d=\"m1024 254.68v1538.2h-256v-1538.2z\"/><path fill=\"#4f96dc\" d=\"m1408 897.57v894.3h-256v-894.3z\"/><path fill=\"#3987d4\" d=\"m1792 513.08v1279.8h-256v-1279.8z\"/>\r\n<\/svg><span class=\"tracy-label\">49.4 ms<\/span>\r\n<\/span></a></li>\r\n\t<li><a href=\"#\" rel=\"tracy-debug-panel-flight-debug-tracy-FlightPanelExtension\"><span title=\"Flight Vars\">\r\n\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"indigo\" class=\"bi bi-file-zip-fill\" viewBox=\"0 0 16 16\">\r\n\t\t<path d=\"M8.5 9.438V8.5h-1v.938a1 1 0 0 1-.03.243l-.4 1.598.93.62.93-.62-.4-1.598a1 1 0 0 1-.03-.243z\"/>\r\n\t\t<path d=\"M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm2.5 8.5v.938l-.4 1.599a1 1 0 0 0 .416 1.074l.93.62a1 1 0 0 0 1.109 0l.93-.62a1 1 0 0 0 .415-1.074l-.4-1.599V8.5a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1zm1-5.5h-1v1h1v1h-1v1h1v1H9V6H8V5h1V4H8V3h1V2H8V1H6.5v1h1v1z\"/>\r\n\t<\/svg>\r\n\t<span class=\"tracy-label\">Flight<\/span>\r\n<\/span></a></li>\r\n\t<li><a href=\"#\" rel=\"tracy-debug-panel-flight-debug-tracy-RequestExtension\"><span title=\"Request\">\r\n\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"green\" class=\"bi bi-caret-right-square-fill\" viewBox=\"0 0 16 16\">\r\n\t\t<path d=\"M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z\"/>\r\n\t<\/svg>\r\n\t<span class=\"tracy-label\">/exam03022025/especes<\/span>\r\n<\/span></a></li>\r\n\t<li><a href=\"#\" rel=\"tracy-debug-panel-flight-debug-tracy-ResponseExtension\"><span title=\"Response\">\r\n\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"orange\" class=\"bi bi-box-seam-fill\" viewBox=\"0 0 16 16\">\r\n\t\t<path fill-rule=\"evenodd\" d=\"M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z\"/>\r\n\t<\/svg>\r\n\t<span class=\"tracy-label\">200<\/span>\r\n<\/span></a></li>\r\n\t<li><a href=\"#\" rel=\"tracy-debug-panel-flight-debug-tracy-DatabaseExtension\"><span title=\"Database Queries\">\r\n\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"darkTurquoise\" class=\"bi bi-server\" viewBox=\"0 0 16 16\">\r\n\t\t<path d=\"M1.333 2.667C1.333 1.194 4.318 0 8 0s6.667 1.194 6.667 2.667V4c0 1.473-2.985 2.667-6.667 2.667S1.333 5.473 1.333 4V2.667z\"/>\r\n\t\t<path d=\"M1.333 6.334v3C1.333 10.805 4.318 12 8 12s6.667-1.194 6.667-2.667V6.334a6.51 6.51 0 0 1-1.458.79C11.81 7.684 9.967 8 8 8c-1.966 0-3.809-.317-5.208-.876a6.508 6.508 0 0 1-1.458-.79z\"/>\r\n\t\t<path d=\"M14.667 11.668a6.51 6.51 0 0 1-1.458.789c-1.4.56-3.242.876-5.21.876-1.966 0-3.809-.316-5.208-.876a6.51 6.51 0 0 1-1.458-.79v1.666C1.333 14.806 4.318 16 8 16s6.667-1.194 6.667-2.667v-1.665z\"/>\r\n\t<\/svg>\r\n\t<span class=\"tracy-label\">0.0005 / 1 <\/span>\r\n<\/span></a></li>\r\n\t<li><a href=\"#\" rel=\"tracy-debug-panel-flight-debug-tracy-SessionExtension\"><span title=\"Session Data\">\r\n\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"tan\" class=\"bi bi-archive-fill\" viewBox=\"0 0 16 16\">\r\n\t\t<path d=\"M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z\"/>\r\n\t<\/svg>\r\n\t<span class=\"tracy-label\">Session<\/span>\r\n<\/span></a></li>\r\n\r\n\t<li><a href=\"#\" data-tracy-action=\"close\" title=\"close debug bar\">&times;</a></li>\r\n</ul>\r\n</div><div itemscope>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-Tracy-info\" data-tracy-content='<style class=\"tracy-debug\">\r\n\t#tracy-debug .tracy-InfoPanel td {\r\n\t\twhite-space: nowrap;\r\n\t}\r\n\t#tracy-debug .tracy-InfoPanel td:nth-child(2) {\r\n\t\tfont-weight: bold;\r\n\t\twidth: 60%;\r\n\t}\r\n\t#tracy-debug .tracy-InfoPanel td[colspan=&#039;2&#039;] b {\r\n\t\tfloat: right;\r\n\t\tmargin-left: 2em;\r\n\t\twhite-space: normal;\r\n\t}\r\n<\/style>\r\n\r\n<h1>System info</h1>\r\n\r\n<div class=\"tracy-inner tracy-InfoPanel\">\r\n<div class=\"tracy-inner-container\">\r\n<table class=\"tracy-sortable\">\r\n<tr>\r\n\t<td>Execution time</td><td>49.4 ms</td>\r\n</tr>\r\n<tr>\r\n\t<td>CPU usage user + system</td><td>32 % + 32 %</td>\r\n</tr>\r\n<tr>\r\n\t<td>Peak of allocated memory</td><td>2.62 MB</td>\r\n</tr>\r\n<tr>\r\n\t<td>Included files</td><td>62</td>\r\n</tr>\r\n<tr>\r\n\t<td>Classes + interfaces + traits</td><td>44 + 3 + 0</td>\r\n</tr>\r\n<tr>\r\n\t<td>OPcache</td><td>–</td>\r\n</tr>\r\n<tr>\r\n\t<td>JIT</td><td>–</td>\r\n</tr>\r\n<tr>\r\n\t<td>Your IP</td><td>::1 (localhost)</td>\r\n</tr>\r\n<tr>\r\n\t<td>Server IP</td><td>::1 (localhost)</td>\r\n</tr>\r\n<tr>\r\n\t<td>HTTP method / response code</td><td>GET / 200</td>\r\n</tr>\r\n<tr>\r\n\t<td>PHP</td><td>8.0.30 TS</td>\r\n</tr>\r\n<tr>\r\n\t<td>Tracy</td><td>2.10.9</td>\r\n</tr>\r\n<tr>\r\n\t<td colspan=2>Server <b>Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.0.30</b></td>\r\n</tr>\r\n</table>\r\n\r\n\t<h2><a class=\"tracy-toggle tracy-collapsed\" data-tracy-ref=\"^div .tracy-InfoPanel-packages\">Composer Packages (6 + 1 dev)</a></h2>\r\n\r\n\t<div class=\"tracy-InfoPanel-packages tracy-collapsed\">\r\n\t\t<table class=\"tracy-sortable\">\r\n\t\t\t<tr><td>adhocore/cli</td><td>v1.8.1</td></tr>\r\n\t\t\t<tr><td>flightphp/core</td><td>v3.13.0</td></tr>\r\n\t\t\t<tr><td>flightphp/runway</td><td>v1.1.1</td></tr>\r\n\t\t\t<tr><td>nette/php-generator</td><td>v4.1.6</td></tr>\r\n\t\t\t<tr><td>nette/utils</td><td>v4.0.5</td></tr>\r\n\t\t\t<tr><td>tracy/tracy</td><td>v2.10.9</td></tr>\r\n\t\t</table>\r\n\t\r\n\t\t<h2>Dev Packages</h2>\r\n\t<table class=\"tracy-sortable\">\r\n\t\t\t<tr><td>flightphp/tracy-extensions</td><td>v0.2.3</td></tr>\r\n\t\t</table>\r\n\t\t</div>\r\n</div>\r\n</div>\r\n\n\r\n\t<div class=\"tracy-icons\">\r\n\t\t<a href=\"#\" data-tracy-action=\"window\" title=\"open in window\">&amp;curren;</a>\r\n\t\t<a href=\"#\" data-tracy-action=\"close\" title=\"close window\">&amp;times;</a>\r\n\t</div>\r\n'></div>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-Tracy-errors\" data-tracy-content=''></div>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-flight-debug-tracy-FlightPanelExtension\" data-tracy-content='<h1>Flight Data</h1> \r\n<div class=\"tracy-inner\" style=\"max-height: 400px; overflow: auto;\">\r\n\t<table>\r\n\t\t<tbody>\r\n\t\t\t<tr><td>Current Route</td><td>Pattern: /especes\nMethods: GET, HEAD\nParams:\nAlias:\nRegex:\nS... <a href=\"#tracy-request-panel-67a17446b4ba2\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4ba2\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>Pattern: /especes\nMethods: GET, HEAD\nParams:\nAlias:\nRegex:\nSplat:\n</code></pre></td></tr>\n<tr><td>flight.base_url</td><td>/exam03022025</td></tr>\n<tr><td>flight.case_sensitive</td><td>false</td></tr>\n<tr><td>flight.content_length</td><td>false</td></tr>\n<tr><td>flight.handle_errors</td><td>false</td></tr>\n<tr><td>flight.log_errors</td><td>true</td></tr>\n<tr><td>flight.v2.output_buffering</td><td>false</td></tr>\n<tr><td>flight.views.extension</td><td>.php</td></tr>\n<tr><td>flight.views.path</td><td>C:\\xampp\\htdocs\\exam03022025\\app\\config\\..\\views</td></tr>\n\r\n\t\t</tbody>\r\n\t</table>\r\n</div>\n\r\n\t<div class=\"tracy-icons\">\r\n\t\t<a href=\"#\" data-tracy-action=\"window\" title=\"open in window\">&amp;curren;</a>\r\n\t\t<a href=\"#\" data-tracy-action=\"close\" title=\"close window\">&amp;times;</a>\r\n\t</div>\r\n'></div>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-flight-debug-tracy-RequestExtension\" data-tracy-content='<h1>Request</h1> \r\n<div class=\"tracy-inner\" style=\"max-height: 400px;\">\r\n\t<table>\r\n\t\t<tbody>\r\n\t\t\t<tr><td colspan=\"2\" style=\"background-color: #EEE;\"><b>Common</b></td></tr>\r\n\t\t\t<tr><td>REQUEST_METHOD</td><td>GET</td></tr>\r\n\t\t\t<tr><td>REQUEST_URI</td><td>/exam03022025/especes</td></tr>\r\n\t\t\t<tr><td>REMOTE_ADDR</td><td>::1</td></tr>\r\n\t\t\t<tr><td>PROXY_IP_ADDRESS</td><td></td></tr>\r\n\t\t\t<tr><td>HTTP_HOST</td><td>localhost:90</td></tr>\r\n\t\t\t<tr><td>PHP_SELF</td><td>/exam03022025/index.php</td></tr>\r\n\t\t\t<tr><td>USER</td><td></td></tr>\r\n\t\t\t<tr><td colspan=\"2\" style=\"background-color: #EEE;\"><b>Payload</b></td></tr>\r\n\t\t\t<tr><td>GET</td><td>Array\n(\n)\n\n</td></tr>\r\n\t\t\t<tr><td>POST</td><td>Array\n(\n)\n\n</td></tr>\r\n\t\t\t<tr><td>FILES</td><td>Array\n(\n)\n\n</td></tr>\r\n\t\t\t<tr><td colspan=\"2\" style=\"background-color: #EEE;\"><b>All</b></td></tr>\r\n\t\t\t<tr><td>COMSPEC</td><td>C:\\Windows\\system32\\cmd.exe</td></tr>\n<tr><td>CONTEXT_DOCUMENT_ROOT</td><td>C:/xampp/htdocs</td></tr>\n<tr><td>CONTEXT_PREFIX</td><td></td></tr>\n<tr><td>DOCUMENT_ROOT</td><td>C:/xampp/htdocs</td></tr>\n<tr><td>GATEWAY_INTERFACE</td><td>CGI/1.1</td></tr>\n<tr><td>HTTP_ACCEPT_ENCODING</td><td>gzip, deflate, br, zstd</td></tr>\n<tr><td>HTTP_ACCEPT_LANGUAGE</td><td>fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7</td></tr>\n<tr><td>HTTP_CONNECTION</td><td>keep-alive</td></tr>\n<tr><td>HTTP_COOKIE</td><td>tracy-session=f2272f89b3; PHPSESSID=m8cng2melobf4ichlrempl8p... <a href=\"#tracy-request-panel-67a17446b4bde\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4bde\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>tracy-session=f2272f89b3; PHPSESSID=m8cng2melobf4ichlrempl8p2d</code></pre></td></tr>\n<tr><td>HTTP_HOST</td><td>localhost:90</td></tr>\n<tr><td>HTTP_REFERER</td><td>http://localhost:90/exam03022025/especes</td></tr>\n<tr><td>HTTP_SEC_FETCH_DEST</td><td>empty</td></tr>\n<tr><td>HTTP_SEC_FETCH_MODE</td><td>navigate</td></tr>\n<tr><td>HTTP_SEC_FETCH_SITE</td><td>same-origin</td></tr>\n<tr><td>HTTP_USER_AGENT</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36... <a href=\"#tracy-request-panel-67a17446b4bea\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4bea\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36</code></pre></td></tr>\n<tr><td>MIBDIRS</td><td>C:/xampp/php/extras/mibs</td></tr>\n<tr><td>MYSQL_HOME</td><td>\\xampp\\mysql\\bin</td></tr>\n<tr><td>OPENSSL_CONF</td><td>C:/xampp/apache/bin/openssl.cnf</td></tr>\n<tr><td>PATH</td><td>C:\\Program Files\\Java\\jdk-21\\bin;C:\\Program Files\\Common Fil... <a href=\"#tracy-request-panel-67a17446b4bfd\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4bfd\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>C:\\Program Files\\Java\\jdk-21\\bin;C:\\Program Files\\Common Files\\Oracle\\Java\\javapath;C:\\app\\DELL\\product\\11.2.0\\dbhome_1\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\xampp\\php;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\dotnet\\;D:\\Antonio\\Prog sys\\war file\\apache-tomcat-10.1.28\\bin;C:\\Users\\DELL\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\DELL\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\DELL\\AppData\\Local\\GitHubDesktop\\bin;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.1\\bin;;C:\\Users\\DELL\\.dotnet\\tools</code></pre></td></tr>\n<tr><td>PATHEXT</td><td>.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC</td></tr>\n<tr><td>PHPRC</td><td>\\xampp\\php</td></tr>\n<tr><td>PHP_PEAR_SYSCONF_DIR</td><td>\\xampp\\php</td></tr>\n<tr><td>PHP_SELF</td><td>/exam03022025/index.php</td></tr>\n<tr><td>QUERY_STRING</td><td></td></tr>\n<tr><td>REDIRECT_MIBDIRS</td><td>C:/xampp/php/extras/mibs</td></tr>\n<tr><td>REDIRECT_MYSQL_HOME</td><td>\\xampp\\mysql\\bin</td></tr>\n<tr><td>REDIRECT_OPENSSL_CONF</td><td>C:/xampp/apache/bin/openssl.cnf</td></tr>\n<tr><td>REDIRECT_PHPRC</td><td>\\xampp\\php</td></tr>\n<tr><td>REDIRECT_PHP_PEAR_SYSCONF_DIR</td><td>\\xampp\\php</td></tr>\n<tr><td>REDIRECT_STATUS</td><td>200</td></tr>\n<tr><td>REDIRECT_TMP</td><td>\\xampp\\tmp</td></tr>\n<tr><td>REDIRECT_URL</td><td>/exam03022025/especes</td></tr>\n<tr><td>REMOTE_ADDR</td><td>::1</td></tr>\n<tr><td>REMOTE_PORT</td><td>51552</td></tr>\n<tr><td>REQUEST_METHOD</td><td>GET</td></tr>\n<tr><td>REQUEST_SCHEME</td><td>http</td></tr>\n<tr><td>REQUEST_TIME</td><td>1738634310</td></tr>\n<tr><td>REQUEST_TIME_FLOAT</td><td>1738634310.6888</td></tr>\n<tr><td>REQUEST_URI</td><td>/exam03022025/especes</td></tr>\n<tr><td>SCRIPT_FILENAME</td><td>C:/xampp/htdocs/exam03022025/index.php</td></tr>\n<tr><td>SCRIPT_NAME</td><td>/exam03022025/index.php</td></tr>\n<tr><td>SERVER_ADDR</td><td>::1</td></tr>\n<tr><td>SERVER_ADMIN</td><td>postmaster@localhost</td></tr>\n<tr><td>SERVER_NAME</td><td>localhost</td></tr>\n<tr><td>SERVER_PORT</td><td>90</td></tr>\n<tr><td>SERVER_PROTOCOL</td><td>HTTP/1.1</td></tr>\n<tr><td>SERVER_SIGNATURE</td><td>&amp;lt;address&amp;gt;Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.0.3... <a href=\"#tracy-request-panel-67a17446b4c28\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4c28\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>&amp;lt;address&amp;gt;Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.0.30 Server at localhost Port 90&amp;lt;/address&amp;gt;\n\n</code></pre></td></tr>\n<tr><td>SERVER_SOFTWARE</td><td>Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.0.30</td></tr>\n<tr><td>SystemRoot</td><td>C:\\Windows</td></tr>\n<tr><td>TMP</td><td>\\xampp\\tmp</td></tr>\n<tr><td>WINDIR</td><td>C:\\Windows</td></tr>\n\r\n\t\t</tbody>\r\n\t</table>\r\n</div>\n\r\n\t<div class=\"tracy-icons\">\r\n\t\t<a href=\"#\" data-tracy-action=\"window\" title=\"open in window\">&amp;curren;</a>\r\n\t\t<a href=\"#\" data-tracy-action=\"close\" title=\"close window\">&amp;times;</a>\r\n\t</div>\r\n'></div>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-flight-debug-tracy-ResponseExtension\" data-tracy-content='<h1>Response</h1> \r\n<div class=\"tracy-inner\" style=\"max-height: 400px;\">\r\n\t<table>\r\n\t\t<tbody>\r\n\t\t\t<tr><td>Body</td><td>&amp;lt;!DOCTYPE html&amp;gt;\n&amp;lt;html lang=&amp;quot;fr&amp;quot;&amp;gt;\n\n&amp;lt;... <a href=\"#tracy-request-panel-67a17446b4d13\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4d13\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>&amp;lt;!DOCTYPE html&amp;gt;\n&amp;lt;html lang=&amp;quot;fr&amp;quot;&amp;gt;\n\n&amp;lt;head&amp;gt;\n&amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;\n&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot;&amp;gt;\n&amp;lt;title&amp;gt;Suivi d&#039;Élevage - Navigation&amp;lt;/title&amp;gt;\n&amp;lt;!-- Font Awesome 4 --&amp;gt;\n&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;/exam03022025/public/assets/css/template.css&amp;quot;&amp;gt;\n&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;/exam03022025/public/assets/css/styles.css&amp;quot;&amp;gt;\n&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;/exam03022025/public/assets/css/liste-espece-content.css&amp;quot;&amp;gt;\n&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;/exam03022025/public/assets/font-awesome/css/font-awesome.min.css&amp;quot;&amp;gt;\n&amp;lt;/head&amp;gt;\n\n&amp;lt;body&amp;gt;\n&amp;lt;!-- Sidebar Navigation --&amp;gt;\n&amp;lt;nav class=&amp;quot;sidebar&amp;quot; id=&amp;quot;sidebar&amp;quot;&amp;gt;\n&amp;lt;div class=&amp;quot;sidebar-header&amp;quot;&amp;gt;\n&amp;lt;h2&amp;gt;Élevage&amp;lt;/h2&amp;gt;\n&amp;lt;button class=&amp;quot;menu-toggle&amp;quot; id=&amp;quot;menuToggle&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-bars&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/button&amp;gt;\n&amp;lt;/div&amp;gt;\n\n&amp;lt;ul class=&amp;quot;nav-menu&amp;quot;&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/dashboard&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-dashboard&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nTableau de Bord\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/especes&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-leaf&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nEspeces\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;#animals&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-paw&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nMes Animaux\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/nourritures&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-cutlery&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nNourritures\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/stock-nourriture&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-archive&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nStock Alimentaire\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;#finances&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-money&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nFinances\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;li&amp;gt;\n&amp;lt;a href=&amp;quot;#health&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-medkit&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nSanté Animale\n&amp;lt;/a&amp;gt;\n&amp;lt;/li&amp;gt;\n&amp;lt;/ul&amp;gt;\n&amp;lt;/nav&amp;gt;\n&amp;lt;!-- Main Content --&amp;gt;\n&amp;lt;main class=&amp;quot;main-content&amp;quot;&amp;gt;\n&amp;lt;div class=&amp;quot;content-wrapper&amp;quot;&amp;gt;\n&amp;lt;div class=&amp;quot;conteneur&amp;quot;&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/reinitialisation&amp;quot; class=&amp;quot;icon-link-refresh&amp;quot; title=&amp;quot;Réinitialiser les données&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-refresh&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; &amp;lt;!-- Correction de l&#039;icône, &amp;quot;fa-reset&amp;quot; n&#039;existe pas, &amp;quot;fa-refresh&amp;quot; pour réinitialiser --&amp;gt;\nRéinitialiser les données\n&amp;lt;/a&amp;gt;\n&amp;lt;/div&amp;gt;\n&amp;lt;div class=&amp;quot;header&amp;quot; style=&amp;quot;margin-bottom: 10px;&amp;quot;&amp;gt;\n&amp;lt;h1&amp;gt;&amp;lt;i class=&amp;quot;fa fa-list&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Liste des espèces&amp;lt;/h1&amp;gt;\n&amp;lt;/div&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/especes/add&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Modifier&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-plus&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\nAjout espece\n&amp;lt;/a&amp;gt;\n&amp;lt;table border=&amp;quot;1&amp;quot; id=&amp;quot;datatablesSimple&amp;quot;&amp;gt;\n&amp;lt;thead&amp;gt;\n&amp;lt;tr&amp;gt;\n&amp;lt;th&amp;gt;NomEspece&amp;lt;/th&amp;gt;\n&amp;lt;th&amp;gt;PoidsMinVente&amp;lt;/th&amp;gt;\n&amp;lt;th&amp;gt;PoidsMax&amp;lt;/th&amp;gt;\n&amp;lt;th&amp;gt;PrixParKg&amp;lt;/th&amp;gt;\n&amp;lt;th&amp;gt;NbJoursAvantDeMourir&amp;lt;/th&amp;gt;\n&amp;lt;th&amp;gt;Actions&amp;lt;/th&amp;gt;\n&amp;lt;/tr&amp;gt;\n&amp;lt;/thead&amp;gt;\n&amp;lt;tbody&amp;gt;\n&amp;lt;tr&amp;gt;\n&amp;lt;td&amp;gt;Boeuf&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;300.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;500.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;10.50&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;333&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/especes/edit/1&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Modifier&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-edit&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n\n&amp;lt;a href=&amp;quot;#&amp;quot; onclick=&amp;quot;showConfirmDialog(1,/exam03022025)&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Supprimer&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-trash&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n&amp;lt;/td&amp;gt;\n&amp;lt;/tr&amp;gt;\n&amp;lt;tr&amp;gt;\n&amp;lt;td&amp;gt;Poulet&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;1.50&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;3.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;5.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;10&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/especes/edit/2&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Modifier&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-edit&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n\n&amp;lt;a href=&amp;quot;#&amp;quot; onclick=&amp;quot;showConfirmDialog(2,/exam03022025)&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Supprimer&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-trash&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n&amp;lt;/td&amp;gt;\n&amp;lt;/tr&amp;gt;\n&amp;lt;tr&amp;gt;\n&amp;lt;td&amp;gt;Porc&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;100.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;200.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;8.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;20&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/especes/edit/3&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Modifier&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-edit&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n\n&amp;lt;a href=&amp;quot;#&amp;quot; onclick=&amp;quot;showConfirmDialog(3,/exam03022025)&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Supprimer&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-trash&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n&amp;lt;/td&amp;gt;\n&amp;lt;/tr&amp;gt;\n&amp;lt;tr&amp;gt;\n&amp;lt;td&amp;gt;espion&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;1.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;2.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;3.00&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;2&amp;lt;/td&amp;gt;\n&amp;lt;td&amp;gt;\n&amp;lt;a href=&amp;quot;/exam03022025/especes/edit/4&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Modifier&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-edit&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n\n&amp;lt;a href=&amp;quot;#&amp;quot; onclick=&amp;quot;showConfirmDialog(4,/exam03022025)&amp;quot; class=&amp;quot;icon-link&amp;quot; title=&amp;quot;Supprimer&amp;quot;&amp;gt;\n&amp;lt;i class=&amp;quot;fa fa-trash&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;\n&amp;lt;/a&amp;gt;\n&amp;lt;/td&amp;gt;\n&amp;lt;/tr&amp;gt;\n&amp;lt;/tbody&amp;gt;\n&amp;lt;/table&amp;gt;\n&amp;lt;i&amp;gt;(Cliquer l&#039;en tete du colonne pour trier par ce colonne).&amp;lt;/i&amp;gt;\n\n&amp;lt;div id=&amp;quot;confirmDialog&amp;quot; class=&amp;quot;modal&amp;quot;&amp;gt;\n&amp;lt;div class=&amp;quot;modal-content&amp;quot;&amp;gt;\n&amp;lt;span class=&amp;quot;close&amp;quot; onclick=&amp;quot;closeConfirmDialog()&amp;quot;&amp;gt;&amp;amp;times;&amp;lt;/span&amp;gt;\n&amp;lt;p&amp;gt;Êtes-vous sûr de vouloir supprimer cette espèce ?&amp;lt;/p&amp;gt;\n&amp;lt;button id=&amp;quot;ouibtn&amp;quot; onclick=&amp;quot;confirmDelete()&amp;quot;&amp;gt;Oui&amp;lt;/button&amp;gt;\n&amp;lt;button id=&amp;quot;nonbtn&amp;quot; onclick=&amp;quot;closeConfirmDialog()&amp;quot;&amp;gt;Non&amp;lt;/button&amp;gt;\n&amp;lt;/div&amp;gt;\n&amp;lt;/div&amp;gt;\n\n&amp;lt;script src=&amp;quot;/exam03022025/public/assets/js/liste-espece.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;        &amp;lt;/div&amp;gt;\n&amp;lt;/main&amp;gt;\n&amp;lt;script src=&amp;quot;/exam03022025/public/assets/js/template.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;\n&amp;lt;script src=&amp;quot;/exam03022025/public/assets/js/simple-datatables.min.js&amp;quot; crossorigin=&amp;quot;anonymous&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;\n&amp;lt;script src=&amp;quot;/exam03022025/public/assets/js/datatables-simple-demo.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;\n&amp;lt;script&amp;gt;\ndocument.addEventListener(&#039;DOMContentLoaded&#039;, function() {\nconst dataTable = new simpleDatatables.DataTable(&amp;quot;#datatablesSimple&amp;quot;, {\nperPage: 10,\nperPageSelect: false\n});\n});\n&amp;lt;/script&amp;gt;\n&amp;lt;/body&amp;gt;\n\n&amp;lt;/html&amp;gt;\n</code></pre></td></tr>\n<tr><td>Headers</td><td>Array\n(\n[Expires] =&amp;gt; Mon, 26 Jul 1997 05:00:00 GMT\n[Cache... <a href=\"#tracy-request-panel-67a17446b4d43\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4d43\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>Array\n(\n[Expires] =&amp;gt; Mon, 26 Jul 1997 05:00:00 GMT\n[Cache-Control] =&amp;gt; no-store, no-cache, must-revalidate, max-age=0\n[Pragma] =&amp;gt; no-cache\n)\n\n</code></pre></td></tr>\n<tr><td>Status Code</td><td>200</td></tr>\n\r\n\t\t</tbody>\r\n\t</table>\r\n</div>\n\r\n\t<div class=\"tracy-icons\">\r\n\t\t<a href=\"#\" data-tracy-action=\"window\" title=\"open in window\">&amp;curren;</a>\r\n\t\t<a href=\"#\" data-tracy-action=\"close\" title=\"close window\">&amp;times;</a>\r\n\t</div>\r\n'></div>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-flight-debug-tracy-DatabaseExtension\" data-tracy-content='<div class=\"tracy-database-panel\">\r\n\t<div class=\"tracy-database-heading\">\r\n\t\t<h1>Database Queries</h1> \r\n\t</div>\r\n\t<div class=\"tracy-database-controls\">\r\n\t\t<div class=\"tracy-database-controls-header tracy-inner\" style=\"max-height: 400px;\">\r\n\t\t\t<table class=\"tracy-sortable\">\r\n\t\t\t\t<thead>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Time</th>\r\n\t\t\t\t\t\t<th>SQL</th>\r\n\t\t\t\t\t\t<th>Backtrace</th>\r\n\t\t\t\t\t\t<th>Rows</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</thead>\r\n\t\t\t\t<tbody><tr>\r\n\t<td>0.0005</td>\r\n\t<td>SELECT * FROM elevage_Espece WHERE id NOT IN (SELECT idEspec... <a href=\"#tracy-request-panel-67a17446b4d56\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4d56\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>SELECT * FROM elevage_Espece WHERE id NOT IN (SELECT idEspece FROM elevage_EspeceSupprime)</code></pre></td>\r\n\t<td>Array\n(\n[0] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam0... <a href=\"#tracy-request-panel-67a17446b4dc4\" class=\"tracy-toggle tracy-collapsed\">more</a><pre id=\"tracy-request-panel-67a17446b4dc4\" class=\"tracy-collapsed\" style=\"max-width: 300px; overflow: auto; min-height: 40px; background-color: #EEE; padding: 5px;\"><code>Array\n(\n[0] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\app\\models\\EspeceModel.php\n[line] =&amp;gt; 16\n[function] =&amp;gt; prepare\n[class] =&amp;gt; flight\\debug\\database\\PdoQueryCapture\n[type] =&amp;gt; -&amp;gt;\n)\n\n[1] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\app\\controllers\\EspeceController.php\n[line] =&amp;gt; 13\n[function] =&amp;gt; getAllEspece\n[class] =&amp;gt; app\\models\\EspeceModel\n[type] =&amp;gt; -&amp;gt;\n)\n\n[2] =&amp;gt; Array\n(\n[function] =&amp;gt; getAllEspece\n[class] =&amp;gt; app\\controllers\\EspeceController\n[type] =&amp;gt; -&amp;gt;\n)\n\n[3] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\core\\Dispatcher.php\n[line] =&amp;gt; 376\n[function] =&amp;gt; call_user_func_array\n)\n\n[4] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\core\\Dispatcher.php\n[line] =&amp;gt; 287\n[function] =&amp;gt; invokeCallable\n[class] =&amp;gt; flight\\core\\Dispatcher\n[type] =&amp;gt; -&amp;gt;\n)\n\n[5] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\Engine.php\n[line] =&amp;gt; 548\n[function] =&amp;gt; execute\n[class] =&amp;gt; flight\\core\\Dispatcher\n[type] =&amp;gt; -&amp;gt;\n)\n\n[6] =&amp;gt; Array\n(\n[function] =&amp;gt; _start\n[class] =&amp;gt; flight\\Engine\n[type] =&amp;gt; -&amp;gt;\n)\n\n[7] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\core\\Dispatcher.php\n[line] =&amp;gt; 376\n[function] =&amp;gt; call_user_func_array\n)\n\n[8] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\core\\Dispatcher.php\n[line] =&amp;gt; 287\n[function] =&amp;gt; invokeCallable\n[class] =&amp;gt; flight\\core\\Dispatcher\n[type] =&amp;gt; -&amp;gt;\n)\n\n[9] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\core\\Dispatcher.php\n[line] =&amp;gt; 131\n[function] =&amp;gt; execute\n[class] =&amp;gt; flight\\core\\Dispatcher\n[type] =&amp;gt; -&amp;gt;\n)\n\n[10] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\core\\Dispatcher.php\n[line] =&amp;gt; 95\n[function] =&amp;gt; runEvent\n[class] =&amp;gt; flight\\core\\Dispatcher\n[type] =&amp;gt; -&amp;gt;\n)\n\n[11] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\vendor\\flightphp\\core\\flight\\Engine.php\n[line] =&amp;gt; 118\n[function] =&amp;gt; run\n[class] =&amp;gt; flight\\core\\Dispatcher\n[type] =&amp;gt; -&amp;gt;\n)\n\n[12] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\app\\config\\database.php\n[line] =&amp;gt; 63\n[function] =&amp;gt; __call\n[class] =&amp;gt; flight\\Engine\n[type] =&amp;gt; -&amp;gt;\n)\n\n[13] =&amp;gt; Array\n(\n[file] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\index.php\n[line] =&amp;gt; 34\n[args] =&amp;gt; Array\n(\n[0] =&amp;gt; C:\\xampp\\htdocs\\exam03022025\\app\\config\\database.php\n)\n\n[function] =&amp;gt; require\n)\n\n)\n\n</code></pre></td>\r\n\t<td>4</td>\r\n</tr>\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t</div>\r\n</div>\n\r\n\t<div class=\"tracy-icons\">\r\n\t\t<a href=\"#\" data-tracy-action=\"window\" title=\"open in window\">&amp;curren;</a>\r\n\t\t<a href=\"#\" data-tracy-action=\"close\" title=\"close window\">&amp;times;</a>\r\n\t</div>\r\n'></div>\t<div class=\"tracy-panel tracy-panel-persist tracy-panel-main\" id=\"tracy-debug-panel-flight-debug-tracy-SessionExtension\" data-tracy-content='<h1>SESSION Data</h1> \r\n<div class=\"tracy-inner\" style=\"max-height: 400px;\">\r\n\t<table>\r\n\t\t<tbody>\r\n\t\t\t\r\n\t\t</tbody>\r\n\t</table>\r\n</div>\n\r\n\t<div class=\"tracy-icons\">\r\n\t\t<a href=\"#\" data-tracy-action=\"window\" title=\"open in window\">&amp;curren;</a>\r\n\t\t<a href=\"#\" data-tracy-action=\"close\" title=\"close window\">&amp;times;</a>\r\n\t</div>\r\n'></div><meta itemprop=tracy-snapshot content='[]'></div>");
+</script>
