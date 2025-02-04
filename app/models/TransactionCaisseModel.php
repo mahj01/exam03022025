@@ -64,17 +64,23 @@ class TransactionCaisseModel extends BaseModel
         return ["achatNourriture" => $pourcentageNourriture, "achatAnimal" => $pourcentageAchatAnimal];
     }
 
-    public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat) {
+    public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat,$autovente) {
         try {
-
+            if($autovente == true){ 
+                $autoVente = 1;
+            }else{
+                $autoVente = 0;
+            }
             // Insérer dans la table elevage_Animal
-            $queryInsertAnimal = "INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal) 
-                                  VALUES (:idEspece, :poidsInitial, :poidsActuel, :nomAnimal)";
+            $queryInsertAnimal = "INSERT INTO elevage_Animal (idEspece, PoidsInitial, PoidsActuel, NomAnimal,autoVente) 
+                                  VALUES (:idEspece, :poidsInitial, :poidsActuel, :nomAnimal, :autoVente)";
             $stmtInsertAnimal = $this->db->prepare($queryInsertAnimal);
             $stmtInsertAnimal->bindValue(':idEspece', $idEspece, PDO::PARAM_INT);
             $stmtInsertAnimal->bindValue(':poidsInitial', (string)$poidsInitial);
             $stmtInsertAnimal->bindValue(':poidsActuel', (string)$poidsActuel);
             $stmtInsertAnimal->bindValue(':nomAnimal', $nomAnimal);
+            $stmtInsertAnimal->bindValue(':autoVente', $autoVente);
+
 
             $stmtInsertAnimal->execute();
             // if (!$stmtInsertAnimal->execute()) {
