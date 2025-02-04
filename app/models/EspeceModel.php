@@ -19,7 +19,11 @@ class EspeceModel extends BaseModel{
     }
 
     public function getEspeceById($id){
-        return $this->findBy(['id' => $id],'elevage_Espece')[0];
+        $sql = "SELECT *, cheminImage FROM elevage_Espece WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1, (string)$id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function addEspece($data){

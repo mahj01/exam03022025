@@ -29,11 +29,6 @@
                     <div class="value" id="totalAnimals"><?= $animalVivant ?></div>
                     <div>Nombre d'Animaux</div>
                 </div>
-                <!-- <div class="stat-card">
-                    <i class="fa fa-cutlery icon"></i>
-                    <div class="value" id="feedCost">250 €</div>
-                    <div>Coût Alimentation</div>
-                </div> -->
             </div>
 
             <!-- Tableau des Animaux -->
@@ -52,7 +47,7 @@
                 <tbody>
                     <?php foreach ($animalData as $animal): ?>
                         <tr>
-                            <td><?= $animal['id'] ?></td>
+                            <td><a href="#" onclick="showAnimalDetails(<?= $animal['id'] ?>)"><?= $animal['id'] ?></a></td>
                             <td><?= $animal['NomAnimal'] ?></td>
                             <td><?= $animal['Espece'] ?></td>
                             <td><?= $animal['PoidsInitial'] ?></td>
@@ -65,6 +60,78 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal Dialog -->
+    <div id="animalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="animalDetails"></div>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000; /* Ensure the modal is in the foreground */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .close {
+            color: #007bff; /* Primary color of the project */
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #0056b3; /* Darker shade of the primary color */
+            text-decoration: none;
+        }
+
+        .modal-content img {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .modal-content .animal-info {
+            margin-top: 20px;
+        }
+
+        .modal-content .animal-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .modal-content .animal-info ul li {
+            margin-bottom: 10px;
+        }
+
+        .modal-content .animal-info ul li strong {
+            color: #007bff; /* Primary color of the project */
+        }
+    </style>
 
     <script>
         function updateDashboard() {
@@ -80,7 +147,7 @@
                     response.animalData.forEach(function(animal) {
                         var row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${animal.id}</td>
+                            <td><a href="#" onclick="showAnimalDetails(${animal.id})">${animal.id}</a></td>
                             <td>${animal.NomAnimal}</td>
                             <td>${animal.Espece}</td>
                             <td>${animal.PoidsInitial}</td>
@@ -95,6 +162,42 @@
                 }
             };
             xhr.send('date=' + encodeURIComponent(date));
+        }
+
+        function showAnimalDetails(id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'get-animal-details?id=' + id, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var animal = JSON.parse(xhr.responseText);
+                    var modalContent = `
+                        <img src="<?= $url ?>/public/assets/images/${animal.image}" alt="${animal.NomAnimal}">
+                        <div class="animal-info">
+                            <ul>
+                                <li><strong>Nom:</strong> ${animal.NomAnimal}</li>
+                                <li><strong>Espèce:</strong> ${animal.Espece}</li>
+                                <li><strong>Poids Initial:</strong> ${animal.PoidsInitial}</li>
+                                <li><strong>Poids Actuel:</strong> ${animal.PoidsActuel}</li>
+                                <li><strong>Prix/kg:</strong> ${animal.PrixParKg}</li>
+                                <li><strong>Estimation Valeur:</strong> ${animal.EstimationValeur}</li>
+                            </ul>
+                        </div>
+                    `;
+                    document.getElementById('animalDetails').innerHTML = modalContent;
+                    document.getElementById('animalModal').style.display = 'block';
+                }
+            };
+            xhr.send();
+        }
+
+        function closeModal() {
+            document.getElementById('animalModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('animalModal')) {
+                document.getElementById('animalModal').style.display = 'none';
+            }
         }
     </script>
 </body>
