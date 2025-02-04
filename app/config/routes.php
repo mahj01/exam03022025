@@ -54,6 +54,6 @@ $router->get('/reinitialiser', [$elevageController, 'reinitialiser']);
 //FIN REINIT
 
 //CAPITAL
-$router->get('/capital', [$elevageController, 'goToCapital']);
+$router->get('/ajout-capital', [$elevageController, 'goToCapital']);
 $router->post('/capital/traitement', [$elevageController, 'insertCapital']);
 //FIN CAPITAL

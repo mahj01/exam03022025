@@ -14,6 +14,12 @@
             </a>
         </li>
         <li>
+            <a href="<?= $url ?>/ajout-capital">
+                <i class="fa fa-money"></i>
+                Ajout capital
+            </a>
+        </li>
+        <li>
             <a href="<?= $url ?>/especes">
                 <i class="fa fa-leaf"></i>
                 Especes
@@ -41,18 +47,6 @@
             <a href="<?= $url ?>/stock-nourriture">
                 <i class="fa fa-archive"></i>
                 Stock Alimentaire
-            </a>
-        </li>
-        <li>
-            <a href="#finances">
-                <i class="fa fa-money"></i>
-                Finances
-            </a>
-        </li>
-        <li>
-            <a href="#health">
-                <i class="fa fa-medkit"></i>
-                Santé Animale
             </a>
         </li>
     </ul>

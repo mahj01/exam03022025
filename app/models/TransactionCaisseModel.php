@@ -1,16 +1,20 @@
 <?php
+
 namespace app\models;
+
 use PDO;
 use Exception;
+
 class TransactionCaisseModel extends BaseModel
 {
-  
+
     public function __construct($db)
     {
         parent::__construct($db);
     }
 
-    public function getMontantActuel($date) {
+    public function getMontantActuel($date)
+    {
         $sql = "SELECT montant FROM elevage_TransactionCaisse WHERE dateTransaction = :date";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':date', $date);
@@ -19,52 +23,59 @@ class TransactionCaisseModel extends BaseModel
         return !empty($result) ? $result[0]['montant'] : 0;
     }
 
-    public function getRevenusTotal(){
+    public function getRevenusTotal()
+    {
         $sql = "SELECT sum(montant) montant from elevage_TransactionCaisse where montant > 0";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute()->fetch();
     }
 
-    public function getEvolutionCapital($date1, $date2){
+    public function getEvolutionCapital($date1, $date2)
+    {
         $sql = "SELECT montant from elevage_TransactionCaisse where dateTransaction >= ? and dateTransaction <= ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$date1);
-        $stmt->bindValue(2,$date2);
+        $stmt->bindValue(1, $date1);
+        $stmt->bindValue(2, $date2);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getDepenseTotal($date){
+    public function getDepenseTotal($date)
+    {
         $sql = "SELECT sum(montant) depense from elevage_TransactionCaisse where dateTransaction <= ? and (typeTransaction = 1 OR typeTransaction = 2)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$date);
+        $stmt->bindValue(1, $date);
         return $stmt->fetch();
     }
 
-    public function getDepenseNourriture($date){
+    public function getDepenseNourriture($date)
+    {
         $sql = "SELECT sum(montant) depense from elevage_TransactionCaisse where dateTransaction <=? and typeTransaction = 1";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$date);
+        $stmt->bindValue(1, $date);
         return $stmt->fetch();
     }
 
-    public function getDepenseAchatAnimal($date){
+    public function getDepenseAchatAnimal($date)
+    {
         $sql = "SELECT sum(montant) depense from elevage_TransactionCaisse where dateTransaction <=? and typeTransaction = 2";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$date);
+        $stmt->bindValue(1, $date);
         return $stmt->fetch();
     }
 
-    public function getPourcentageDepense($date){
+    public function getPourcentageDepense($date)
+    {
         $depenseTotal = $this->getDepenseTotal($date)["depense"];
         $depenseNourriture = $this->getDepenseNourriture($date)["depense"];
         $depenseAchatAnimal = $this->getDepenseAchatAnimal($date)["depense"];
-        $pourcentageNourriture = ($depenseNourriture/$depenseTotal)*100;
-        $pourcentageAchatAnimal = ($depenseAchatAnimal/$depenseTotal)*100;
+        $pourcentageNourriture = ($depenseNourriture / $depenseTotal) * 100;
+        $pourcentageAchatAnimal = ($depenseAchatAnimal / $depenseTotal) * 100;
         return ["achatNourriture" => $pourcentageNourriture, "achatAnimal" => $pourcentageAchatAnimal];
     }
 
-    public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat) {
+    public function achatAnimal($idEspece, $poidsInitial, $poidsActuel, $nomAnimal, $montantAchat, $dateAchat)
+    {
         try {
 
             // Insérer dans la table elevage_Animal
@@ -101,7 +112,6 @@ class TransactionCaisseModel extends BaseModel
             $this->majCaisse($montantAchat * -1, 2, $dateAchat);
 
             return true;
-
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return false;
@@ -109,7 +119,8 @@ class TransactionCaisseModel extends BaseModel
     }
 
     // Méthode pour effectuer l'achat de nourriture
-    public function achatNourriture( $idNourriture, $quantite, $prixUnitaire, $dateAchat) {
+    public function achatNourriture($idNourriture, $quantite, $prixUnitaire, $dateAchat)
+    {
         try {
             // Insérer dans la table elevage_HistoriqueAchatNourriture
             $montantTotal = $quantite * $prixUnitaire; // Calcul du montant total
@@ -130,7 +141,6 @@ class TransactionCaisseModel extends BaseModel
             $this->majCaisse($montantTotal * -1, 1, $dateAchat);
 
             return true;
-
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return false;
@@ -138,7 +148,8 @@ class TransactionCaisseModel extends BaseModel
     }
 
     // Méthode pour effectuer la vente d'un animal
-    public function venteAnimal($idAnimal, $montantVente, $dateVente) {
+    public function venteAnimal($idAnimal, $montantVente, $dateVente)
+    {
         try {
 
             // Insérer dans la table elevage_HistoriqueVente
@@ -157,7 +168,6 @@ class TransactionCaisseModel extends BaseModel
             $this->majCaisse($montantVente, 3, $dateVente);
 
             return true;
-
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return false;
@@ -165,7 +175,8 @@ class TransactionCaisseModel extends BaseModel
     }
 
     // Méthode privée pour mettre à jour la caisse
-    private function majCaisse($montant, $typeId, $dateTransaction) {
+    private function majCaisse($montant, $typeId, $dateTransaction)
+    {
         try {
             // Récupérer le montant actuel précédent depuis la dernière transaction
             $queryGetMontantActuelPrecedent = "SELECT montantActuel FROM elevage_TransactionCaisse ORDER BY id DESC LIMIT 1";
@@ -195,7 +206,8 @@ class TransactionCaisseModel extends BaseModel
         }
     }
 
-    public function getTransactionsByDate($date) {
+    public function getTransactionsByDate($date)
+    {
         $sql = "SELECT * FROM elevage_TransactionCaisse WHERE dateTransaction <= :date";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':date', $date);
@@ -203,7 +215,8 @@ class TransactionCaisseModel extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function insertCapital($data) {
+    public function insertCapital($data)
+    {
         $sql = "SELECT montantActuel FROM elevage_TransactionCaisse ORDER BY dateTransaction DESC LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
@@ -221,5 +234,4 @@ class TransactionCaisseModel extends BaseModel
         $stmt->bindValue(':montantActuel', (string)$data['montantActuel']);
         $stmt->execute();
     }
-
 }

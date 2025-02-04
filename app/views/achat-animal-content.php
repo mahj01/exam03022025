@@ -19,16 +19,21 @@
     </div>
 
     <div class="input-container">
-        <i class="fa fa-weight-hanging"></i>
         <label for="Poids">Poids</label>
         <input type="number" name="Poids" required><br>
     </div>
 
-    <!-- <div class="input-container">
-        <i class="fa fa-dollar-sign"></i>
-        <label for="Prix">Prix</label>
-        <input type="number" name="Prix" required><br>
-    </div> -->
+    <div class="input-container">
+        <label for="autovente">Auto Vente</label>
+        <div class="radio-group">
+            <label>
+                <input type="radio" name="autovente" value="1" required> Oui
+            </label>
+            <label>
+                <input type="radio" name="autovente" value="0" required> Non
+            </label>
+        </div>
+    </div>
 
     <div class="input-container">
         <i class="fa fa-calendar"></i>
