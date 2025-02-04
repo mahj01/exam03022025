@@ -18,9 +18,10 @@ class ElevageController
     }
 
     public function dashboard() {
-        $date = '2025-02-03';
-        $montantActuel = Flight::transactionCaisseModel()->getMontantActuel($date);
-        $data = ['page' => 'dashboard', 'montantActuel' => $montantActuel];
-        Flight::render('template', $data);
+        $date = new \DateTime('2025-02-03');
+        $montantActuel = Flight::transactionCaisseModel()->getEvolutionCapital($date, $date->modify('+1 day'));
+        var_dump($montantActuel) ;
+        //$data = ['page' => 'dashboard', 'montantActuel' => $montantActuel];
+        //Flight::render('template', $data);
     }
 }

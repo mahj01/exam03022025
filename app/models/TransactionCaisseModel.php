@@ -26,14 +26,15 @@ class TransactionCaisseModel extends BaseModel
         return $stmt->execute()->fetch();
     }
 
-    public function evolutionCapital($date){
+    public function getEvolutionCapital($date1, $date2){
         $sql = "SELECT montant from elevage_TransactionCaisse where dateTransaction >= ? and dateTransaction <= ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$date);
-        $stmt->bindValue(2,$date);
-        return $stmt->execute()->fetch();
-
+        $stmt->bindValue(1,$date1);
+        $stmt->bindValue(2,$date2);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function getDepenseTotal($date){
         $sql = "SELECT sum(montant) depense from elevage_TransactionCaisse where dateTransaction <= ? and (typeTransaction = 1 OR typeTransaction = 2)";
         $stmt = $this->db->prepare($sql);
