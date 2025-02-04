@@ -19,9 +19,9 @@ class AnimalModel extends BaseModel
     }
 
     public function getEspece($id){
-        $sql = "SELECT idEspece from eleve_Animal where id = ?";
+        $sql = "SELECT idEspece from elevage_Animal where id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1,(string)$id);
         $stmt->execute();
         return $stmt->fetch();
     }
@@ -123,8 +123,9 @@ class AnimalModel extends BaseModel
         $idEspece = $this->getEspece($idAnimal)["idEspece"];
         $sql = "SELECT id FROM elevage_Nourriture where idEspece = ? limit 1";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$idEspece);
-        return $stmt->execute()->fetch();
+        $stmt->bindValue(1,(string)$idEspece);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 
     public function getAllAnimalsAlive(){

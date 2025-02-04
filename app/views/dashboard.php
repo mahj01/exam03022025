@@ -15,7 +15,7 @@
                 <i class="fa fa-arrow-circle-o-up"></i> Mettre à jour
             </button>
         </div>
-
+    
         <div id="dashboard-content">
             <!-- Existing dashboard content goes here -->
             <div class="stats-grid">
@@ -111,8 +111,8 @@
 
         .modal-content img {
             border-radius: 10px;
-            max-width: 100%;
-            height: auto;
+            max-width: 100px; /* Limit the width */
+            max-height: 100px; /* Limit the height */
         }
 
         .modal-content .animal-info {
@@ -171,7 +171,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var animal = JSON.parse(xhr.responseText);
                     var modalContent = `
-                        <img src="<?= $url ?>/public/assets/images/${animal.image}" alt="${animal.NomAnimal}">
+                        <img src="<?= $url ?>/public/assets/images/1.jpg">
                         <div class="animal-info">
                             <ul>
                                 <li><strong>Nom:</strong> ${animal.NomAnimal}</li>
