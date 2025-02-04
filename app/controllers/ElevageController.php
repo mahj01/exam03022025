@@ -58,7 +58,9 @@ class ElevageController
 
     public function updateDashboard()
     {
+        
         $date = Flight::request()->data->date;
+        FLight::animalModel()->simuler($date);
         $transactions = Flight::transactionCaisseModel()->getTransactionsByDate($date);
 
         if (count($transactions) === 1 && $transactions[0]['typeId'] === 4) {
