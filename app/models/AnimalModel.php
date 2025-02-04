@@ -2,6 +2,7 @@
 namespace app\models;
 use PDO;
 use Flight;
+use DateTime;
 class AnimalModel extends BaseModel
 {
   
@@ -22,7 +23,6 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
         $stmt->execute();
-
         return $stmt->fetch();
     }
 
@@ -97,16 +97,16 @@ class AnimalModel extends BaseModel
         $especeId = $this->getEspece($idAnimal)["idEspece"];
         $qteJournaliere = Flight::especeModel()->getQteJournaliereById($especeId);
         $stock = Flight::nourritureModel()->stockNourritureById($idNourriture)["qte_restant"];
-        if($stock>=$qteJournaliere){
-            $sql1 = "INSERT INTO elevage_HistoriqueAlimentation values (null,?,?,?,?)"; 
-            $stmt = $this->db->prepare($sql1);
-            $stmt->bindValue(1,$idAnimal);
-            $stmt->bindValue(2,$dateAlim);
-            $stmt->bindValue(3,$qteJournaliere);
-            $stmt->bindValue(4,$idNourriture);
-            $stmt->execute();
+        if(0==0){
+            $sql1 = "INSERT INTO elevage_HistoriqueAlimentation (idAnimal,dateAlimentation,quantite,idNourriture) values (?,?,?,?)"; 
+            $stmt1 = $this->db->prepare($sql1);
+            $stmt1->bindValue(1,$idAnimal);
+            $stmt1->bindValue(2,$dateAlim);
+            $stmt1->bindValue(3,$qteJournaliere);
+            $stmt1->bindValue(4,$idNourriture);
+            $stmt1->execute();
 
-            $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
+            $sql = "INSERT INTO elevage_HistoriquePoids values (0,?,?,curdate())";
             $poidsActuel = $this->getPoidsActuel($idAnimal); 
             $newPoids = $poidsActuel*(1+Flight::nourritureModel()->getGain($idNourriture)/100);
             $stmt = $this->db->prepare($sql);
@@ -120,7 +120,7 @@ class AnimalModel extends BaseModel
     }
 
     public function getNourriture($idAnimal){
-        $idEspece = $this->getEspece($idAnimal);
+        $idEspece = $this->getEspece($idAnimal)["idEspece"];
         $sql = "SELECT id FROM elevage_Nourriture where idEspece = ? limit 1";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idEspece);
@@ -135,12 +135,14 @@ class AnimalModel extends BaseModel
     }
 
     public function simuler($date){
-        $dateDepart = new \DateTime();
+        $dateDepart = new DateTime("2025-02-03");
+        $dateFin = new DateTime($date);
+        $dateFin->format("Y-m-d");
         $listeAnimaux = $this->getAllAnimalsAlive();
-        while($dateDepart<=$date){
+        while($dateDepart<=$dateFin){
             for($i=0;$i<count($listeAnimaux);$i++){
                 $idAnimal = $listeAnimaux[$i]["idAnimal"];
-                $idNourriture = $this->getNourriture($idAnimal);
+                $idNourriture = $this->getNourriture($idAnimal)["id"];
                 $this->nourrir($idAnimal,$idNourriture,$dateDepart);
             }
             $dateDepart->modify("+1 day");
@@ -148,7 +150,7 @@ class AnimalModel extends BaseModel
     }
 
     public function skipNourrir($idAnimal,$idNourriture){
-        $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
+        $sql = "INSERT INTO elevage_HistoriquePoids (idAnimal,dateAlimentation,quantite,idNourriture) values (?,?,curdate())";
         $poidsActuel = $this->getPoidsActuel($idAnimal)["PoidsActuel"]; 
         $newPoids = $poidsActuel*(1-$this->getPerteParJour($idAnimal)["PerteParJour"]/100);
         $stmt = $this->db->prepare($sql);
