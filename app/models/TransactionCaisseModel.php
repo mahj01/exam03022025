@@ -111,24 +111,9 @@ class TransactionCaisseModel extends BaseModel
     }
 
     // Méthode pour effectuer l'achat de nourriture
-    public function achatNourriture($pourcentageGain, $idEspece, $nomNourriture, $quantite, $prixUnitaire, $dateAchat) {
+    public function achatNourriture( $idNourriture, $quantite, $prixUnitaire, $dateAchat) {
         try {
             $this->db->beginTransaction();
-
-            // Insérer dans la table elevage_Nourriture
-            $queryInsertNourriture = "INSERT INTO elevage_Nourriture (pourcentageGain, idEspece, NomNourriture) 
-                                      VALUES (:pourcentageGain, :idEspece, :nomNourriture)";
-            $stmtInsertNourriture = $this->db->prepare($queryInsertNourriture);
-            $stmtInsertNourriture->bindValue(':pourcentageGain', $pourcentageGain);
-            $stmtInsertNourriture->bindValue(':idEspece', $idEspece);
-            $stmtInsertNourriture->bindValue(':nomNourriture', $nomNourriture);
-
-            if (!$stmtInsertNourriture->execute()) {
-                throw new Exception("Erreur lors de l'insertion dans la table elevage_Nourriture.");
-            }
-
-            // Récupérer l'ID de la nourriture insérée
-            $idNourriture = $this->db->lastInsertId();
 
             // Insérer dans la table elevage_HistoriqueAchatNourriture
             $montantTotal = $quantite * $prixUnitaire; // Calcul du montant total
