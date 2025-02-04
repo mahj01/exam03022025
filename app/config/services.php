@@ -3,6 +3,7 @@ use app\models\AnimalModel;
 use app\models\NourritureModel;
 use app\models\EspeceModel;
 use app\models\TransactionCaisseModel;
+use app\models\ElevageModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;
@@ -43,4 +44,9 @@ Flight::map('especeModel', function(){
 
 Flight::map('transactionCaisseModel', function () {
     return new TransactionCaisseModel(Flight::db());
+});
+
+
+Flight::map('elevageModel', function(){
+    return new ElevageModel(Flight::db());
 });

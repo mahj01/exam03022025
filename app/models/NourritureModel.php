@@ -25,6 +25,19 @@ class NourritureModel extends BaseModel
         return $stmt->fetchAll();
     }
 
+    public function stockNourritureById($id){
+        $sql = "SELECT HAN.idNourriture id, EN.NomNourriture nom,sum(HAN.quantite)-sum(coalesce(HA.quantite,0)) qte_restant
+        from elevage_HistoriqueAchatNourriture HAN
+        left join elevage_HistoriqueAlimentation HA
+        on HAN.idNourriture=HA.idNourriture
+        join elevage_Nourriture EN
+        on EN.id = HAN.idNourriture where id = ?
+        group by HAN.idNourriture";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$id);
+        return $stmt->fetch();
+    }
+
     public function getGain($id){
         $sql = "SELECT pourcentageGAin from elevage_Nourriture where id = ?";
         $stmt = $this->db->prepare($sql);

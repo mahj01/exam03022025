@@ -2,10 +2,9 @@
 namespace app\models;
 use PDO;
 use Flight;
-use Exception;
 class AnimalModel extends BaseModel
 {
-    
+    private $db;
     public function __construct($db)
     {
         parent::__construct($db);
@@ -14,6 +13,13 @@ class AnimalModel extends BaseModel
     public function getDeadCount(){
         $sql = "SELECT count(*) nbMorts from elevage_AnimalDecede";
         $stmt = $this->db->query($sql);
+        return $stmt->fetch();
+    }
+
+    public function getEspece($id){
+        $sql = "SELECT idEspece from eleve_Animal where id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$id);
         return $stmt->fetch();
     }
 
@@ -72,14 +78,58 @@ class AnimalModel extends BaseModel
         return $stmt->fetch();
     }
 
-    public function nourrir($idAnimal,$idNourriture){
-        $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
-        $poidsActuel = $this->getPoidsActuel($idAnimal); 
-        $newPoids = $poidsActuel*(1+Flight::nourritureModel()->getGain($idNourriture)/100);
+    public function nourrir($idAnimal,$idNourriture,$dateAlim){
+        $especeId = $this->getEspece($idAnimal)["idEspece"];
+        $qteJournaliere = Flight::especeModel()->getQteJournaliereById($especeId);
+        $stock = Flight::nourritureModel()->stockNourritureById($idNourriture)["qte_restant"];
+        if($stock>=$qteJournaliere){
+            $sql1 = "INSERT INTO elevage_HistoriqueAlimentation values (null,?,?,?,?)"; 
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(1,$idAnimal);
+            $stmt->bindValue(2,$dateAlim);
+            $stmt->bindValue(3,$quantite);
+            $stmt->bindValue(4,$idNourriture);
+            $stmt->execute();
+
+            $sql = "INSERT INTO elevage_HistoriquePoids values (null,?,?,curdate())";
+            $poidsActuel = $this->getPoidsActuel($idAnimal); 
+            $newPoids = $poidsActuel*(1+Flight::nourritureModel()->getGain($idNourriture)/100);
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(1,$idAnimal);
+            $stmt->bindValue(2,$newPoids);
+            $stmt->execute();
+        }else{
+            skipNourrir($idAnimal,$idNourriture);
+        }
+
+    }
+
+    public function getNourriture($idAnimal){
+        $idEspece = $this->getEspece($idAnimal);
+        $sql = "SELECT id FROM elevage_Nourriture where idEspece = ? limit 1";
+        $stmt = $this->$db->prepare($sql);
+        $stmt->bindValue(1,$idEspece);
+        return $stmt->execute()->fetch();
+    }
+
+    public function getAllAnimalsAlive(){
+        $sql = "SELECT idAnimal from elevage_Animal not in (SELECT idAnimal from elevage_AnimalDecede)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$idAnimal);
-        $stmt->bindValue(2,$newPoids);
-        $stmt->execute();
+        return $stmt->execute()->fetchAll();
+
+    }
+
+    public function simuler($date){
+        $dateDepart = null;
+        $listeAnimaux = $this->getAllAnimalsAlive();
+        while($dateDepart<=$date){
+            for($i=0;$i<count($listeAnimaux);$i++){
+                $idAnimal = $listeAnimaux[$i]["idAnimal"];
+                $idNourriture = $this->getNourriture($idAnimal);
+                $this->nourrir($idAnimal,$idNourriture,$dateAlim);
+            }
+            $dateDepart->modify("+1 day");
+        }
     }
 
     public function skipNourrir($idAnimal,$idNourriture){
@@ -107,7 +157,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idEspece);
         $rs = $stmt->execute()->fetchAll();
         for($i=0; $i<count($rs);$i++){
-            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date);
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"]);
         }
         return $somme;
 
@@ -121,6 +171,13 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(2,$idAnimal);
         return $stmt->fetchAll();
     }
+
+
+    
+
+
+
+    
 
 
 

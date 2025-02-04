@@ -21,7 +21,7 @@
     <main class="main-content">
         <div class="content-wrapper">
             <div class="conteneur">
-                <a href="<?= $url ?>/reinitialisation" class="icon-link-refresh" title="Réinitialiser les données">
+                <a href="<?= $url ?>/reinitialiser" class="icon-link-refresh" title="Réinitialiser les données">
                     <i class="fa fa-refresh"></i> <!-- Correction de l'icône, "fa-reset" n'existe pas, "fa-refresh" pour réinitialiser -->
                     Réinitialiser les données
                 </a>

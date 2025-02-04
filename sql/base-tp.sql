@@ -132,6 +132,13 @@ CREATE TABLE elevage_NourritureSupprime(
     FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
 );
 
+CREATE TABLE elevage_HistoriqueStock(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idNourriture int,
+    quantite int,
+    dateAjout DATE,
+    FOREIGN KEY (idNourriture) REFERENCES elevage_Nourriture(id)
+);
 
 CREATE TRIGGER updateApresNourrir
 AFTER INSERT
