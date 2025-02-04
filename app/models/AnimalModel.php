@@ -84,7 +84,7 @@ class AnimalModel extends BaseModel
         $stock = Flight::nourritureModel()->stockNourritureById($idNourriture)["qte_restant"];
         if($stock>=$qteJournaliere){
             $sql1 = "INSERT INTO elevage_HistoriqueAlimentation values (null,?,?,?,?)"; 
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->db->prepare($sql1);
             $stmt->bindValue(1,$idAnimal);
             $stmt->bindValue(2,$dateAlim);
             $stmt->bindValue(3,$quantite);
@@ -99,7 +99,7 @@ class AnimalModel extends BaseModel
             $stmt->bindValue(2,$newPoids);
             $stmt->execute();
         }else{
-            skipNourrir($idAnimal,$idNourriture);
+            $this->skipNourrir($idAnimal,$idNourriture);
         }
 
     }
@@ -107,7 +107,7 @@ class AnimalModel extends BaseModel
     public function getNourriture($idAnimal){
         $idEspece = $this->getEspece($idAnimal);
         $sql = "SELECT id FROM elevage_Nourriture where idEspece = ? limit 1";
-        $stmt = $this->$db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idEspece);
         return $stmt->execute()->fetch();
     }

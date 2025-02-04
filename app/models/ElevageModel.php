@@ -45,6 +45,20 @@ class ElevageModel extends BaseModel{
             // Supprimer les enregistrements des tables EspeceSupprime et NourritureSupprime
             $this->db->exec("DELETE FROM elevage_EspeceSupprime");
             $this->db->exec("DELETE FROM elevage_NourritureSupprime");
+            
+            $sql = "DELETE FROM elevage_Nourriture
+            WHERE id NOT IN (
+                SELECT id
+                FROM (
+                    SELECT id
+                    FROM elevage_Nourriture
+                    ORDER BY id DESC
+                    LIMIT :nombreNourritureAConserver
+                ) AS tmp
+            )";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':nombreNourritureAConserver', (string)$nombreAnimauxAConserver, PDO::PARAM_INT);
+    $stmt->execute();
 
             // Valider la transaction
             $this->db->commit();
