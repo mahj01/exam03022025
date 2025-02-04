@@ -124,7 +124,7 @@ class AnimalModel extends BaseModel
     }
 
     public function getAllAnimalsAlive(){
-        $sql = "SELECT idAnimal,ABS(PoidsActuel-(SELECT PoidsMinVente from elevage_Espece EE where EE.id =  )) from elevage_Animal EA not in (SELECT idAnimal from elevage_AnimalDecede)";
+        $sql = "SELECT R2.idAnimal idAnimal,ABS(EE.PoidsMinVente-R2.PoidsActuel) delta from elevage_Espece EE join (SELECT idAnimal,idEspece,PoidsActuel from elevage_Animal EA not in (SELECT idAnimal from elevage_AnimalDecede)) R2 on EE.id=R2.idEspece order by delta asc";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute()->fetchAll();
 
