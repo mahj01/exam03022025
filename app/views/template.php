@@ -36,7 +36,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const dataTable = new simpleDatatables.DataTable("#datatablesSimple", {
-                perPage: 10,
+                perPage: 5,
                 perPageSelect: false
             });
         });

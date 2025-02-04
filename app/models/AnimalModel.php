@@ -209,4 +209,12 @@ class AnimalModel extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAnimalById($id) {
+        $sql = "SELECT * FROM elevage_Animal WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

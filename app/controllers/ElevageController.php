@@ -57,7 +57,28 @@ class ElevageController
         Flight::render('template', $data);
     }
 
-   
+    public function getAnimalDetails()
+    {
+        $id = Flight::request()->query->id;
+        $animal = Flight::animalModel()->getAnimalById($id);
+        $espece = Flight::especeModel()->getEspeceById($animal['idEspece']);
+        $poidsActuel = Flight::animalModel()->getPoidsActuel($animal['id'])[0];
+        $prixParKg = Flight::especeModel()->getPrixParKg($animal['idEspece']);
+        $estimationValeur = $poidsActuel * $prixParKg;
+
+        $animalDetails = [
+            'id' => $animal['id'],
+            'NomAnimal' => $animal['NomAnimal'],
+            'Espece' => $espece['NomEspece'],
+            'PoidsInitial' => $animal['PoidsInitial'],
+            'PoidsActuel' => $poidsActuel,
+            'PrixParKg' => $prixParKg,
+            'EstimationValeur' => $estimationValeur,
+            'image' => $espece['cheminImage'] // Fetch image from espece
+        ];
+
+        Flight::json($animalDetails);
+    }
 
     public function goToCapital()
     {
