@@ -1,9 +1,11 @@
 <?php
+
 use app\models\AnimalModel;
 use app\models\NourritureModel;
 use app\models\EspeceModel;
 use app\models\TransactionCaisseModel;
 use app\models\ElevageModel;
+use app\models\UploadModel;
 use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;
@@ -38,7 +40,7 @@ Flight::map('animalModel', function () {
 Flight::map('nourritureModel', function () {
     return new NourritureModel(Flight::db());
 });
-Flight::map('especeModel', function(){
+Flight::map('especeModel', function () {
     return new EspeceModel(Flight::db());
 });
 
@@ -46,7 +48,10 @@ Flight::map('transactionCaisseModel', function () {
     return new TransactionCaisseModel(Flight::db());
 });
 
-
-Flight::map('elevageModel', function(){
+Flight::map('elevageModel', function () {
     return new ElevageModel(Flight::db());
+});
+
+Flight::map('uploadModel', function () {
+    return new UploadModel();
 });
