@@ -84,10 +84,10 @@ class AnimalModel extends BaseModel
         $stock = Flight::nourritureModel()->stockNourritureById($idNourriture)["qte_restant"];
         if($stock>=$qteJournaliere){
             $sql1 = "INSERT INTO elevage_HistoriqueAlimentation values (null,?,?,?,?)"; 
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->db->prepare($sql1);
             $stmt->bindValue(1,$idAnimal);
             $stmt->bindValue(2,$dateAlim);
-            $stmt->bindValue(3,$quantite);
+            $stmt->bindValue(3,$qteJournaliere);
             $stmt->bindValue(4,$idNourriture);
             $stmt->execute();
 
@@ -99,7 +99,7 @@ class AnimalModel extends BaseModel
             $stmt->bindValue(2,$newPoids);
             $stmt->execute();
         }else{
-            skipNourrir($idAnimal,$idNourriture);
+            $this->skipNourrir($idAnimal,$idNourriture);
         }
 
     }
@@ -107,7 +107,7 @@ class AnimalModel extends BaseModel
     public function getNourriture($idAnimal){
         $idEspece = $this->getEspece($idAnimal);
         $sql = "SELECT id FROM elevage_Nourriture where idEspece = ? limit 1";
-        $stmt = $this->$db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idEspece);
         return $stmt->execute()->fetch();
     }
@@ -120,13 +120,13 @@ class AnimalModel extends BaseModel
     }
 
     public function simuler($date){
-        $dateDepart = null;
+        $dateDepart = new \DateTime();
         $listeAnimaux = $this->getAllAnimalsAlive();
         while($dateDepart<=$date){
             for($i=0;$i<count($listeAnimaux);$i++){
                 $idAnimal = $listeAnimaux[$i]["idAnimal"];
                 $idNourriture = $this->getNourriture($idAnimal);
-                $this->nourrir($idAnimal,$idNourriture,$dateAlim);
+                $this->nourrir($idAnimal,$idNourriture,$dateDepart);
             }
             $dateDepart->modify("+1 day");
         }
@@ -157,7 +157,7 @@ class AnimalModel extends BaseModel
         $stmt->bindValue(1,$idEspece);
         $rs = $stmt->execute()->fetchAll();
         for($i=0; $i<count($rs);$i++){
-            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"]);
+            $somme += $this->getEstimationValeur($rs[$i]["idAnimal"],$date);
         }
         return $somme;
 
