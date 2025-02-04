@@ -57,3 +57,7 @@ $router->get('/reinitialiser', [$elevageController, 'reinitialiser']);
 $router->get('/ajout-capital', [$elevageController, 'goToCapital']);
 $router->post('/capital/traitement', [$elevageController, 'insertCapital']);
 //FIN CAPITAL
+
+//AJAX REQUEST
+$router->post('/update-dashboard', [$elevageController, 'updateDashboard']);
+//FIN AJAX REQUEST
