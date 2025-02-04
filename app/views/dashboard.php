@@ -20,7 +20,7 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <i class="fa fa-money icon"></i>
-                <div class="value" id="totalCapital">10 000 €</div>
+                <div class="value" id="totalCapital"><?= $montantActuel ?></div>
                 <div>Capital Total</div>
             </div>
             <div class="stat-card">

@@ -14,11 +14,11 @@ $router->get('/',function () {
 	Flight::redirect('dashboard');
 });
 
-$router->get('/dashboard',[$animalController,'dashboard']);
+$router->get('/dashboard',[$elevageController,'dashboard']);
 $router->get('/stock-nourriture',[$nourritureController,'stockNourriture']);
 
 // Antonio route
-$router->get('/dashboard',[$animalController,'dashboard']);
+$router->get('/dashboard',[$elevageController,'dashboard']);
 
 $router->get('/animaux/achat', [$animalController, 'goToAchatPage']);
 $router->post('/animaux/traitementAchat', [$animalController, 'achatAnimal']);

@@ -26,6 +26,7 @@
                     Réinitialiser les données
                 </a>
             </div>
+
             <?php include($page . '.php'); ?>
         </div>
     </main>
