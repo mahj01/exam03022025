@@ -1,4 +1,5 @@
 <?php
+
 use app\controllers\AnimalController;
 use app\controllers\NourritureController;
 use app\controllers\EspeceController;
@@ -10,15 +11,12 @@ $especeController = new EspeceController();
 $elevageController = new ElevageController();
 
 // Antonio route
-$router->get('/',function () {
+$router->get('/', function () {
 	Flight::redirect('dashboard');
 });
 
-$router->get('/dashboard',[$elevageController,'dashboard']);
-$router->get('/stock-nourriture',[$nourritureController,'stockNourriture']);
-
-// Antonio route
-$router->get('/dashboard',[$elevageController,'dashboard']);
+$router->get('/dashboard', [$elevageController, 'dashboard']);
+$router->get('/stock-nourriture', [$nourritureController, 'stockNourriture']);
 
 $router->get('/animaux/achat', [$animalController, 'goToAchatPage']);
 $router->post('/animaux/traitementAchat', [$animalController, 'achatAnimal']);
@@ -43,7 +41,7 @@ $router->get('/nourritures/delete/@id:\d+', [$nourritureController, 'deleteNourr
 
 //ACHAT ANIMAL
 $router->get('/animaux/achatAnimal', [$animalController, 'goToAchatPage']);
-$router->post('/animaux/traitementAchat',[$animalController, 'achatAnimal']);
+$router->post('/animaux/traitementAchat', [$animalController, 'achatAnimal']);
 //FIN ACHAT ANIMAL
 
 //ACHAT NOURRITURE
@@ -56,6 +54,6 @@ $router->get('/reinitialiser', [$elevageController, 'reinitialiser']);
 //FIN REINIT
 
 //CAPITAL
-$router->get('/capital', [$elevageController,'goToCapital']);
+$router->get('/capital', [$elevageController, 'goToCapital']);
 $router->post('/capital/traitement', [$elevageController, 'insertCapital']);
 //FIN CAPITAL

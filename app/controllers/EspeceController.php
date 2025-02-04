@@ -1,32 +1,36 @@
 <?php
 
 namespace app\controllers;
+
 use Flight;
 
-class EspeceController{
+class EspeceController
+{
 
-    public function __construct() {
-        
-    }
+    public function __construct() {}
 
-    public function getAllEspece(){
+    public function getAllEspece()
+    {
         $especes = Flight::especeModel()->getAllEspece();
-        $data = ['page' => 'liste-espece-content', 'especes'=>$especes];
-        Flight::render('template',$data);
+        $data = ['page' => 'liste-espece-content', 'especes' => $especes];
+        Flight::render('template', $data);
     }
 
-    public function goToModifyPage($id){
+    public function goToModifyPage($id)
+    {
         $espece = Flight::especeModel()->getEspeceById($id);
-        $data = ['page' => 'modify-espece-content', 'espece'=>$espece];
-        Flight::render('template',$data);
+        $data = ['page' => 'modify-espece-content', 'espece' => $espece];
+        Flight::render('template', $data);
     }
 
-    function goToAddPage(){
+    function goToAddPage()
+    {
         $data = ['page' => 'ajout-espece-content'];
-        Flight::render('template',$data);
+        Flight::render('template', $data);
     }
 
-    public function updateEspece($id){
+    public function updateEspece($id)
+    {
         $data = [
             'NomEspece' => Flight::request()->data->NomEspece,
             'PoidsMinVente' => Flight::request()->data->PoidsMinVente,
@@ -38,19 +42,22 @@ class EspeceController{
         Flight::redirect('/especes');
     }
 
-    public function addEspece(){
+    public function addEspece()
+    {
         $data = [
             'NomEspece' => Flight::request()->data->NomEspece,
             'PoidsMinVente' => Flight::request()->data->PoidsMinVente,
             'PoidsMax' => Flight::request()->data->PoidsMax,
             'PrixParKg' => Flight::request()->data->PrixParKg,
-            'NbJoursAvantDeMourir' => Flight::request()->data->NbJoursAvantDeMourir
+            'NbJoursAvantDeMourir' => Flight::request()->data->NbJoursAvantDeMourir,
+            'prixUnitaire' => $_POST['prixUnitaire']
         ];
         Flight::especeModel()->addEspece($data);
         Flight::redirect('/especes');
     }
 
-    public function deleteEspece($id){
+    public function deleteEspece($id)
+    {
         Flight::especeModel()->markAsDeleted($id);
         Flight::redirect('/especes');
     }

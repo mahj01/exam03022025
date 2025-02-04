@@ -7,11 +7,6 @@ use Flight;
 
 class AnimalController
 {
-    public function dashboard() {
-        $data = ['page'=>'dashboard'];
-        Flight::render('template',$data);
-    }
-
     public function goToAchatPage() {
         $especes = Flight::especeModel()->getAllEspece();
         $data = ['page' => 'achat-animal-content', 'especes' => $especes];

@@ -15,6 +15,12 @@
     </div>
 
     <div class="input-container">
+        <i class="fa fa-money"></i>
+        <label for="prixUnitaire">Prix unitaire</label>
+        <input type="number" step="0.01" name="prixUnitaire" required>
+    </div>
+
+    <div class="input-container">
         <i class="fa fa-leaf"></i>
         <label for="idEspece">Espèce</label>
         <select name="idEspece" required>

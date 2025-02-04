@@ -12,6 +12,13 @@
         <label for="PoidsMinVente">Poids minimum de vente</label>
         <input type="number" name="PoidsMinVente" required><br>
     </div>
+
+    <div class="input-container">
+        <i class="fa fa-money"></i>
+        <label for="prixUnitaire">Prix unitaire</label>
+        <input type="number" step="0.01" name="prixUnitaire" required>
+    </div>
+
     <div class="input-container">
         <i class="fa fa-weight"></i>
         <label for="PoidsMax">Poids maximum</label>

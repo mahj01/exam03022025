@@ -60,7 +60,8 @@ class NourritureController {
         $data = [
             'NomNourriture' => Flight::request()->data->NomNourriture,
             'pourcentageGain' => Flight::request()->data->pourcentageGain,
-            'idEspece' => Flight::request()->data->idEspece
+            'idEspece' => Flight::request()->data->idEspece,
+            'prixUnitaire'=>$_POST['prixUnitaire']
         ];
         Flight::nourritureModel()->insert($data,'elevage_nourriture');
         Flight::redirect('/nourritures');
