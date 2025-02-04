@@ -36,6 +36,7 @@ CREATE TABLE elevage_Animal (
     PoidsInitial DECIMAL(10, 2),
     PoidsActuel DECIMAL(10, 2),
     NomAnimal VARCHAR(255),
+    autoVente int,
     FOREIGN KEY (idEspece) REFERENCES elevage_Espece(id)
 );
 

@@ -13,6 +13,7 @@ class AnimalModel extends BaseModel
     public function getDeadCount(){
         $sql = "SELECT count(*) nbMorts from elevage_AnimalDecede";
         $stmt = $this->db->query($sql);
+        $stmt->execute();
         return $stmt->fetch();
     }
 
@@ -20,6 +21,8 @@ class AnimalModel extends BaseModel
         $sql = "SELECT idEspece from eleve_Animal where id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$id);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -27,6 +30,8 @@ class AnimalModel extends BaseModel
         $sql = "SELECT count(*) nbMorts from elevage_AnimalDecede where dateDeces <= ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$date);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -34,6 +39,8 @@ class AnimalModel extends BaseModel
         $sql = "select dateAlimentation from elevage_HistoriqueAlimentation where idAnimal=?";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -60,6 +67,8 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);    
         $stmt->bindValue(1,$idAnimal);
         $stmt->bindValue(2,$date);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -75,6 +84,8 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$idAnimal);
         $stmt->bindValue(2,$date);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -113,7 +124,7 @@ class AnimalModel extends BaseModel
     }
 
     public function getAllAnimalsAlive(){
-        $sql = "SELECT idAnimal from elevage_Animal not in (SELECT idAnimal from elevage_AnimalDecede)";
+        $sql = "SELECT R2.idAnimal idAnimal,ABS(EE.PoidsMinVente-R2.PoidsActuel) delta from elevage_Espece EE join (SELECT idAnimal,idEspece,PoidsActuel from elevage_Animal EA not in (SELECT idAnimal from elevage_AnimalDecede)) R2 on EE.id=R2.idEspece order by delta asc";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute()->fetchAll();
 
@@ -169,7 +180,16 @@ class AnimalModel extends BaseModel
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1,$date);
         $stmt->bindValue(2,$idAnimal);
+        $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    public function isAlive($id){
+        $sql = "SELECT id from elevage_AnimalDecede where idAnimal = ?";
+        $stmt->bindValue(1,$id);
+        $stmt->execute();
+        $stmt->fetch();
+        return $stmt->rowCount();
     }
 
 
