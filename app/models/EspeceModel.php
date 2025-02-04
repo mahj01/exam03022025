@@ -40,12 +40,12 @@ class EspeceModel extends BaseModel{
         return $this->insert($data, 'elevage_EspeceSupprime');
     }
 
-    public function getPrixParKg($id){
-        $sql = "SELECT PrixParKg from elevage_Espece where id = ?";
+    public function getPrixParKg($id) {
+        $sql = "SELECT PrixParKg FROM elevage_Espece WHERE id = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
+        $stmt->bindValue(1, (string)$id);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchColumn(); // Fetch a single column value
     }
 
     public function getQteJournaliereById($id){
