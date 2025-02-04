@@ -41,6 +41,9 @@
             });
         });
     </script>
+    <footer class="footer">
+        ETU003275 - ETU003342 - ETU003293
+    </footer>
 </body>
 
 </html>

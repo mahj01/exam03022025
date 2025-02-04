@@ -171,3 +171,52 @@ body {
     color: white;
     /* L'icône devient blanche au survol */
 }
+
+/* Ajustement du body et du contenu principal pour le footer fixe */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    position: relative;
+    padding-bottom: 60px; /* Hauteur du footer */
+}
+
+.main-content {
+    flex: 1;
+    margin-bottom: 100px; /* Espace pour le footer */
+}
+
+/* Styles du footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    z-index: 1000;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ajustement pour la sidebar */
+@media (min-width: 769px) {
+    .footer {
+        margin-left: 250px; /* Largeur de la sidebar */
+        width: calc(100% - 250px);
+    }
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .footer {
+        width: 100%;
+        margin-left: 0;
+    }
+}
