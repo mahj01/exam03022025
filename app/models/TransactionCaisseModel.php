@@ -10,13 +10,29 @@ class TransactionCaisseModel extends BaseModel
         parent::__construct($db);
     }
 
-    public function getMontantActuel(){
-        $sql = "SELECT coalesce(montantActuel,0) montantActuel from elevage_TransactionCaisse where id = ?";
+    public function getClosestDateId($date){
+        $sql = "SELECT min(id) id from elevage_TransactionCaisse where dateTransaction > ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$date);
+        return $stmt->execute()->fetch()['id'];
+    }
+
+    public function getClosestDateById($id){
+        $sql = "SELECT dateTransaction from elevage_TransactionCaisse where id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$id);
+        return $stmt->execute()->fetch()['dateTransaction'];
+    }
+
+    public function getMontantActuel($date){
+        $closestDateId = $this->$db->getClosestDate($date);
+        if($closestDateId>1){ $closestDateId -=1; }
+        $dateT = $this->$db->getClosestDateById($closestDateId);
+        $sql = "SELECT coalesce(montantActuel,0) montantActuel from elevage_TransactionCaisse where dateTransaction = ?";
         $lastId = $this->db->lastInsertId();
-        if($lastId != 0 || $lastId != ""){
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(1,$lastId);
-        }
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1,$dateT);
+        
         return $stmt->fetch();
     }
 
