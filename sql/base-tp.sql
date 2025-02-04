@@ -26,7 +26,8 @@ CREATE TABLE elevage_Espece (
     PerteParJour DECIMAL(10, 2),
     quantite int,
     prixUnitaire int,
-    NbJoursAvantDeMourir INT
+    NbJoursAvantDeMourir INT,
+    cheminImage VARCHAR(100) default 'No_image_available.png'
 );
 
 -- Table Animal
