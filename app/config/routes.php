@@ -51,7 +51,11 @@ $router->get('/nourritures/achatNourritures', [$nourritureController, 'goToAchat
 $router->post('/nourritures/traitementAchat', [$nourritureController, 'achatNourriture']);
 //FIN ACHAT NOURRITURE
 
-
 //REINITIALISER
 $router->get('/reinitialiser', [$elevageController, 'reinitialiser']);
 //FIN REINIT
+
+//CAPITAL
+$router->get('/capital', [$elevageController,'goToCapital']);
+$router->post('/capital/traitement', [$elevageController, 'insertCapital']);
+//FIN CAPITAL

@@ -10,30 +10,13 @@ class TransactionCaisseModel extends BaseModel
         parent::__construct($db);
     }
 
-    public function getClosestDateId($date){
-        $sql = "SELECT min(id) id from elevage_TransactionCaisse where dateTransaction > ?";
+    public function getMontantActuel($date) {
+        $sql = "SELECT montant FROM elevage_TransactionCaisse WHERE dateTransaction = :date";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$date);
-        return $stmt->execute()->fetch()['id'];
-    }
-
-    public function getClosestDateById($id){
-        $sql = "SELECT dateTransaction from elevage_TransactionCaisse where id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$id);
-        return $stmt->execute()->fetch()['dateTransaction'];
-    }
-
-    public function getMontantActuel($date){
-        $closestDateId = $this->$db->getClosestDate($date);
-        if($closestDateId>1){ $closestDateId -=1; }
-        $dateT = $this->$db->getClosestDateById($closestDateId);
-        $sql = "SELECT coalesce(montantActuel,0) montantActuel from elevage_TransactionCaisse where dateTransaction = ?";
-        $lastId = $this->db->lastInsertId();
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(1,$dateT);
-        
-        return $stmt->fetch();
+        $stmt->bindValue(':date', $date);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return !empty($result) ? $result[0]['montant'] : 0;
     }
 
     public function getRevenusTotal(){
@@ -211,6 +194,14 @@ class TransactionCaisseModel extends BaseModel
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    public function getTransactionsByDate($date) {
+        $sql = "SELECT * FROM elevage_TransactionCaisse WHERE dateTransaction = :date";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':date', $date);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
