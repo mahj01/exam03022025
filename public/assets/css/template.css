@@ -172,51 +172,69 @@ body {
     /* L'icône devient blanche au survol */
 }
 
-/* Ajustement du body et du contenu principal pour le footer fixe */
+/* Ajustement du body */
 body {
     min-height: 100vh;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    margin: 0;
-    position: relative;
-    padding-bottom: 60px; /* Hauteur du footer */
 }
 
+/* Ajustement du contenu principal */
 .main-content {
     flex: 1;
-    margin-bottom: 100px; /* Espace pour le footer */
+    padding-bottom: 80px;
+    /* Augmenté pour laisser plus d'espace */
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+.content-wrapper {
+    padding: 20px;
+    min-height: calc(100vh - 60px);
+    /* Soustrait la hauteur du footer */
 }
 
 /* Styles du footer */
 .footer {
     position: fixed;
     bottom: 0;
-    left: 0;
     right: 0;
-    height: 60px;
+    height: 50px;
+    /* Réduit légèrement la hauteur */
     background-color: #2c3e50;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 20px;
-    z-index: 1000;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-}
-
-/* Ajustement pour la sidebar */
-@media (min-width: 769px) {
-    .footer {
-        margin-left: 250px; /* Largeur de la sidebar */
-        width: calc(100% - 250px);
-    }
+    font-size: 14px;
+    width: calc(100% - 250px);
+    /* Ajuste à la largeur du contenu principal */
+    margin-left: 250px;
+    /* Aligne avec le contenu principal */
+    z-index: 999;
 }
 
 /* Responsive pour mobile */
 @media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
     .footer {
         width: 100%;
         margin-left: 0;
     }
+
+    .content-wrapper {
+        padding: 15px;
+    }
+}
+
+/* Assure que les tableaux et autres contenus scrollables s'arrêtent avant le footer */
+.datatable-wrapper,
+.table-responsive {
+    margin-bottom: 60px;
 }
