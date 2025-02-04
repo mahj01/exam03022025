@@ -134,9 +134,9 @@ class TransactionCaisseModel extends BaseModel
                                                      VALUES (:dateAchat, :quantite, :idNourriture, :prixUnitaire)";
             $stmtInsertHistoriqueAchatNourriture = $this->db->prepare($queryInsertHistoriqueAchatNourriture);
             $stmtInsertHistoriqueAchatNourriture->bindValue(':dateAchat', $dateAchat);
-            $stmtInsertHistoriqueAchatNourriture->bindValue(':quantite', $quantite);
-            $stmtInsertHistoriqueAchatNourriture->bindValue(':idNourriture', $idNourriture);
-            $stmtInsertHistoriqueAchatNourriture->bindValue(':prixUnitaire', $prixUnitaire);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':quantite', (string)$quantite);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':idNourriture', (string)$idNourriture);
+            $stmtInsertHistoriqueAchatNourriture->bindValue(':prixUnitaire', (string)$prixUnitaire);
 
             $stmtInsertHistoriqueAchatNourriture->execute();
             // if (!$stmtInsertHistoriqueAchatNourriture->execute()) {

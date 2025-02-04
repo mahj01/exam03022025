@@ -16,76 +16,84 @@
             </button>
         </div>
 
-        <!-- Statistiques globales -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <i class="fa fa-money icon"></i>
-                <div class="value" id="totalCapital"><?= $montantActuel ?></div>
-                <div>Capital Total</div>
+        <div id="dashboard-content">
+            <!-- Existing dashboard content goes here -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fa fa-money icon"></i>
+                    <div class="value" id="montantActuel"><?= $montantActuel ?></div>
+                    <div>Capital Total</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa fa-archive icon"></i>
+                    <div class="value" id="totalAnimals">5</div>
+                    <div>Nombre d'Animaux</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa fa-cutlery icon"></i>
+                    <div class="value" id="feedCost">250 €</div>
+                    <div>Coût Alimentation</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <i class="fa fa-archive icon"></i>
-                <div class="value" id="totalAnimals">5</div>
-                <div>Nombre d'Animaux</div>
-            </div>
-            <div class="stat-card">
-                <i class="fa fa-cutlery icon"></i>
-                <div class="value" id="feedCost">250 €</div>
-                <div>Coût Alimentation</div>
-            </div>
-        </div>
 
-        <!-- Tableau des Animaux -->
-        <table class="animals-table" id="animalsTable">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>NomAnimal</th>
-                    <th>Espece</th>
-                    <th>PoidsInitial</th>
-                    <th>PoidsActuel</th>
-                    <th>Prix/kg</th>
-                    <th>Estimation Valeur</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($animalData as $animal): ?>
+            <!-- Tableau des Animaux -->
+            <table class="animals-table" id="animalsTable">
+                <thead>
                     <tr>
-                        <td><?= $animal['id'] ?></td>
-                        <td><?= $animal['NomAnimal'] ?></td>
-                        <td><?= $animal['Espece'] ?></td>
-                        <td><?= $animal['PoidsInitial'] ?></td>
-                        <td><?= $animal['PoidsActuel'] ?></td>
-                        <td><?= $animal['PrixParKg'] ?></td>
-                        <td><?= $animal['EstimationValeur'] ?></td>
+                        <th>id</th>
+                        <th>NomAnimal</th>
+                        <th>Espece</th>
+                        <th>PoidsInitial</th>
+                        <th>PoidsActuel</th>
+                        <th>Prix/kg</th>
+                        <th>Estimation Valeur</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($animalData as $animal): ?>
+                        <tr>
+                            <td><?= $animal['id'] ?></td>
+                            <td><?= $animal['NomAnimal'] ?></td>
+                            <td><?= $animal['Espece'] ?></td>
+                            <td><?= $animal['PoidsInitial'] ?></td>
+                            <td><?= $animal['PoidsActuel'] ?></td>
+                            <td><?= $animal['PrixParKg'] ?></td>
+                            <td><?= $animal['EstimationValeur'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        // Simulation de mise à jour du tableau de bord
         function updateDashboard() {
-            const currentDate = document.getElementById('currentDate').value;
-            
-            // Animation de mise à jour
-            const cards = document.querySelectorAll('.stat-card');
-            cards.forEach(card => {
-                card.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    card.style.transform = 'scale(1)';
-                }, 200);
-            });
-
-            // Simulation de modifications (à remplacer par une vraie logique)
-            document.getElementById('totalCapital').textContent = 
-                (Math.random() * 1000 + 9000).toFixed(0) + ' €';
-            
-            document.getElementById('feedCost').textContent = 
-                (Math.random() * 100 + 200).toFixed(0) + ' €';
-            
-            alert('Tableau de bord mis à jour pour la date : ' + currentDate);
+            var date = document.getElementById('currentDate').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'update-dashboard', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var tableBody = document.querySelector('#dashboard-content tbody');
+                    tableBody.innerHTML = '';
+                    response.animalData.forEach(function(animal) {
+                        var row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${animal.id}</td>
+                            <td>${animal.NomAnimal}</td>
+                            <td>${animal.Espece}</td>
+                            <td>${animal.PoidsInitial}</td>
+                            <td>${animal.PoidsActuel}</td>
+                            <td>${animal.PrixParKg}</td>
+                            <td>${animal.EstimationValeur}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                    document.querySelector('#montantActuel').innerText = response.montantActuel;
+                }
+            };
+            xhr.send('date=' + encodeURIComponent(date));
         }
     </script>
 </body>

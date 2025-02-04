@@ -27,10 +27,10 @@
         <label for="autovente">Auto Vente</label>
         <div class="radio-group">
             <label>
-                <input type="radio" name="autovente" value="1" required> Oui
+                <input type="radio" name="autovente" value="1" required id='trueRadio' > Oui
             </label>
             <label>
-                <input type="radio" name="autovente" value="0" required> Non
+                <input type="radio" name="autovente" value="0" required id='falseRadio' > Non
             </label>
         </div>
     </div>
@@ -41,5 +41,17 @@
         <input type="date" name="DateAchat" required><br>
     </div>
 
+    <div class="input-container">
+        <div class="dateVenteContainer">
+        <i class="fa fa-calendar"></i>
+        <label for="DateVente">Date de vente</label>
+        <input type="date" name="DateVente" ><br>
+        </div>
+    </div>
+
     <input type="submit" class="btn-submit" value="Acheter">
 </form>
+
+<script src="<?= $url ?>/public/assets/js/venteAnimal.js"></script>
+
+
