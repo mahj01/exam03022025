@@ -7,6 +7,7 @@ $animalController = new AnimalController();
 $nourritureController = new NourritureController();
 $animalController = new AnimalController();
 $especeController = new EspeceController();
+
 // Antonio route
 $router->get('/',function () {
 	Flight::redirect('dashboard');
@@ -18,7 +19,8 @@ $router->get('/stock-nourriture',[$nourritureController,'stockNourriture']);
 // Antonio route
 $router->get('/dashboard',[$animalController,'dashboard']);
 
-
+$router->get('/animaux/achat', [$animalController, 'goToAchatPage']);
+$router->post('/animaux/traitementAchat', [$animalController, 'achatAnimal']);
 
 //CRUD ESPECE
 $router->get('/especes', [$especeController, 'getAllEspece']);
@@ -37,3 +39,9 @@ $router->post('/nourritures/traitementModifier/@id:\d+', [$nourritureController,
 $router->post('/nourritures/traitementAjout', [$nourritureController, 'addNourriture']);
 $router->get('/nourritures/delete/@id:\d+', [$nourritureController, 'deleteNourriture']);
 //FIN CRUD NOURRITURE
+
+//ACHAT ANIMAL
+$router->get('/animaux/achatAnimal', [$animalController, 'goToAchatPage']);
+$router->post('/animaux/traitementAchat',[$animalController, 'achatAnimal']);
+//FIN ACHAT ANIMAL
+
