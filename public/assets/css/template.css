@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -29,6 +30,7 @@ body {
     .sidebar {
         left: -250px;
     }
+
     .sidebar.active {
         left: 0;
     }
@@ -114,3 +116,58 @@ body {
     font-weight: bold;
 }
 
+/* conteneur pour centrer l'élément */
+.conteneur {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    /* Prend toute la hauteur de l'écran */
+    margin-bottom: 10px;
+}
+
+/* Style du lien avec l'icône */
+.icon-link-refresh {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    /* Jaune pour l'icône et le texte */
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    /* Espacement entre l'icône et le texte */
+    padding: 12px 18px;
+    border-radius: 8px;
+    background-color: #f8c200;
+    /* Fond jaune */
+    transition: background-color 0.3s, transform 0.2s, color 0.3s;
+    font-weight: bold;
+}
+
+/* Style de l'icône */
+.icon-link-refresh i {
+    font-size: 24px;
+    /* L'icône sera légèrement plus grande */
+}
+
+/* Effet hover sur le lien */
+.icon-link-refresh:hover {
+    background-color: #f4a300;
+    /* Jaune plus foncé au survol */
+    transform: scale(1.05);
+    /* Légère augmentation de taille au survol */
+    color: white;
+    /* Texte et icône deviennent blancs */
+}
+
+/* Effet actif : lorsque l'utilisateur clique */
+.icon-link-refresh:active {
+    transform: scale(1.02);
+    /* Effet de légère réduction lors du clic */
+}
+
+/* Optionnel : Changer la couleur de l'icône au survol */
+.icon-link-refresh:hover i {
+    color: white;
+    /* L'icône devient blanche au survol */
+}

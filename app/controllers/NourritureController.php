@@ -34,7 +34,7 @@ class NourritureController {
     public function goToAddPage()
     {
         $especes = Flight::especeModel()->getAllEspece();
-        $data = ['page' => 'ajout-nourriture-content', 'especes' => $especes];
+        $data = ['page' => 'ajout-nourriture', 'especes' => $especes];
         Flight::render('template', $data);
     }
 
@@ -56,7 +56,7 @@ class NourritureController {
             'pourcentageGain' => Flight::request()->data->pourcentageGain,
             'idEspece' => Flight::request()->data->idEspece
         ];
-        Flight::nourritureModel()->insert($data);
+        Flight::nourritureModel()->insert($data,'elevage_nourriture');
         Flight::redirect('/nourritures');
     }
 
