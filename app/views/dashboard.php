@@ -29,15 +29,15 @@
                     <div class="value" id="totalAnimals">5</div>
                     <div>Nombre d'Animaux</div>
                 </div>
-                <div class="stat-card">
+                <!-- <div class="stat-card">
                     <i class="fa fa-cutlery icon"></i>
                     <div class="value" id="feedCost">250 €</div>
                     <div>Coût Alimentation</div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Tableau des Animaux -->
-            <table class="animals-table" id="animalsTable">
+            <table class="animals-table" id="datatablesSimple">
                 <thead>
                     <tr>
                         <th>id</th>
